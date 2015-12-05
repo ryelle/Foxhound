@@ -1,0 +1,18 @@
+.search-form {
+	margin: 0 auto 75px;
+	max-width: $size__site-main;
+
+	.search-field {
+		width: 100%;
+		background: url( $icon__search ) no-repeat 15px center;
+		background-size: 12px 12px;
+	}
+}
+
+.search-submit {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}

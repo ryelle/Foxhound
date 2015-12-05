@@ -1,0 +1,27 @@
+
+/*--------------------------------------------------------------
+   Lists of posts
+--------------------------------------------------------------*/
+.placeholder {
+	padding: 50px;
+	text-align: center;
+}
+
+.post-list {
+	text-align: center;
+}
+
+ol.site-main {
+	margin: 0 auto 50px;
+	padding: 0;
+	max-width: 360px;
+	list-style-type: upper-roman;
+	text-align: left;
+
+	li {
+		font-weight: $font__weight-semibold;
+		* {
+			font-weight: normal;
+		}
+	}
+}

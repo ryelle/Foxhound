@@ -1,0 +1,95 @@
+.main-navigation {
+	clear: both;
+	display: inline-block;
+	margin-bottom: 75px;
+	@include font-size( 16 );
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding-left: 0;
+
+		ul {
+			float: left;
+			position: absolute;
+			top: 55px;
+			left: -999em;
+			z-index: 99999;
+			min-width: 200px;
+			background: $color__background-header;
+			text-align: left;
+
+			ul {
+				position: relative;
+				top: auto;
+				left: auto;
+			}
+
+			a {
+				display: inline-block;
+				margin: 0 0 5px 15px;
+				padding: 5px 25px;
+				width: auto;
+				line-height: 1.2;
+			}
+		}
+
+		li:hover > ul,
+		li.focus > ul {
+			left: auto;
+		}
+	}
+
+	li {
+		float: left;
+		position: relative;
+	}
+
+	.nav-menu > .menu-item-has-children > a:after {
+		content: ' ';
+		position: absolute;
+		top: 28px;
+		right: 5px;
+		height: 10px;
+		width: 10px;
+		background: url($icon__arrow) no-repeat center;
+		background-size: contain;
+	}
+
+	a {
+		display: block;
+		margin: 10px 0;
+		padding: 10px 25px 0;
+		text-decoration: none;
+	}
+
+	.nav-menu > .current_page_item > a,
+	.nav-menu > .current-menu-item > a,
+	.nav-menu > .current-menu-ancestor > a {
+		border-bottom: 1px dotted white;
+	}
+
+	a:hover,
+	a:active,
+	a:focus,
+	.focus > a:focus {
+		outline: none;
+		text-decoration: underline;
+	}
+}
+
+/* Small menu. */
+.menu-toggle {
+	display: none;
+}
+
+@media screen and (max-width: 600px) {
+	.menu-toggle,
+	.main-navigation.toggled .nav-menu {
+		display: block;
+	}
+
+	.main-navigation ul {
+		display: none;
+	}
+}

@@ -1,0 +1,58 @@
+/*--------------------------------------------------------------
+    Single Posts & Pages
+--------------------------------------------------------------*/
+
+.card {
+	position: relative;
+	margin: 0 auto;
+	padding: 0 60px 60px;
+	width: $size__site-post;
+	background-color: white;
+}
+
+.card-x {
+	position: absolute;
+	left: 60px;
+	top: 10px;
+	cursor: pointer;
+}
+
+.site-main .entry-content {
+	padding-left: 25%;
+	position: relative;
+
+	.jetpack-recipe {
+		margin: 0;
+		padding: 0;
+		border: none;
+		border-radius: 0;
+	}
+
+	.jetpack-recipe-title {
+		display: none;
+	}
+
+	.jetpack-recipe-meta {
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 18px 0 0;
+		padding-right: 20px;
+		width: 25%;
+		@include font-size( $font__size-recipe-meta );
+		list-style: none;
+
+		li {
+			float: none;
+			margin: 0 0 15px;
+		}
+
+		strong {
+			display: block;
+		}
+	}
+
+	.jetpack-recipe-print {
+		text-align: left;
+	}
+}

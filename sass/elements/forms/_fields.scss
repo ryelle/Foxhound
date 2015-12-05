@@ -1,0 +1,31 @@
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+textarea {
+	color: $color__text-input;
+	@include font-size( 15 );
+	border: none;
+	border-bottom: 2px solid $color__border-input;
+
+	&:focus {
+		outline: none;
+		color: $color__text-input-focus;
+		border-bottom-color: $color__border-input-focus;
+	}
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"] {
+	padding: 15px 40px 12px;
+	line-height: 1;
+}
+
+textarea {
+	padding-left: 3px;
+	width: 100%;
+}

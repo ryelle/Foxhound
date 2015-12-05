@@ -1,0 +1,19 @@
+
+.posts-navigation,
+.post-navigation {
+	margin: 0 auto 50px;
+	max-width: 660px;
+}
+
+.posts-navigation .nav-previous,
+.post-navigation .nav-previous {
+	float: left;
+	width: 50%;
+}
+
+.posts-navigation .nav-next,
+.post-navigation .nav-next {
+	float: right;
+	text-align: right;
+	width: 50%;
+}
