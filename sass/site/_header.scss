@@ -2,14 +2,23 @@
     Header
 --------------------------------------------------------------*/
 .site-header {
-	margin-bottom: 40px;
+	margin: 75px auto 40px;
 	padding-bottom: 40px;
-	text-align: center;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
 }
 
 .site-branding {
-	margin: 0 auto;
-	max-width: $size__site-main;
+	flex: 1 $size__site-sidebar;
+	width: $size__site-sidebar;
+	margin-right: $size__site-gutter;
+	text-align: right;
+}
+
+.main-navigation {
+	flex: 1 $size__site-content;
+	margin-top: 15px;
 }
 
 .site-title a,
@@ -18,6 +27,5 @@
 	&:active,
 	&:focus {
 		outline: none;
-		border-bottom: 1px solid white;
 	}
 }

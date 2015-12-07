@@ -8,36 +8,29 @@ h3, h4, h5, h6 {
 }
 
 .site-title {
-	margin: 25px 0;
-	@include font-size( 36 );
-
-	a { text-decoration: none; }
-}
-
-.site-description {
 	margin: 0;
-}
+	@include font-size( 36 );
+	font-style: italic;
+	color: $blue;
 
-.section-title {
-	margin-bottom: 25px;
-	@include font-size( 24 );
+	a {
+		text-decoration: none;
+
+		&:focus {
+			text-decoration: underline;
+		}
+	}
 }
 
 .entry-title {
-	padding: 0 0 10px;
-	margin-bottom: 30px;
+	margin-top: 0;
+	margin-bottom: 20px;
 	font-family: $font__main;
 	font-weight: $font__weight-black;
 	@include font-size( $font__size-header );
-	text-align: center;
-	border-bottom: 2px solid $color__border-input;
-}
+	color: $red;
 
-.post-list .entry-title {
-	padding: 0;
-	margin: 0;
-	font-weight: normal;
-	@include font-size( $font__size-main );
-	text-align: left;
-	border-bottom: none;
+	a {
+		text-decoration: none;
+	}
 }

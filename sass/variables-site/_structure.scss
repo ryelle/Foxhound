@@ -1,2 +1,9 @@
-$size__site-main: 660px;
-$size__site-post: 1000px;
+// 935px
+// 200 - 75 - 660
+// calc( 29.41176% - 75px ) - 75px - 70.58824%
+
+$calc-sidebar-width: ( 275 / 935 ) * 100%;
+$size__site-gutter: 75px;
+$size__site-sidebar: calc( #{$calc-sidebar-width} - #{$size__site-gutter} );
+$size__site-content: ( 660 / 935 ) * 100%;
+$size__site-container: 935px;

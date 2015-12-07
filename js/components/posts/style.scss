@@ -7,21 +7,34 @@
 	text-align: center;
 }
 
-.post-list {
-	text-align: center;
+.entry {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	margin-bottom: 80px;
 }
 
-ol.site-main {
-	margin: 0 auto 50px;
-	padding: 0;
-	max-width: 360px;
-	list-style-type: upper-roman;
-	text-align: left;
+.entry-title {
+	flex: 1 100%;
+	margin-left: $calc-sidebar-width;
+}
 
-	li {
-		font-weight: $font__weight-bold;
-		* {
-			font-weight: normal;
-		}
+.entry-meta {
+	flex: 1 $size__site-sidebar;
+	width: $size__site-sidebar;
+	margin-top: 8px;
+	margin-right: $size__site-gutter;
+	text-align: right;
+
+	a {
+		text-decoration: none;
 	}
+}
+
+.entry-meta-label {
+	margin-bottom: 5px;
+}
+
+.entry-content {
+	flex: 1 $size__site-content;
 }

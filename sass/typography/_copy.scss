@@ -1,4 +1,5 @@
 p {
+	margin-top: 0;
 	margin-bottom: 1.5em;
 }
 
@@ -52,5 +53,10 @@ big {
 
 .entry-meta,
 .entry-footer {
+	font-family: $font__meta;
+	font-weight: $font__weight-bold;
 	@include font-size( $font__size-meta );
+	line-height: 1.25;
+	letter-spacing: 1.6px;
+	color: $blue;
 }

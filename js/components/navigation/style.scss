@@ -1,8 +1,11 @@
 .main-navigation {
-	clear: both;
-	display: inline-block;
-	margin-bottom: 75px;
+	font-family: $font__nav;
+	font-weight: $font__weight-bold;
+	text-transform: uppercase;
 	@include font-size( 16 );
+	line-height: 1.25;
+	letter-spacing: 1.6px;
+	color: $blue;
 
 	ul {
 		list-style: none;
@@ -44,28 +47,21 @@
 		position: relative;
 	}
 
-	.nav-menu > .menu-item-has-children > a:after {
-		content: ' ';
-		position: absolute;
-		top: 28px;
-		right: 5px;
-		height: 10px;
-		width: 10px;
-		background: url($icon__arrow) no-repeat center;
-		background-size: contain;
-	}
-
 	a {
 		display: block;
-		margin: 10px 0;
-		padding: 10px 25px 0;
+		padding: 10px 25px 10px 0;
 		text-decoration: none;
+		border-bottom: 2px solid rgba( $blue, 0.15 );
+	}
+
+	li:last-of-type a {
+		padding-right: 0;
 	}
 
 	.nav-menu > .current_page_item > a,
 	.nav-menu > .current-menu-item > a,
 	.nav-menu > .current-menu-ancestor > a {
-		border-bottom: 1px dotted white;
+		border-bottom-color: $blue;
 	}
 
 	a:hover,
