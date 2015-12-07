@@ -179,15 +179,8 @@ function foxhound_fonts_url() {
  */
 function foxhound_fonts() {
 	$fonts_url = foxhound_fonts_url();
-	if ( ! empty( $fonts_url ) )
+	if ( ! empty( $fonts_url ) ){
 		wp_enqueue_style( 'foxhound-fonts', esc_url_raw( $fonts_url ), array(), null );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_fonts' );
-
-/**
- * Add theme support for Jetpack Features
- */
-function foxhound_jetpack_setup() {
-	add_theme_support( 'site-logo' );
-}
-add_action( 'after_setup_theme', 'foxhound_jetpack_setup' );

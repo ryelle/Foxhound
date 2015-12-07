@@ -28,8 +28,6 @@
 		<nav id="site-navigation" class="main-navigation" role="navigation"></nav><!-- #site-navigation -->
 
 		<div class="site-branding">
-			<?php if ( function_exists( 'jetpack_the_site_logo' ) ) jetpack_the_site_logo(); ?>
-
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 
 			<?php $description = get_bloginfo( 'description', 'display' );
