@@ -4,7 +4,7 @@ h1, h2 {
 
 h3, h4, h5, h6 {
 	font-family: $font__main;
-	font-weight: $font__weight-semibold;
+	font-weight: $font__weight-black;
 }
 
 .site-title {
@@ -27,7 +27,7 @@ h3, h4, h5, h6 {
 	padding: 0 0 10px;
 	margin-bottom: 30px;
 	font-family: $font__main;
-	font-weight: $font__weight-semibold;
+	font-weight: $font__weight-black;
 	@include font-size( $font__size-header );
 	text-align: center;
 	border-bottom: 2px solid $color__border-input;

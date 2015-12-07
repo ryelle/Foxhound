@@ -126,25 +126,34 @@ function foxhound_fonts_url() {
 	$fonts_url = '';
 
 	/* Translators: If there are characters in your language that are not
-	 * supported by Source Serif Pro, translate this to 'off'. Do not translate
+	 * supported by Alegreya, translate this to 'off'. Do not translate
 	 * into your own language.
 	 */
-	$serifpro = _x( 'on', 'Source Serif Pro font: on or off', 'foxhound' );
+	$alegreya = _x( 'on', 'Alegreya font: on or off', 'foxhound' );
 
 	/* Translators: If there are characters in your language that are not
-	 * supported by Source Code Pro, translate this to 'off'. Do not translate into
+	 * supported by Alegreya Sans, translate this to 'off'. Do not translate into
 	 * your own language.
 	 */
-	$codepro = _x( 'on', 'Source Code Pro font: on or off', 'foxhound' );
+	$alegreya_sans = _x( 'on', 'Alegreya Sans font: on or off', 'foxhound' );
 
-	if ( 'off' !== $serifpro || 'off' !== $codepro ) {
+	/* Translators: If there are characters in your language that are not
+	 * supported by Alegreya SC, translate this to 'off'. Do not translate into
+	 * your own language.
+	 */
+	$alegreya_sc = _x( 'on', 'Alegreya SC (smallcaps) font: on or off', 'foxhound' );
+
+	if ( 'off' !== $alegreya || 'off' !== $alegreya_sans || 'off' !== $alegreya_sc ) {
 		$font_families = array();
 
-		if ( 'off' !== $serifpro )
-			$font_families[] = urlencode( 'Source Serif Pro:400,700' );
+		if ( 'off' !== $alegreya )
+			$font_families[] = urlencode( 'Alegreya:400,700,900' );
 
-		if ( 'off' !== $codepro )
-			$font_families[] = urlencode( 'Source Code Pro:400,600' );
+		if ( 'off' !== $alegreya_sans )
+			$font_families[] = urlencode( 'Alegreya Sans:700' );
+
+		if ( 'off' !== $alegreya_sc )
+			$font_families[] = urlencode( 'Alegreya SC:700' );
 
 		$protocol = is_ssl() ? 'https' : 'http';
 		$query_args = array(
