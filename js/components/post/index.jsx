@@ -36,8 +36,8 @@ let SinglePost = React.createClass( {
 	},
 
 	componentDidMount: function() {
-		API.getPost( this.props.slug, this.props.type );
 		PostsStore.addChangeListener( this._onChange );
+		API.getPost( this.props.slug, this.props.type );
 	},
 
 	componentDidUpdate: function( prevProps, prevState ) {
