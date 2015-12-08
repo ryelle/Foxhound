@@ -16,10 +16,6 @@ let Controller = {
 	setup: function( context, next ) {
 		var path = context.pathname;
 
-		if ( path.match( /\/wp-admin/i ) ) {
-			next();
-		}
-
 		if ( path.substr( -1 ) === '/' ) {
 			path = path.substr( 0, path.length - 1 );
 		}
@@ -32,7 +28,7 @@ let Controller = {
 			_currentType = 'page';
 		}
 
-		if ( 'undefined' !== context.term ) {
+		if ( 'undefined' !== typeof context.term ) {
 			_currentSlug = context.params.term;
 			_currentType = 'category';
 		}
