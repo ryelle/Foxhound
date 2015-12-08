@@ -147,7 +147,7 @@ function foxhound_fonts_url() {
 		$font_families = array();
 
 		if ( 'off' !== $alegreya )
-			$font_families[] = urlencode( 'Alegreya:400,700,900' );
+			$font_families[] = urlencode( 'Alegreya:400,400italic,700,700italic,900italic' );
 
 		if ( 'off' !== $alegreya_sans )
 			$font_families[] = urlencode( 'Alegreya Sans:700' );
