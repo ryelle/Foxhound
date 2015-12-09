@@ -37,9 +37,7 @@ let Comment = React.createClass( {
 
 						<div className="comment-metadata">
 							{ replyParentString }
-							<a href={ comment.link }>
-								<time dateTime={ comment.date }>{ this.getDate( comment ) } at { this.getTime( comment ) }</time>
-							</a>
+							<time dateTime={ comment.date }>{ this.getDate( comment ) } at { this.getTime( comment ) }</time>
 						</div>
 					</footer>
 
