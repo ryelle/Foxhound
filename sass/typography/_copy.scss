@@ -52,10 +52,12 @@ big {
 }
 
 .entry-meta,
-.entry-footer {
+.entry-footer,
+.site-footer {
 	font-family: $font__meta;
 	font-weight: $font__weight-bold;
 	@include font-size( $font__size-meta );
+	text-transform: lowercase;
 	line-height: 1.25;
 	letter-spacing: 1.6px;
 	color: $blue;
