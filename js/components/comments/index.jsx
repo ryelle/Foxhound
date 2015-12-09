@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import API from 'utils/api';
 import CommentsStore from '../../stores/comments-store';
 
+import CommentPagination from '../pagination/comments';
 import Comment from './single';
 
 /**
@@ -13,27 +14,32 @@ import Comment from './single';
  */
 function getState( id ) {
 	return {
-		data: CommentsStore.getComments( id )
+		data: CommentsStore.getComments( id ),
+		pagination: CommentsStore.getPaginationLimit(),
 	};
 }
 
 let SinglePost = React.createClass( {
 	propTypes: {
 		postId: React.PropTypes.number.isRequired,
+		title: React.PropTypes.element
 	},
 
 	getInitialState: function() {
-		return getState( this.props.postId );
+		let state = getState( this.props.postId );
+		state.page = 1;
+		return state;
 	},
 
 	componentDidMount: function() {
 		CommentsStore.addChangeListener( this._onChange );
-		API.getComments( this.props.postId );
+		API.getComments( this.props.postId, { page: this.state.page } );
 	},
 
 	componentDidUpdate: function( prevProps, prevState ) {
-		if ( prevProps.postId !== this.props.postId ) {
-			API.getComments( this.props.postId );
+		if ( ( prevProps.postId !== this.props.postId ) || ( prevState.page !== this.state.page ) ) {
+			console.log( "Call API" );
+			API.getComments( this.props.postId, { page: this.state.page } );
 		}
 	},
 
@@ -42,7 +48,20 @@ let SinglePost = React.createClass( {
 	},
 
 	_onChange: function() {
-		this.setState( getState( this.props.postId ) );
+		let state = getState( this.props.postId );
+		this.setState( { data: state.data, pagination: state.pagination } );
+	},
+
+	onNextPage: function( event ) {
+		event.preventDefault();
+		window.scrollTo( 0, this.refs.comments.offsetTop );
+		this.setState( { page: this.state.page + 1 } );
+	},
+
+	onPreviousPage: function( event ) {
+		event.preventDefault();
+		window.scrollTo( 0, this.refs.comments.offsetTop );
+		this.setState( { page: this.state.page - 1 } );
 	},
 
 	renderPlaceholder: function() {
@@ -65,12 +84,14 @@ let SinglePost = React.createClass( {
 		}
 
 		return (
-			<div className="comments-area">
+			<div className="comments-area" ref="comments">
 				<h2 className="comments-title">{ titleString }{ this.props.title }</h2>
 
 				<ol className="comment-list">
 					{ comments }
 				</ol>
+
+				<CommentPagination end={ this.state.pagination } current={ this.state.page } onNextPage={ this.onNextPage } onPreviousPage={ this.onPreviousPage } />
 
 				<div className="comment-respond">
 					<h3 className="comment-reply-title">Leave a Reply</h3>
