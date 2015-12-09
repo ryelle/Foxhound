@@ -29,13 +29,13 @@ let Pagination = React.createClass( {
 				<div className="nav-links">
 					{ ( prev > 0 ) ?
 						<div className="nav-previous">
-							<a href="#" onClick={ this.props.onPreviousPage }>Previous Page</a>
+							<a href="#" onClick={ this.props.onPreviousPage }>Older Comments</a>
 						</div> :
 						null
 					}
 					{ ( next <= this.props.end ) ?
 						<div className="nav-next">
-							<a href="#" onClick={ this.props.onNextPage }>Next Page</a>
+							<a href="#" onClick={ this.props.onNextPage }>Newer Comments</a>
 						</div> :
 						null
 					}

@@ -39,7 +39,8 @@
 	width: 50%;
 }
 
-.post-navigation {
+.post-navigation,
+.comment-navigation {
 	.nav-previous a:before {
 		content: '\2039';
 		padding-right: 5px;

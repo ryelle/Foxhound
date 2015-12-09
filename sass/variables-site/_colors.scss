@@ -11,8 +11,9 @@ $color__background-body: $white;
 $color__background-screen: $white;
 $color__background-hr: rgba( $blue, 0.15 );
 $color__background-button: $blue;
-$color__background-pre: mix( $blue, $white, 25% );
-$color__background-ins: mix( $red, $white, 15% );
+$color__background-button-primary: $red;
+$color__background-pre: mix( $red, $white, 10% );
+$color__background-ins: mix( $blue, $white, 20% );
 
 $color__text-main: $black;
 
