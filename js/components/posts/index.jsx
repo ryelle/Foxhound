@@ -5,7 +5,7 @@ import React from 'react';
 import API from 'utils/api';
 import PostsStore from '../../stores/posts-store';
 import PostList from './list';
-import Pagination from '../pagination';
+import Pagination from '../pagination/archive';
 
 /**
  * Method to retrieve state from Stores

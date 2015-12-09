@@ -7,7 +7,7 @@ import API from 'utils/api';
 import PostsStore from '../../stores/posts-store';
 import TermStore from '../../stores/term-store';
 import PostList from '../posts/list';
-import Pagination from '../pagination';
+import Pagination from '../pagination/archive';
 
 /**
  * Method to retrieve state from Stores

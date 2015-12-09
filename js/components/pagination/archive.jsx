@@ -1,7 +1,7 @@
 // External dependencies
 import React from 'react';
 
-let Post = React.createClass( {
+let Pagination = React.createClass( {
 	propTypes: {
 		start: React.PropTypes.number,
 		current: React.PropTypes.number,
@@ -43,4 +43,4 @@ let Post = React.createClass( {
 	}
 } );
 
-export default Post;
+export default Pagination;
