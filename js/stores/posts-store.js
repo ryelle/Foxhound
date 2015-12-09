@@ -101,7 +101,7 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 			return [];
 		}
 		let categories = find( post._embedded['https://api.w.org/term'], function( item, i ) {
-			return ( ( item.constructor === Array ) && ( item[0].taxonomy === 'category' ) );
+			return ( ( item.constructor === Array ) && ( 'undefined' !== typeof item[0] ) && ( item[0].taxonomy === 'category' ) );
 		} );
 		return categories;
 	},
@@ -117,7 +117,7 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 			return [];
 		}
 		let tags = find( post._embedded['https://api.w.org/term'], function( item, i ) {
-			return ( ( item.constructor === Array ) && ( item[0].taxonomy === 'post_tag' ) );
+			return ( ( item.constructor === Array ) && ( 'undefined' !== typeof item[0] ) && ( item[0].taxonomy === 'post_tag' ) );
 		} );
 		return tags;
 	},
