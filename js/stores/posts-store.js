@@ -91,6 +91,38 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * Get the current post's categories
+	 *
+	 * @returns {array}
+	 */
+	getCategoriesForPost: function( slug ) {
+		let post = this.getPost( slug );
+		if ( post === {} ) {
+			return [];
+		}
+		let categories = find( post._embedded['https://api.w.org/term'], function( item, i ) {
+			return ( ( item.constructor === Array ) && ( item[0].taxonomy === 'category' ) );
+		} );
+		return categories;
+	},
+
+	/**
+	 * Get the current post's tags
+	 *
+	 * @returns {array}
+	 */
+	getTagsForPost: function( slug ) {
+		let post = this.getPost( slug );
+		if ( post === {} ) {
+			return [];
+		}
+		let tags = find( post._embedded['https://api.w.org/term'], function( item, i ) {
+			return ( ( item.constructor === Array ) && ( item[0].taxonomy === 'post_tag' ) );
+		} );
+		return tags;
+	},
+
+	/**
 	 * Get the number of available category pages
 	 *
 	 * @returns {array}

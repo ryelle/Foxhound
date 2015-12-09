@@ -8,6 +8,18 @@
 
 footer.entry-meta {
 	flex: 1 100%;
-	margin: 25px 0 25px $calc-sidebar-width;
+	margin: 25px 0 50px $calc-sidebar-width;
 	text-align: center;
+
+	.entry-meta-item:nth-of-type( n + 2 ) {
+		margin-top: 15px;
+	}
+
+	a:after {
+		content: ', ';
+	}
+
+	a:last-of-type:after {
+		content: '';
+	}
 }

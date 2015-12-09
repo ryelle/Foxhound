@@ -8,6 +8,9 @@ import API from 'utils/api';
 import ContentMixin from 'utils/content-mixin';
 import PostsStore from '../../stores/posts-store';
 
+import PostMeta from './meta';
+// import Comments from '../comments';
+
 /**
  * Method to retrieve state from Stores
  */
@@ -70,14 +73,16 @@ let SinglePost = React.createClass( {
 	},
 
 	render: function() {
-		let post = this.state.data;
+		let post, classes;
+
+		post = this.state.data;
 		if ( 'undefined' === typeof post.title ) {
 			return this.renderPlaceholder();
 		}
 
 		this.setTitle();
 
-		let classes = classNames( {
+		classes = classNames( {
 			'entry': true
 		} );
 
@@ -88,19 +93,7 @@ let SinglePost = React.createClass( {
 					<div className="entry-meta"></div>
 					<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
 
-					<footer className="entry-meta">
-						<div className="entry-meta-item">
-							<span className="entry-meta-label">published</span>
-							<time className="entry-meta-value entry-date published updated" dateTime={ post.date }>{ this.getDate( post ) }</time>
-						</div>
-						<div className="entry-meta-item">
-							<span className="entry-meta-label">posted in </span>
-							<a href="#">stories</a>
-							<span className="fancy-amp"> &amp; </span>
-							<span className="entry-meta-label">tagged </span>
-							<a href="#">test</a>, <a href="#">stories</a>
-						</div>
-					</footer>
+					<PostMeta slug={ this.props.slug } date={ post.date } humanDate={ this.getDate( post ) } />
 				</article>
 			</div>
 		);
