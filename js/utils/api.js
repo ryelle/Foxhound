@@ -56,7 +56,7 @@ export default {
 	// Get a list of posts according to args criteria
 	// args: might have pagination, or a filter (category/tag/etc)
 	getPosts: function( args ) {
-		let url = `${FoxhoundSettings.URL.root}/posts/`;
+		let url = `${FoxhoundSettings.URL.root}/posts/?_embed`;
 		args.per_page = 10;
 
 		jQuery.when(
