@@ -3,7 +3,7 @@ import React from 'react';
 
 let Pagination = React.createClass( {
 	propTypes: {
-		currentId: React.PropTypes.number,
+		postId: React.PropTypes.number,
 	},
 
 	render: function() {

@@ -96,7 +96,7 @@ let SinglePost = React.createClass( {
 				</article>
 
 				{ 'post' === this.props.type ?
-					<Pagination currentId={ post.id } /> :
+					<Pagination postId={ post.id } /> :
 					null
 				}
 			</div>
