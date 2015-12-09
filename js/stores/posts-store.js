@@ -142,7 +142,7 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 			case AppConstants.REQUEST_POST_SUCCESS:
 				_loadPost( action.id, action.data );
 				break;
-			case AppConstants.REQUEST_PAGINATION_LIMIT:
+			case AppConstants.REQUEST_PAGINATION:
 				_loadPaginationLimit( action.data );
 				break;
 		}

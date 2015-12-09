@@ -14,7 +14,7 @@ export default {
 
 	fetchPaginationLimit: function( total ) {
 		AppDispatcher.handleViewAction( {
-			actionType: AppConstants.REQUEST_PAGINATION_LIMIT,
+			actionType: AppConstants.REQUEST_PAGINATION,
 			data: total
 		} );
 	},

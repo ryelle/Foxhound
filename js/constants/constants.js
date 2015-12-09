@@ -12,7 +12,7 @@ export default keyMirror( {
 	REQUEST_POSTS_SUCCESS: null,
 	REQUEST_POSTS_ERROR: null,
 
-	REQUEST_PAGINATION_LIMIT: null,
+	REQUEST_PAGINATION: null,
 
 	// Category pages
 	REQUEST_TERM_SUCCESS: null,
