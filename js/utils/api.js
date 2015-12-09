@@ -7,6 +7,7 @@ import first from 'lodash/array/first';
 import PostActions from '../actions/post-actions';
 import TermActions from '../actions/term-actions';
 import NavActions from '../actions/nav-actions';
+import CommentActions from '../actions/comment-actions';
 
 var _noop = function() {};
 
@@ -78,6 +79,19 @@ export default {
 				data = first( data );
 			}
 			PostActions.fetchSingle( data );
+		} );
+	},
+
+	// Get comments for a single post
+	getComments: function( id, args ) {
+		let url = `${FoxhoundSettings.URL.root}/comments/`;
+		args = args || {};
+		args.post = id;
+
+		jQuery.when(
+			_get( url, args )
+		).done( function( data, status, request ) {
+			CommentActions.fetch( data );
 		} );
 	},
 

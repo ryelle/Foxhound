@@ -9,7 +9,7 @@ import PostsStore from '../../stores/posts-store';
 
 import PostMeta from './meta';
 import Pagination from '../pagination/single';
-// import Comments from '../comments';
+import Comments from '../comments';
 
 /**
  * Method to retrieve state from Stores
@@ -99,6 +99,8 @@ let SinglePost = React.createClass( {
 					<Pagination postId={ post.id } /> :
 					null
 				}
+
+				<Comments postId={ post.id } />
 			</div>
 		);
 	}

@@ -14,6 +14,10 @@ export default keyMirror( {
 
 	REQUEST_PAGINATION: null,
 
+	// Comments
+	REQUEST_COMMENTS_SUCCESS: null,
+	REQUEST_COMMENTS_PAGINATION: null,
+
 	// Category pages
 	REQUEST_TERM_SUCCESS: null,
 
