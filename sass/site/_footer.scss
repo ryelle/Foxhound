@@ -2,11 +2,8 @@
     Footer
 --------------------------------------------------------------*/
 .site-footer {
-	padding: 50px 0;
-	@include font-size( 16 );
-	font-weight: $font__weight-bold;
-	text-transform: uppercase;
-	text-align: center;
+	margin-left: $calc-sidebar-width;
+	padding: 0 0 50px;
 
 	a {
 		&:hover,
