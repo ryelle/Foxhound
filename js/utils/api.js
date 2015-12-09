@@ -39,6 +39,10 @@ var _getPagination = function( url, data, request ) {
 	}
 };
 
+var _getCommentPagination = function( url, data, request ) {
+	CommentActions.fetchPaginationLimit( request.getResponseHeader( 'X-WP-TotalPages' ) );
+};
+
 export default {
 
 	// Get /wp-api-menus/v2/menu-locations/:location
@@ -91,6 +95,7 @@ export default {
 		jQuery.when(
 			_get( url, args )
 		).done( function( data, status, request ) {
+			_getCommentPagination( url, data, request ); // Set the page limit in PostsStore
 			CommentActions.fetch( data );
 		} );
 	},

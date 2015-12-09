@@ -11,4 +11,11 @@ export default {
 			data: comments
 		} );
 	},
+
+	fetchPaginationLimit: function( total ) {
+		AppDispatcher.handleViewAction( {
+			actionType: AppConstants.REQUEST_COMMENTS_PAGINATION,
+			data: total
+		} );
+	},
 }
