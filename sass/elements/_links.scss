@@ -1,5 +1,6 @@
 a {
 	color: $color__link;
+	text-decoration: none;
 
 	&:visited {
 		color: $color__link-visited;
@@ -20,5 +21,17 @@ a {
 	.post-navigation & {
 		font-weight: $font__weight-bold;
 		text-decoration: none;
+	}
+
+	.entry-content & {
+		margin-left: -2px;
+		margin-right: -2px;
+		padding-left: 2px;
+		padding-right: 2px;
+		box-shadow: inset 0 -2px 0 $color__link-border;
+
+		&:hover, &:focus {
+			background-color: $color__link-hover-background;
+		}
 	}
 }

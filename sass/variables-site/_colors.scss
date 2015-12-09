@@ -3,6 +3,7 @@ $blue: #818b92;
 $red: #9c0e0e;
 $white: #fcfbf8;
 $black: #2b2424;
+$grey: #dddfde;
 
 // In-context colors
 
@@ -21,8 +22,10 @@ $color__text-input: $color__text-main;
 $color__text-input-focus: $color__text-main;
 
 $color__link: inherit;
+$color__link-border: $grey;
 $color__link-visited: inherit;
 $color__link-hover: inherit;
+$color__link-hover-background: mix( $grey, $white, 35% );
 
 $color__border-input: $blue;
 $color__border-input-focus: $blue;

@@ -15,8 +15,6 @@ h3, h4, h5, h6 {
 	color: $blue;
 
 	a {
-		text-decoration: none;
-
 		&:focus {
 			text-decoration: underline;
 		}
@@ -30,8 +28,4 @@ h3, h4, h5, h6 {
 	font-weight: $font__weight-bold;
 	@include font-size( $font__size-header );
 	color: $red;
-
-	a {
-		text-decoration: none;
-	}
 }
