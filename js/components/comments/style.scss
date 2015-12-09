@@ -41,3 +41,60 @@
 	margin-bottom: 10px;
 	font-weight: $font__weight-bold;
 }
+
+.comment-form-notes {
+	font-style: italic;
+	@include font-size( $font__size-meta );
+}
+
+.comment-form-required {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+
+	& > div {
+		flex: 1;
+	}
+
+	.comment-form-author {
+		margin-right: 20px;
+	}
+}
+
+.comment-form-field {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+
+	margin-bottom: 20px;
+	border: 1px solid $color__border-input;
+	color: $color__text-label;
+
+	label {
+		flex: 0 auto;
+		padding: 15px;
+	}
+
+	input, textarea {
+		flex: 1;
+		padding: 13px 40px 14px 0;
+		width: 100%;
+		color: $color__text-input;
+		background-color: $color__background-body;
+
+		&:focus {
+			color: $color__text-input-focus;
+		}
+	}
+
+	&.comment-form-comment {
+		label, textarea {
+			flex: 1 100%;
+		}
+
+		textarea {
+			min-height: 140px;
+			padding: 0 15px 15px;
+		}
+	}
+}

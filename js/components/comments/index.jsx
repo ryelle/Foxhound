@@ -8,6 +8,7 @@ import CommentsStore from '../../stores/comments-store';
 
 import CommentPagination from '../pagination/comments';
 import Comment from './single';
+import CommentForm from './form';
 
 /**
  * Method to retrieve state from Stores
@@ -100,6 +101,8 @@ let SinglePost = React.createClass( {
 
 				<div className="comment-respond">
 					<h3 className="comment-reply-title">Leave a Reply</h3>
+
+					<CommentForm postId={ this.props.postId } />
 				</div>
 			</div>
 		);

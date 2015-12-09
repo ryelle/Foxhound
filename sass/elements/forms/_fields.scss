@@ -7,12 +7,10 @@ textarea {
 	color: $color__text-input;
 	@include font-size( 15 );
 	border: none;
-	border-bottom: 2px solid $color__border-input;
 
 	&:focus {
 		outline: none;
 		color: $color__text-input-focus;
-		border-bottom-color: $color__border-input-focus;
 	}
 }
 
