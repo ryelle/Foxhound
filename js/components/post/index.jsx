@@ -1,6 +1,5 @@
 // External dependencies
 import React from 'react';
-import page from 'page';
 import classNames from 'classnames';
 
 // Internal dependencies
@@ -63,10 +62,6 @@ let SinglePost = React.createClass( {
 		if ( 'undefined' !== typeof post.title ) {
 			document.title = `${post.title.rendered} — ${FoxhoundSettings.title}`;
 		}
-	},
-
-	close: function( event ) {
-		page( '/' );
 	},
 
 	renderPlaceholder: function() {
