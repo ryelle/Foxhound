@@ -94,10 +94,16 @@ let SinglePost = React.createClass( {
 					<div className="entry-meta"></div>
 					<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
 
-					<PostMeta slug={ post.slug } date={ post.date } humanDate={ this.getDate( post ) } />
+					{ 'post' === this.props.type ?
+						<PostMeta slug={ post.slug } date={ post.date } humanDate={ this.getDate( post ) } /> :
+						null
+					}
 				</article>
 
-				<Pagination currentId={ post.id } />
+				{ 'post' === this.props.type ?
+					<Pagination currentId={ post.id } /> :
+					null
+				}
 			</div>
 		);
 	}

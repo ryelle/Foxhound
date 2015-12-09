@@ -3,12 +3,14 @@
 --------------------------------------------------------------*/
 
 .single {
-	.entry {
-		margin-bottom: 0;
-	}
-
 	.entry-content p:first-of-type {
 		@include font-size( 24 );
+	}
+}
+
+.single-post {
+	.entry {
+		margin-bottom: 0;
 	}
 }
 

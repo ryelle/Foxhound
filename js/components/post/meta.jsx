@@ -43,11 +43,25 @@ let PostMeta = React.createClass( {
 					<time className="entry-meta-value entry-date published updated" dateTime={ this.props.date }>{ this.props.humanDate }</time>
 				</div>
 				<div className="entry-meta-item">
-					<span className="entry-meta-label">posted in </span>
-					<span className="entry-meta-value">{ categories }</span>
-					<span className="fancy-amp"> &amp; </span>
-					<span className="entry-meta-label">tagged </span>
-					<span className="entry-meta-value">{ tags }</span>
+				{ categories ?
+					<span>
+						<span className="entry-meta-label">posted in </span>
+						<span className="entry-meta-value">{ categories }</span>
+					</span> :
+					null
+				}
+				{ categories && tags ?
+					<span className="fancy-amp"> &amp; </span>:
+					null
+				}
+
+				{ tags ?
+					<span>
+						<span className="entry-meta-label">tagged </span>
+						<span className="entry-meta-value">{ tags }</span>
+					</span> :
+					null
+				}
 				</div>
 			</footer>
 		);
