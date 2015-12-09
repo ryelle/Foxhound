@@ -59,9 +59,14 @@ let SinglePost = React.createClass( {
 			return <Comment key={ i } comment={ item } />
 		} );
 
+		let titleString = `One comment on `;
+		if ( comments.length > 1 ) {
+			titleString = `${ comments.length } comments on `;
+		}
+
 		return (
 			<div className="comments-area">
-				<h2 className="comments-title">One comment so far</h2>
+				<h2 className="comments-title">{ titleString }{ this.props.title }</h2>
 
 				<ol className="comment-list">
 					{ comments }

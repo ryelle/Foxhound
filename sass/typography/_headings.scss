@@ -21,11 +21,18 @@ h3, h4, h5, h6 {
 	}
 }
 
-.entry-title {
+.entry-title,
+.comments-title,
+.comment-reply-title {
 	margin-top: 0;
 	margin-bottom: 20px;
 	font-family: $font__main;
 	font-weight: $font__weight-bold;
 	@include font-size( $font__size-header );
 	color: $red;
+}
+
+.comments-title,
+.comment-reply-title {
+	text-align: center;
 }

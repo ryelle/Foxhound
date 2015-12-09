@@ -100,7 +100,7 @@ let SinglePost = React.createClass( {
 					null
 				}
 
-				<Comments postId={ post.id } />
+				<Comments postId={ post.id } title={ <span dangerouslySetInnerHTML={ this.getTitle( post ) } /> }/>
 			</div>
 		);
 	}
