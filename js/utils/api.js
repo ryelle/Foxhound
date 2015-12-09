@@ -39,16 +39,6 @@ var _getPagination = function( url, data, request ) {
 	}
 };
 
-var _getCommentPagination = function( url, data, request ) {
-	let cacheKey = url.replace( FoxhoundSettings.URL.base, '' ) + JSON.stringify( data ) + '-com-pages';
-	if ( 'undefined' !== typeof request ) {
-		CommentActions.fetchPaginationLimit( request.getResponseHeader( 'X-WP-TotalPages' ) );
-		localStorage.setItem( cacheKey, request.getResponseHeader( 'X-WP-TotalPages' ) );
-	} else {
-		CommentActions.fetchPaginationLimit( localStorage.getItem( cacheKey ) );
-	}
-};
-
 export default {
 
 	// Get /wp-api-menus/v2/menu-locations/:location
@@ -103,8 +93,9 @@ export default {
 		jQuery.when(
 			_get( url, args )
 		).done( function( data, status, request ) {
-			_getCommentPagination( url, data, request ); // Set the page limit in PostsStore
-			CommentActions.fetch( data );
+			let pages = request.getResponseHeader( 'X-WP-TotalPages' );
+			let total = request.getResponseHeader( 'X-WP-Total' );
+			CommentActions.fetch( data, pages, total );
 		} );
 	},
 

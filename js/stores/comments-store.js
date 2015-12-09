@@ -21,6 +21,13 @@ var _comments = [];
 var _comments_page_limit = 1;
 
 /**
+ * The total number of comments on this post
+ * @type {int}
+ * @protected
+ */
+var _comments_total = 0;
+
+/**
  * Load this array into our comments list
  *
  * @param {array} data - array of comments, pulled from API
@@ -36,6 +43,15 @@ function _loadComments( data ) {
  */
 function _loadPaginationLimit( total ) {
 	_comments_page_limit = parseInt( total );
+}
+
+/**
+ * Load the number into the comment page container
+ *
+ * @param {int} total - total comments available, pulled from API
+ */
+function _loadTotal( total ) {
+	_comments_total = parseInt( total );
 }
 
 let CommentsStore = assign( {}, EventEmitter.prototype, {
@@ -90,6 +106,15 @@ let CommentsStore = assign( {}, EventEmitter.prototype, {
 		return _comments_page_limit;
 	},
 
+	/**
+	 * Get the number of available comments
+	 *
+	 * @returns {array}
+	 */
+	getTotal: function() {
+		return _comments_total;
+	},
+
 	// Watch for store actions, and dispatch the above functions as necessary.
 	dispatcherIndex: AppDispatcher.register( function( payload ) {
 		var action = payload.action; // this is our action from handleViewAction
@@ -97,9 +122,8 @@ let CommentsStore = assign( {}, EventEmitter.prototype, {
 		switch ( action.actionType ) {
 			case AppConstants.REQUEST_COMMENTS_SUCCESS:
 				_loadComments( action.data );
-				break;
-			case AppConstants.REQUEST_COMMENTS_PAGINATION:
-				_loadPaginationLimit( action.data );
+				_loadPaginationLimit( action.pagination );
+				_loadTotal( action.total );
 				break;
 		}
 

@@ -5,17 +5,12 @@ export default {
 	/**
 	 * @param  {array}  comments
 	 */
-	fetch: function( comments ) {
+	fetch: function( comments, pages, total ) {
 		AppDispatcher.handleViewAction( {
 			actionType: AppConstants.REQUEST_COMMENTS_SUCCESS,
+			pagination: pages,
+			total: total,
 			data: comments
-		} );
-	},
-
-	fetchPaginationLimit: function( total ) {
-		AppDispatcher.handleViewAction( {
-			actionType: AppConstants.REQUEST_COMMENTS_PAGINATION,
-			data: total
 		} );
 	},
 }

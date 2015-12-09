@@ -14,7 +14,8 @@ import Comment from './single';
  */
 function getState( id ) {
 	return {
-		data: CommentsStore.getComments( id ),
+		data: CommentsStore.getComments(),
+		total: CommentsStore.getTotal(),
 		pagination: CommentsStore.getPaginationLimit(),
 	};
 }
@@ -49,7 +50,11 @@ let SinglePost = React.createClass( {
 
 	_onChange: function() {
 		let state = getState( this.props.postId );
-		this.setState( { data: state.data, pagination: state.pagination } );
+		this.setState( {
+			data: state.data,
+			pagination: state.pagination,
+			total: state.total
+		} );
 	},
 
 	onNextPage: function( event ) {
@@ -79,13 +84,13 @@ let SinglePost = React.createClass( {
 		} );
 
 		let titleString = `One comment on `;
-		if ( comments.length > 1 ) {
-			titleString = `${ comments.length } comments on `;
+		if ( this.state.total > 1 ) {
+			titleString = `${ this.state.total } comments on `;
 		}
 
 		return (
 			<div className="comments-area" ref="comments">
-				<h2 className="comments-title">{ titleString }{ this.props.title }</h2>
+				<h2 className="comments-title">{ titleString }&ldquo;{ this.props.title }&rdquo;</h2>
 
 				<ol className="comment-list">
 					{ comments }
