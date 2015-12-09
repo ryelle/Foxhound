@@ -2,12 +2,14 @@
     Single Posts & Pages
 --------------------------------------------------------------*/
 
-.single .entry {
-	margin-bottom: 0;
-}
+.single {
+	.entry {
+		margin-bottom: 0;
+	}
 
-.entry-content p:first-of-type {
-	@include font-size( 24 );
+	.entry-content p:first-of-type {
+		@include font-size( 24 );
+	}
 }
 
 footer.entry-meta {
