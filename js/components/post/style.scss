@@ -5,3 +5,9 @@
 .entry-content p:first-of-type {
 	@include font-size( 24 );
 }
+
+footer.entry-meta {
+	flex: 1 100%;
+	margin: 25px 0 25px $calc-sidebar-width;
+	text-align: center;
+}

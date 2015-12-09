@@ -87,6 +87,20 @@ let SinglePost = React.createClass( {
 					<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
 					<div className="entry-meta"></div>
 					<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
+
+					<footer className="entry-meta">
+						<div className="entry-meta-item">
+							<span className="entry-meta-label">published</span>
+							<time className="entry-meta-value entry-date published updated" dateTime={ post.date }>{ this.getDate( post ) }</time>
+						</div>
+						<div className="entry-meta-item">
+							<span className="entry-meta-label">posted in </span>
+							<a href="#">stories</a>
+							<span className="fancy-amp"> &amp; </span>
+							<span className="entry-meta-label">tagged </span>
+							<a href="#">test</a>, <a href="#">stories</a>
+						</div>
+					</footer>
 				</article>
 			</div>
 		);
