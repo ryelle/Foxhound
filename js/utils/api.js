@@ -97,6 +97,8 @@ export default {
 		let url = `${FoxhoundSettings.URL.root}/comments/`;
 		args = args || {};
 		args.post = id;
+		args.orderby = 'date';
+		args.order = 'ASC';
 
 		jQuery.when(
 			_get( url, args )
