@@ -2,6 +2,10 @@
     Single Posts & Pages
 --------------------------------------------------------------*/
 
+.single .entry {
+	margin-bottom: 0;
+}
+
 .entry-content p:first-of-type {
 	@include font-size( 24 );
 }

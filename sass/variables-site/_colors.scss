@@ -22,11 +22,13 @@ $color__text-input: $color__text-main;
 $color__text-input-focus: $color__text-main;
 
 $color__link: inherit;
+$color__link-nav: $blue;
 $color__link-border: $grey;
 $color__link-visited: inherit;
 $color__link-hover: inherit;
 $color__link-hover-background: mix( $grey, $white, 35% );
 
+$color__border: rgba( $black, 0.15 );
 $color__border-input: $blue;
 $color__border-input-focus: $blue;
 $color__border-abbr: $blue;

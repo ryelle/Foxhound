@@ -1,13 +1,26 @@
 
 .posts-navigation,
 .post-navigation {
-	margin: 0 auto 50px;
-	max-width: 660px;
+	margin: 0 0 50px $calc-sidebar-width;
+	border-bottom: 1px solid $color__border;
+	border-top: 1px solid $color__border;
+	font-style: italic;
+	color: $color__link-nav;
+
+	.nav-previous,
+	.nav-next {
+		padding: 30px;
+	}
+
+	div + div {
+		border-left: 1px solid $color__border;
+	}
 }
 
 .posts-navigation .nav-previous,
 .post-navigation .nav-previous {
 	float: left;
+	padding-left: 0;
 	width: 50%;
 }
 
@@ -15,5 +28,18 @@
 .post-navigation .nav-next {
 	float: right;
 	text-align: right;
+	padding-right: 0;
 	width: 50%;
+}
+
+.post-navigation {
+	.nav-previous a:before {
+		content: '\2039';
+		padding-right: 5px;
+	}
+
+	.nav-next a:after {
+		content: '\203a';
+		padding-left: 5px;
+	}
 }

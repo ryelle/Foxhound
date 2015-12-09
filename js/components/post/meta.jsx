@@ -16,17 +16,25 @@ let PostMeta = React.createClass( {
 		let categories = PostsStore.getCategoriesForPost( this.props.slug );
 		let tags = PostsStore.getTagsForPost( this.props.slug );
 
-		categories = categories.map( function( item, i ) {
-			return (
-				<a key={ i } href={ item.link }>{ item.name }</a>
-			);
-		} );
+		if ( 'undefined' !== typeof categories ) {
+			categories = categories.map( function( item, i ) {
+				return (
+					<a key={ i } href={ item.link }>{ item.name }</a>
+				);
+			} );
+		} else {
+			categories = null;
+		}
 
-		tags = tags.map( function( item, i ) {
-			return (
-				<a key={ i } href={ item.link }>{ item.name }</a>
-			);
-		} );
+		if ( 'undefined' !== typeof tags ) {
+			tags = tags.map( function( item, i ) {
+				return (
+					<a key={ i } href={ item.link }>{ item.name }</a>
+				);
+			} );
+		} else {
+			tags = null;
+		}
 
 		return (
 			<footer className="entry-meta">

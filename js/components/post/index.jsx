@@ -9,6 +9,7 @@ import ContentMixin from 'utils/content-mixin';
 import PostsStore from '../../stores/posts-store';
 
 import PostMeta from './meta';
+import Pagination from '../pagination/single';
 // import Comments from '../comments';
 
 /**
@@ -93,8 +94,10 @@ let SinglePost = React.createClass( {
 					<div className="entry-meta"></div>
 					<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
 
-					<PostMeta slug={ this.props.slug } date={ post.date } humanDate={ this.getDate( post ) } />
+					<PostMeta slug={ post.slug } date={ post.date } humanDate={ this.getDate( post ) } />
 				</article>
+
+				<Pagination currentId={ post.id } />
 			</div>
 		);
 	}
