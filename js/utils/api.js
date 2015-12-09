@@ -69,7 +69,7 @@ export default {
 
 	// Get a single post: /{post_type}/?filter[name]={slug}
 	getPost: function( slug, type ) {
-		let url = `${FoxhoundSettings.URL.root}/${type}s/?filter[name]=${slug}`;
+		let url = `${FoxhoundSettings.URL.root}/${type}s/?filter[name]=${slug}&_embed`;
 
 		jQuery.when(
 			_get( url, {} )
