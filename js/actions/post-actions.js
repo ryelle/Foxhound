@@ -5,17 +5,12 @@ export default {
 	/**
 	 * @param  {array}  posts
 	 */
-	fetch: function( posts ) {
+	fetch: function( posts, pages, total ) {
 		AppDispatcher.handleViewAction( {
 			actionType: AppConstants.REQUEST_POSTS_SUCCESS,
+			pagination: pages,
+			total: total,
 			data: posts
-		} );
-	},
-
-	fetchPaginationLimit: function( total ) {
-		AppDispatcher.handleViewAction( {
-			actionType: AppConstants.REQUEST_PAGINATION,
-			data: total
 		} );
 	},
 

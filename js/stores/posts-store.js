@@ -16,11 +16,18 @@ var CHANGE_EVENT = 'change';
 var _posts = [];
 
 /**
- * The total number of pages available for the index page
+ * The total number of pages available for the current archive page
  * @type {int}
  * @protected
  */
-var _index_page_limit = 1;
+var _archive_page_limit = 1;
+
+/**
+ * The total number of posts on this archive (index, term, etc)
+ * @type {int}
+ * @protected
+ */
+var _archive_total = 0;
 
 /**
  * Load this array into our posts list
@@ -51,9 +58,17 @@ function _loadPost( id, data ) {
  * @param {int} total - total category pages available, pulled from API
  */
 function _loadPaginationLimit( total ) {
-	_index_page_limit = parseInt( total );
+	_archive_page_limit = parseInt( total );
 }
 
+/**
+ * Load the number into the category total container
+ *
+ * @param {int} total - total category pages available, pulled from API
+ */
+function _loadTotal( total ) {
+	_archive_total = parseInt( total );
+}
 
 let PostsStore = assign( {}, EventEmitter.prototype, {
 	emitChange: function() {
@@ -128,7 +143,7 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 	 * @returns {array}
 	 */
 	getPaginationLimit: function() {
-		return _index_page_limit;
+		return _archive_page_limit;
 	},
 
 	// Watch for store actions, and dispatch the above functions as necessary.
@@ -138,12 +153,11 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 		switch ( action.actionType ) {
 			case AppConstants.REQUEST_POSTS_SUCCESS:
 				_loadPosts( action.data );
+				_loadPaginationLimit( action.pagination );
+				_loadTotal( action.total );
 				break;
 			case AppConstants.REQUEST_POST_SUCCESS:
 				_loadPost( action.id, action.data );
-				break;
-			case AppConstants.REQUEST_PAGINATION:
-				_loadPaginationLimit( action.data );
 				break;
 		}
 

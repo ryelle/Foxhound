@@ -12,8 +12,6 @@ export default keyMirror( {
 	REQUEST_POSTS_SUCCESS: null,
 	REQUEST_POSTS_ERROR: null,
 
-	REQUEST_PAGINATION: null,
-
 	// Comments
 	REQUEST_COMMENTS_SUCCESS: null,
 	REQUEST_COMMENTS_PAGINATION: null,

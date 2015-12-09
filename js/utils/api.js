@@ -29,16 +29,6 @@ var _get = function( url, data ) {
 	} );
 };
 
-var _getPagination = function( url, data, request ) {
-	let cacheKey = url.replace( FoxhoundSettings.URL.base, '' ) + JSON.stringify( data ) + '-pages';
-	if ( 'undefined' !== typeof request ) {
-		PostActions.fetchPaginationLimit( request.getResponseHeader( 'X-WP-TotalPages' ) );
-		localStorage.setItem( cacheKey, request.getResponseHeader( 'X-WP-TotalPages' ) );
-	} else {
-		PostActions.fetchPaginationLimit( localStorage.getItem( cacheKey ) );
-	}
-};
-
 export default {
 
 	// Get /wp-api-menus/v2/menu-locations/:location
@@ -63,8 +53,9 @@ export default {
 		jQuery.when(
 			_get( url, args )
 		).done( function( data, status, request ) {
-			_getPagination( url, data, request ); // Set the page limit in PostsStore
-			PostActions.fetch( data );
+			let pages = request.getResponseHeader( 'X-WP-TotalPages' );
+			let total = request.getResponseHeader( 'X-WP-Total' );
+			PostActions.fetch( data, pages, total );
 		} );
 	},
 
