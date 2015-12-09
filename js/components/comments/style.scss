@@ -6,8 +6,37 @@
 	margin: 0 0 75px $calc-sidebar-width;
 }
 
+.comments-title,
+.comment-list,
+.comment-respond {
+	margin-bottom: 50px;
+}
+
 .comment-list {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+
+	article {
+		margin-bottom: 30px;
+	}
+}
+
+.comment-meta {
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.comment-avatar img {
+	box-sizing: content-box;
+	margin: 0 0 20px;
+	padding: 7px;
+	height: 64px;
+	width: 64px;
+	border-radius: 50%;
+	border: 1px solid $color__border;
+}
+
+.comment-author {
+	margin-bottom: 10px;
 }

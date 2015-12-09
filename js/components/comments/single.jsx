@@ -3,6 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 // Internal dependencies
+import CommentsStore from '../../stores/comments-store';
 import ContentMixin from 'utils/content-mixin';
 
 let Comment = React.createClass( {
@@ -10,11 +11,37 @@ let Comment = React.createClass( {
 
 	render: function() {
 		let comment = this.props.comment;
-		let classes = 'comment byuser comment-author-melchoyce even thread-even depth-1';
+		let classes = 'comment'; // byuser comment-author-melchoyce even thread-even depth-1
+
+		let replyParentString = null;
+		if ( comment.parent > 0 ) {
+			replyParentString = (
+				<span>In reply to { CommentsStore.getCommentAuthorName( comment.parent ) }&nbsp;&bull;&nbsp;</span>
+			);
+		}
 
 		return (
 			<li className={ classes }>
-				<article className="comment-body" dangerouslySetInnerHTML={ this.getContent( comment ) } />
+				<article className="comment-body">
+					<footer className="comment-meta">
+						<div className="comment-avatar vcard">
+							<img alt="" src={ comment.author_avatar_urls['96'] } />
+						</div>
+
+						<div className="comment-author">
+							<b className="fn">{ comment.author_name }</b>
+						</div>
+
+						<div className="comment-metadata">
+							{ replyParentString }
+							<a href={ comment.link }>
+								<time dateTime={ comment.date }>{ this.getDate( comment ) } at { this.getTime( comment ) }</time>
+							</a>
+						</div>
+					</footer>
+
+					<div className="comment-content" dangerouslySetInnerHTML={ this.getContent( comment ) } />
+				</article>
 			</li>
 		);
 	}

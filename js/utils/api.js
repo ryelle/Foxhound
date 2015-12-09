@@ -40,7 +40,13 @@ var _getPagination = function( url, data, request ) {
 };
 
 var _getCommentPagination = function( url, data, request ) {
-	CommentActions.fetchPaginationLimit( request.getResponseHeader( 'X-WP-TotalPages' ) );
+	let cacheKey = url.replace( FoxhoundSettings.URL.base, '' ) + JSON.stringify( data ) + '-com-pages';
+	if ( 'undefined' !== typeof request ) {
+		CommentActions.fetchPaginationLimit( request.getResponseHeader( 'X-WP-TotalPages' ) );
+		localStorage.setItem( cacheKey, request.getResponseHeader( 'X-WP-TotalPages' ) );
+	} else {
+		CommentActions.fetchPaginationLimit( localStorage.getItem( cacheKey ) );
+	}
 };
 
 export default {

@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import assign from 'object-assign';
 import AppDispatcher from '../dispatcher/dispatcher';
 import AppConstants from '../constants/constants';
+import find from 'lodash/collection/find';
 
 var CHANGE_EVENT = 'change';
 
@@ -57,6 +58,27 @@ let CommentsStore = assign( {}, EventEmitter.prototype, {
 	 */
 	getComments: function() {
 		return _comments;
+	},
+
+	/**
+	 * Get the current post
+	 *
+	 * @returns {array}
+	 */
+	getComment: function( id ) {
+		var comment = find( _comments, function( _comment ) {
+			return id === _comment.id;
+		} );
+		comment = comment || {};
+		return comment;
+	},
+
+	getCommentAuthorName: function( id ) {
+		let comment = this.getComment( id );
+		if ( 'undefined' !== typeof comment.author_name ) {
+			return comment.author_name;
+		}
+		return '';
 	},
 
 	/**

@@ -53,6 +53,7 @@ big {
 
 .entry-meta,
 .entry-footer,
+.comment-metadata,
 .site-footer {
 	font-family: $font__meta;
 	font-weight: $font__weight-bold;
@@ -61,4 +62,8 @@ big {
 	line-height: 1.25;
 	letter-spacing: 1.6px;
 	color: $blue;
+}
+
+.comment-author {
+	@include font-size( 18 );
 }
