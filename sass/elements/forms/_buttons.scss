@@ -2,13 +2,23 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	border: none;
-	border-radius: 3px;
+
+	padding: .6em 1.5em .4em;
 	background: $color__background-button;
 	color: $color__text-button;
-	@include font-size( $font__size-main );
-	line-height: 1;
-	padding: .6em 1em .4em;
+	border: 7px solid $color__background-body;
+	border-radius: 3px;
+	box-shadow: 0    1px 0 $color__border,
+	            1px  0   0 $color__border,
+	            0   -1px 0 $color__border,
+	           -1px  0   0 $color__border;
+
+	font-family: $font__nav;
+	font-weight: $font__weight-bold;
+	text-transform: uppercase;
+	@include font-size( 16 );
+	line-height: 1.25;
+	letter-spacing: 1.6px;
 
 	&:hover {}
 

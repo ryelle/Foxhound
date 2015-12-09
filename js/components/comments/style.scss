@@ -98,3 +98,11 @@
 		}
 	}
 }
+
+.comment-form-submit {
+	text-align: right;
+
+	input[type="submit"] {
+		background-color: $color__background-button-primary;
+	}
+}

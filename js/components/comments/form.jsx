@@ -30,7 +30,7 @@ let CommentForm = React.createClass( {
 					<label htmlFor="comment">Comment</label>
 					<textarea id="comment" name="comment" aria-required="true" required="required" />
 				</div>
-				<div className="form-submit">
+				<div className="comment-form-submit form-submit">
 					<input name="submit" type="submit" id="submit" className="submit" value="Post Comment" />
 					<input type="hidden" name="comment_post_ID" value={ this.props.postId } id="comment_post_ID" />
 					<input type="hidden" name="comment_parent" id="comment_parent" defaultValue={ 0 } />
