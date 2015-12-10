@@ -21,14 +21,18 @@ Since this is a more "experimental" theme, you'll need to have a few things set 
 
 1. You'll need the [WP REST API plugin](https://wordpress.org/plugins/rest-api/). WP 4.4 has the framework for the REST API, but the actual content of it still requires the plugin.
 2. You'll also need this [WP-API Menus plugin](https://wordpress.org/plugins/wp-api-menus/). The REST API doesn't provide an endpoint for menus, so another plugin is necessary.
-3. Your permalinks will need to be set to `/%year%/%monthnum%/%postname%/`. Single-post/page views will not work without permalinks set.
+3. Your permalinks will need to be set to `/%year%/%monthnum%/%postname%/`. Single-post/page views will not work without permalinks set. Category & tag archives bases should be set to `category` and `tag`, respectively.
 
 Display & Features
 ------------------
 
-This theme has **no** comments.
+A list of posts will display on the homepage - the theme will not respect the "Front page displays" setting.
 
 Known Issues/To Do
 ------------------
 
- - Build entire theme.
+ - Single post navigation (next/previous). Might need to create endpoint/setting for this.
+ - Menu classes should be updated when nav'd to, like body classes
+ - Break `Controller.setup` into smaller functions
+ - Widgets
+ - Social link styles for navigation
