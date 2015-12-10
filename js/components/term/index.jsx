@@ -16,6 +16,7 @@ function getState( term ) {
 	return {
 		data: TermStore.getTerm( term ),
 		posts: PostsStore.getPosts(),
+		paginationLimit: PostsStore.getPaginationLimit(),
 	};
 }
 
@@ -43,7 +44,7 @@ let Term = React.createClass( {
 		PostsStore.addChangeListener( this._onChange );
 
 		API.getTerm( this.props );
-		API.getPosts( { filter: filter } );
+		API.getPosts( { filter: filter, page: this.props.page } );
 	},
 
 	componentDidUpdate: function( prevProps, prevState ) {
@@ -55,7 +56,7 @@ let Term = React.createClass( {
 				filter.tag = this.props.term;
 			}
 			API.getTerm( this.props );
-			API.getPosts( { filter: filter } );
+			API.getPosts( { filter: filter, page: this.props.page } );
 		}
 	},
 
@@ -88,6 +89,8 @@ let Term = React.createClass( {
 					}
 				</header>
 				<PostList posts={ this.state.posts } />
+
+				<Pagination current={ this.props.page } end={ this.state.paginationLimit } base={ `/${ this.props.taxonomy }/${ this.props.term }` }/>
 			</div>
 		);
 	}

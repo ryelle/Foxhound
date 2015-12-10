@@ -6,12 +6,14 @@ let Pagination = React.createClass( {
 		start: React.PropTypes.number,
 		current: React.PropTypes.number,
 		end: React.PropTypes.number.isRequired,
+		base: React.PropTypes.string,
 	},
 
 	getDefaultProps: function(){
 		return {
 			start: 1,
-			current: 1
+			current: 1,
+			base: '',
 		};
 	},
 
@@ -25,15 +27,15 @@ let Pagination = React.createClass( {
 					{ ( prev > 0 ) ?
 						<div className="nav-previous">
 							{ ( prev === 1 ) ?
-								<a href={ `/` }>Previous Page</a> :
-								<a href={ `/page/${ prev }/` }>Previous Page</a>
+								<a href={ `${ this.props.base }/` }>Previous Page</a> :
+								<a href={ `${ this.props.base }/page/${ prev }/` }>Previous Page</a>
 							}
 						</div> :
 						null
 					}
 					{ ( next <= this.props.end ) ?
 						<div className="nav-next">
-							<a href={ `/page/${ next }/` }>Next Page</a>
+							<a href={ `${ this.props.base }/page/${ next }/` }>Next Page</a>
 						</div> :
 						null
 					}
