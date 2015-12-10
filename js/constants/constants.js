@@ -15,6 +15,7 @@ export default keyMirror( {
 	// Comments
 	REQUEST_COMMENTS_SUCCESS: null,
 	REQUEST_COMMENTS_PAGINATION: null,
+	CREATE_COMMENTS_SUCCESS: null,
 
 	// Category pages
 	REQUEST_TERM_SUCCESS: null,

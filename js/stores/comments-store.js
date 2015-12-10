@@ -2,7 +2,9 @@ import { EventEmitter } from 'events';
 import assign from 'object-assign';
 import AppDispatcher from '../dispatcher/dispatcher';
 import AppConstants from '../constants/constants';
+
 import find from 'lodash/collection/find';
+import findIndex from 'lodash/array/findIndex';
 
 var CHANGE_EVENT = 'change';
 
@@ -34,6 +36,21 @@ var _comments_total = 0;
  */
 function _loadComments( data ) {
 	_comments = data;
+}
+
+/**
+ * Load a single comment into the array
+ *
+ * @param {object} data - single comment, pulled from API
+ */
+function _loadComment( data ) {
+	let id = data.id;
+	var key = findIndex( _comments, function( _comment ) {
+		return parseInt( id ) === parseInt( _comment.id );
+	} );
+	if ( -1 === key ) {
+		_comments.push( data );
+	}
 }
 
 /**
@@ -124,6 +141,9 @@ let CommentsStore = assign( {}, EventEmitter.prototype, {
 				_loadComments( action.data );
 				_loadPaginationLimit( action.pagination );
 				_loadTotal( action.total );
+				break;
+			case AppConstants.CREATE_COMMENTS_SUCCESS:
+				_loadComment( action.data );
 				break;
 		}
 

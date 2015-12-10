@@ -13,4 +13,14 @@ export default {
 			data: comments
 		} );
 	},
+
+	/**
+	 * @param  {object}  comment
+	 */
+	create: function( comment ) {
+		AppDispatcher.handleViewAction( {
+			actionType: AppConstants.CREATE_COMMENTS_SUCCESS,
+			data: comment
+		} );
+	},
 }

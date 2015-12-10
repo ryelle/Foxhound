@@ -24,6 +24,7 @@ function getState( id ) {
 let SinglePost = React.createClass( {
 	propTypes: {
 		postId: React.PropTypes.number.isRequired,
+		commentsOpen: React.PropTypes.bool,
 		title: React.PropTypes.element
 	},
 
@@ -70,8 +71,22 @@ let SinglePost = React.createClass( {
 		this.setState( { page: this.state.page - 1 } );
 	},
 
+	renderForm: function() {
+		return (
+			<div className="comment-respond">
+				<h3 className="comment-reply-title">Leave a Reply</h3>
+
+				<CommentForm postId={ this.props.postId } />
+			</div>
+		);
+	},
+
 	renderPlaceholder: function() {
-		return null;
+		return (
+			<div className="comments-area" ref="comments">
+				{ this.props.commentsOpen && this.renderForm() }
+			</div>
+		);
 	},
 
 	render: function() {
@@ -99,11 +114,7 @@ let SinglePost = React.createClass( {
 
 				<CommentPagination end={ this.state.pagination } current={ this.state.page } onNextPage={ this.onNextPage } onPreviousPage={ this.onPreviousPage } />
 
-				<div className="comment-respond">
-					<h3 className="comment-reply-title">Leave a Reply</h3>
-
-					<CommentForm postId={ this.props.postId } />
-				</div>
+				{ this.props.commentsOpen && this.renderForm() }
 			</div>
 		);
 	}

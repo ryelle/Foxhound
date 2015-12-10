@@ -100,7 +100,7 @@ let SinglePost = React.createClass( {
 					null
 				}
 
-				<Comments postId={ post.id } title={ <span dangerouslySetInnerHTML={ this.getTitle( post ) } /> }/>
+				<Comments postId={ post.id } title={ <span dangerouslySetInnerHTML={ this.getTitle( post ) } /> } commentsOpen={ 'open' === post.comment_status } />
 			</div>
 		);
 	}

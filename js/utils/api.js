@@ -29,6 +29,18 @@ var _get = function( url, data ) {
 	} );
 };
 
+var _post = function( url, data ) {
+	return jQuery.ajax( {
+		url: url,
+		type: 'post',
+		data: data,
+		dataType: 'json',
+		beforeSend: function( xhr, settings ) {
+			xhr.setRequestHeader( 'X-WP-Nonce', FoxhoundSettings.nonce );
+		},
+	} );
+};
+
 export default {
 
 	// Get /wp-api-menus/v2/menu-locations/:location
@@ -87,6 +99,18 @@ export default {
 			let pages = request.getResponseHeader( 'X-WP-TotalPages' );
 			let total = request.getResponseHeader( 'X-WP-Total' );
 			CommentActions.fetch( data, pages, total );
+		} );
+	},
+
+	// Get comments for a single post
+	sendComment: function( args, callback ) {
+		let url = `${FoxhoundSettings.URL.root}/comments/`;
+
+		jQuery.when(
+			_post( url, args )
+		).done( function( data, status, request ) {
+			CommentActions.create( data );
+			callback();
 		} );
 	},
 
