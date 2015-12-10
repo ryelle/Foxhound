@@ -43,7 +43,7 @@ let Term = React.createClass( {
 		PostsStore.addChangeListener( this._onChange );
 
 		API.getTerm( this.props );
-		// API.getPosts( filter ); -- Not the right API call
+		API.getPosts( { filter: filter } );
 	},
 
 	componentDidUpdate: function( prevProps, prevState ) {
@@ -55,7 +55,7 @@ let Term = React.createClass( {
 				filter.tag = this.props.term;
 			}
 			API.getTerm( this.props );
-			// API.getPosts( filter ); -- Not the right API call
+			API.getPosts( { filter: filter } );
 		}
 	},
 

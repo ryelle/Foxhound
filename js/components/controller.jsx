@@ -28,9 +28,9 @@ let Controller = {
 			_currentType = 'page';
 		}
 
-		if ( 'undefined' !== typeof context.term ) {
+		if ( 'undefined' !== typeof context.params.term ) {
 			_currentSlug = context.params.term;
-			_currentType = 'category';
+			_currentType = path.match( /^\/category/ ) ? 'category' : 'post_tag';
 		}
 
 		let bodyClass = {
