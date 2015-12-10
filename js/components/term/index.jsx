@@ -73,17 +73,17 @@ let Term = React.createClass( {
 	},
 
 	render: function() {
-		let category = this.state.data;
-		if ( 'undefined' === typeof category.name ) {
+		let term = this.state.data;
+		if ( 'undefined' === typeof term.name ) {
 			return this.renderEmpty();
 		}
 
 		return (
 			<div className="card">
 				<header className="page-header">
-					<h1 className="page-title">{ category.name }</h1>
-					{ category.description.length > 0 ?
-						<div className="taxonomy-description">{ category.description }</div>:
+					<h1 className="page-title">{ term.name }</h1>
+					{ term.description.length > 0 ?
+						<div className="taxonomy-description">{ term.description }</div>:
 						null
 					}
 				</header>

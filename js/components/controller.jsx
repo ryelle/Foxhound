@@ -36,9 +36,10 @@ let Controller = {
 		let bodyClass = {
 			'logged-in': ( parseInt( FoxhoundSettings.user ) !== 0 ),
 			'home': ( path.length === 0 ),
-			'single': ( path.length > 0 ),
-			'single-page': ( path.length > 0 ) && ( 'page' === _currentType ),
-			'single-post': ( path.length > 0 ) && ( 'post' === _currentType ),
+			'single': ( 'page' === _currentType ) || ( 'post' === _currentType ),
+			'archive': ( 'category' === _currentType ) || ( 'post_tag' === _currentType ),
+			'single-page': ( 'page' === _currentType ),
+			'single-post': ( 'post' === _currentType ),
 		};
 		document.body.className = classNames( bodyClass );
 
