@@ -45,6 +45,8 @@ let Controller = {
 
 		_currentPage = parseInt( context.params.page ) || 1;
 
+		window.scrollTo( 0, 0 );
+
 		next();
 	},
 
