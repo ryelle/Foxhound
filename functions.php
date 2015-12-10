@@ -82,6 +82,24 @@ endif; // foxhound_setup
 add_action( 'after_setup_theme', 'foxhound_setup' );
 
 /**
+ * Register widget area.
+ *
+ * @link http://codex.wordpress.org/Function_Reference/register_sidebar
+ */
+function foxhound_widgets_init() {
+	register_sidebar( array(
+		'name'          => __( 'Sidebar', 'foxhound' ),
+		'id'            => 'sidebar-1',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+}
+add_action( 'widgets_init', 'foxhound_widgets_init' );
+
+/**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
  * Priority 0 to make it available to lower priority callbacks.
