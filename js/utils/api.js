@@ -12,20 +12,10 @@ import CommentActions from '../actions/comment-actions';
 var _noop = function() {};
 
 var _get = function( url, data ) {
-	let cacheKey = url.replace( FoxhoundSettings.URL.base, '' ) + JSON.stringify( data );
-	let postData = JSON.parse( localStorage.getItem( cacheKey ) );
-	if ( postData ) {
-		let dfd = jQuery.Deferred();
-		return dfd.resolve( postData );
-	}
-
 	return jQuery.ajax( {
 		url: url,
 		data: data,
-		dataType: 'json',
-		success: ( data ) => {
-			localStorage.setItem( cacheKey, JSON.stringify( data ) );
-		}
+		dataType: 'json'
 	} );
 };
 
