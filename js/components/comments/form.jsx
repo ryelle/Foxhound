@@ -23,7 +23,6 @@ let CommentForm = React.createClass( {
 		values.author_url = rawValues.url;
 		values.content = rawValues.comment;
 		values.post = rawValues.comment_post_ID;
-		values.status = 'approved';
 
 		API.sendComment( values, () => {
 			this.refs.content.value = '';
