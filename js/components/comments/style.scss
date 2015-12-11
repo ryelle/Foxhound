@@ -3,7 +3,8 @@
 --------------------------------------------------------------*/
 
 .comments-area {
-	margin: 0 0 75px $calc-sidebar-width;
+	@extend %sidebar-margin;
+	margin-bottom: 75px;
 }
 
 .comments-title,

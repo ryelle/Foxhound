@@ -2,7 +2,9 @@
 .posts-navigation,
 .post-navigation,
 .comment-navigation {
-	margin: 0 0 50px $calc-sidebar-width;
+	@extend %sidebar-margin;
+
+	margin-bottom: 50px;
 	border-bottom: 1px solid $color__border;
 	border-top: 1px solid $color__border;
 	font-style: italic;

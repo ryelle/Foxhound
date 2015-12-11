@@ -21,3 +21,8 @@
 @mixin clearfix-after() {
 	clear: both;
 }
+
+%sidebar-margin {
+	margin: 0;
+	margin-left: $calc-sidebar-width;
+}

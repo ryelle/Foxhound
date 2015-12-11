@@ -2,7 +2,7 @@
     Footer
 --------------------------------------------------------------*/
 .site-footer {
-	margin-left: $calc-sidebar-width;
+	@extend %sidebar-margin;
 	padding: 0 0 50px;
 
 	a {

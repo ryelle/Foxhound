@@ -15,8 +15,11 @@
 }
 
 footer.entry-meta {
+	@extend %sidebar-margin;
+
 	flex: 1 100%;
-	margin: 25px 0 50px $calc-sidebar-width;
+	margin-top: 25px;
+	margin-bottom: 50px;
 	text-align: center;
 
 	.entry-meta-item:nth-of-type( n + 2 ) {

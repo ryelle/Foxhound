@@ -15,8 +15,8 @@
 }
 
 .entry-title {
+	@extend %sidebar-margin;
 	flex: 1 100%;
-	margin-left: $calc-sidebar-width;
 }
 
 .entry-meta {
