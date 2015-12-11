@@ -33,6 +33,7 @@
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "object": "^0.1.1",
+    "object-assign": "^4.0.1",
     "page": "^1.6.4",
     "react": "^0.14.3",
     "react-dom": "^0.14.3"
