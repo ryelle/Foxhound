@@ -10,6 +10,11 @@
 	padding-top: 75px;
 	border-top: 1px solid $color__border;
 
+	.home &,
+	.archive & {
+		border-top: none;
+	}
+
 	.widget {
 		float: left;
 		width: 50%;
