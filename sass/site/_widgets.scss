@@ -1,0 +1,24 @@
+/*--------------------------------------------------------------
+    Widgets
+--------------------------------------------------------------*/
+
+.sidebar-widgets {
+	@extend %sidebar-margin;
+	@include clearfix;
+
+	margin-bottom: 50px;
+	padding-top: 75px;
+	border-top: 1px solid $color__border;
+
+	.widget {
+		float: left;
+		width: 50%;
+
+		&:nth-of-type( odd ) {
+			padding-right: 20px;
+		}
+		&:nth-of-type( even ) {
+			padding-left: 20px;
+		}
+	}
+}

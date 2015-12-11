@@ -70,3 +70,7 @@ big {
 .comment-author {
 	@include font-size( 18 );
 }
+
+.widget {
+	@include font-size( 16 );
+}
