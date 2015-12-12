@@ -15,24 +15,40 @@
 		ul {
 			float: left;
 			position: absolute;
-			top: 55px;
+			top: 42px;
 			left: -999em;
 			z-index: 99999;
+			margin-left: -5px;
+			padding: 5px 0;
 			min-width: 200px;
 			text-align: left;
+			background-color: $color__background-body;
+			border-bottom: 2px solid rgba( $blue, 0.15 );
 
 			ul {
 				position: relative;
 				top: auto;
 				left: auto;
+				margin-left: 0;
+				padding: 0;
+				border-bottom: none;
+
+				a:before {
+					content: '\2014 ';
+				}
+			}
+
+			li {
+				border-bottom: none;
 			}
 
 			a {
 				display: inline-block;
-				margin: 0 0 5px 15px;
-				padding: 5px 25px;
+				margin: 0 0 5px;
+				padding: 5px;
 				width: auto;
 				line-height: 1.2;
+				border-bottom: none;
 			}
 		}
 
@@ -45,16 +61,19 @@
 	li {
 		float: left;
 		position: relative;
+		border-bottom: 2px solid rgba( $blue, 0.15 );
 	}
 
 	a {
 		display: block;
-		padding: 10px 25px 10px 0;
-		border-bottom: 2px solid rgba( $blue, 0.15 );
+		margin-right: 25px;
+		margin-bottom: -2px;
+		padding: 10px 0;
+		border-bottom: 2px solid transparent;
 	}
 
 	li:last-of-type a {
-		padding-right: 0;
+		margin-right: 0;
 	}
 
 	.nav-menu > .current_page_item > a,
@@ -63,8 +82,11 @@
 		border-bottom-color: $blue;
 	}
 
-	a:hover,
-	a:active,
+	.nav-menu > .menu-item-has-children:hover > a,
+	.nav-menu > .menu-item-has-children.focus > a {
+		border-bottom-color: $color__background-body;
+	}
+
 	a:focus,
 	.focus > a:focus {
 		outline: none;
