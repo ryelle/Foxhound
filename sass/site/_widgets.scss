@@ -18,12 +18,23 @@
 	.widget {
 		float: left;
 		width: 50%;
+		margin-bottom: 40px;
 
 		&:nth-of-type( odd ) {
 			padding-right: 20px;
 		}
 		&:nth-of-type( even ) {
 			padding-left: 20px;
+		}
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+
+		&:nth-of-type( odd ):last-of-type {
+			float: none;
+			clear: both;
+			width: 100%;
 		}
 	}
 }
