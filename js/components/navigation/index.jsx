@@ -38,7 +38,7 @@ let MenuItem = React.createClass( {
 			'current-menu-item': re.test( this.props.item.url ),
 			'current-menu-ancestor': false,
 			'current-menu-parent': false,
-		} );
+		}, this.props.item.classes );
 
 		return (
 			<li className={ classes }>
