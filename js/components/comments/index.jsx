@@ -41,7 +41,6 @@ let SinglePost = React.createClass( {
 
 	componentDidUpdate: function( prevProps, prevState ) {
 		if ( ( prevProps.postId !== this.props.postId ) || ( prevState.page !== this.state.page ) ) {
-			console.log( "Call API" );
 			API.getComments( this.props.postId, { page: this.state.page } );
 		}
 	},
