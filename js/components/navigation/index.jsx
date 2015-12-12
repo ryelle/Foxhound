@@ -30,6 +30,10 @@ let SubMenu = React.createClass( {
 } );
 
 let MenuItem = React.createClass( {
+	blur: function( event ){
+		event.target.blur();
+	},
+
 	render: function() {
 		let re;
 		if ( location.pathname !== '/' ) {
@@ -47,7 +51,7 @@ let MenuItem = React.createClass( {
 
 		return (
 			<li className={ classes }>
-				<a href={ this.props.item.url }>{ this.props.item.title }</a>
+				<a href={ this.props.item.url } onClick={ this.blur }>{ this.props.item.title }</a>
 				{ this.props.item.children.length ?
 					<SubMenu items={ this.props.item.children } />:
 					null
