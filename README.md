@@ -31,8 +31,8 @@ A list of posts will display on the homepage - the theme will not respect the "F
 Known Issues/To Do
 ------------------
 
+This is very much a work-in-progress theme. If you notice anything acting strange, [let me know](https://github.com/ryelle/Foxhound/issues), but it might just be that I haven't built that part yet.
+
  - Single post navigation (next/previous). Might need to create endpoint/setting for this.
  - Menu classes should be updated when nav'd to, like body classes
- - Break `Controller.setup` into smaller functions
- - Widgets
  - Social link styles for navigation
