@@ -15,8 +15,9 @@
 }
 
 .entry-title {
-	@extend %sidebar-margin;
+	@extend %sidebar-padding;
 	flex: 1 100%;
+	max-width: 100%;
 }
 
 .entry-meta {

@@ -4,10 +4,10 @@
 
 .sidebar-widgets {
 	@extend %sidebar-margin;
-	@include clearfix;
 
 	margin-bottom: 50px;
 	padding-top: 75px;
+	max-width: 100%;
 	border-top: 1px solid $color__border;
 
 	.home &,

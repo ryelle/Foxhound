@@ -26,3 +26,8 @@
 	margin: 0;
 	margin-left: $calc-sidebar-width;
 }
+
+%sidebar-padding {
+	padding: 0;
+	padding-left: $calc-sidebar-width;
+}

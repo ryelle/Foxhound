@@ -9,5 +9,10 @@ textarea {
 	line-height: $font__line-height-body;
 }
 
+.site-content * {
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+}
+
 @import "headings";
 @import "copy";
