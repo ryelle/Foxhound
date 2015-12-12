@@ -43,6 +43,7 @@
 	font-weight: $font__weight-bold;
 }
 
+.comment-status,
 .comment-form-notes {
 	font-style: italic;
 	@include font-size( $font__size-meta );

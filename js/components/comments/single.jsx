@@ -42,6 +42,14 @@ let Comment = React.createClass( {
 					</footer>
 
 					<div className="comment-content" dangerouslySetInnerHTML={ this.getContent( comment ) } />
+
+					{ ( 'hold' === comment.status ) ?
+						<div className="comment-status">
+							Your comment is pending approval
+						</div> :
+						null
+					}
+
 				</article>
 			</li>
 		);
