@@ -9,6 +9,8 @@ require( 'babel-polyfill' );
 
 // External dependencies
 import page from 'page';
+import A11Y from 'utils/a11y';
+A11Y.skipLinks();
 
 // Internal dependencies
 import Controller from './components/controller';
