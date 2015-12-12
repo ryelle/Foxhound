@@ -58,7 +58,7 @@ let Controller = {
 	},
 
 	setupTerm: function( context, next ) {
-		var path = context.pathname;
+		var path = context.pathname.split('#')[0];
 
 		_currentPage = parseInt( context.params.page ) || 1;
 
@@ -73,7 +73,7 @@ let Controller = {
 	},
 
 	setupSingle: function( context, next ) {
-		var path = context.pathname;
+		var path = context.pathname.split('#')[0];
 
 		if ( path.substr( -1 ) === '/' ) {
 			path = path.substr( 0, path.length - 1 );
