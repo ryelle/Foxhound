@@ -31,10 +31,11 @@ let SubMenu = React.createClass( {
 
 let MenuItem = React.createClass( {
 	render: function() {
+		let re = new RegExp( location.pathname + '$' );
 		let classes = classNames( {
 			'menu-item': true,
 			'menu-item-has-children': this.props.item.children.length,
-			'current-menu-item': false,
+			'current-menu-item': re.test( this.props.item.url ),
 			'current-menu-ancestor': false,
 			'current-menu-parent': false,
 		} );
