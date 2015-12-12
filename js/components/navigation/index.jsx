@@ -34,6 +34,25 @@ let MenuItem = React.createClass( {
 		event.target.blur();
 	},
 
+	toggleFocus: function( event ) {
+		var self = event.target;
+
+		// Move up through the ancestors of the current link until we hit .nav-menu.
+		while ( -1 === self.className.indexOf( 'nav-menu' ) ) {
+
+			// On li elements toggle the class .focus.
+			if ( 'li' === self.tagName.toLowerCase() ) {
+				if ( -1 !== self.className.indexOf( 'focus' ) ) {
+					self.className = self.className.replace( ' focus', '' );
+				} else {
+					self.className += ' focus';
+				}
+			}
+
+			self = self.parentElement;
+		}
+	},
+
 	render: function() {
 		let re;
 		if ( location.pathname !== '/' ) {
@@ -50,8 +69,8 @@ let MenuItem = React.createClass( {
 		}, this.props.item.classes );
 
 		return (
-			<li className={ classes }>
-				<a href={ this.props.item.url } onClick={ this.blur }>{ this.props.item.title }</a>
+			<li className={ classes } aria-haspopup={ this.props.item.children.length > 0 }>
+				<a href={ this.props.item.url } onClick={ this.blur } onFocus={ this.toggleFocus } onBlur={ this.toggleFocus }>{ this.props.item.title }</a>
 				{ this.props.item.children.length ?
 					<SubMenu items={ this.props.item.children } />:
 					null
