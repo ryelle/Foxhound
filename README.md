@@ -36,3 +36,4 @@ This is very much a work-in-progress theme. If you notice anything acting strang
  - Single post navigation (next/previous). Might need to create endpoint/setting for this.
  - Menu classes should be updated when nav'd to, like body classes
  - Social link styles for navigation
+ - Date archives: Year, Month (make sure not to confuse with pages with no title?)
