@@ -60,6 +60,8 @@ let Controller = {
 	setupTerm: function( context, next ) {
 		var path = context.pathname;
 
+		_currentPage = parseInt( context.params.page ) || 1;
+
 		if ( 'undefined' !== typeof context.params.term ) {
 			_currentSlug = context.params.term;
 			_currentType = path.match( /^\/category/ ) ? 'category' : 'tag';
