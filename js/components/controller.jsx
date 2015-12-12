@@ -62,7 +62,7 @@ let Controller = {
 
 		if ( 'undefined' !== typeof context.params.term ) {
 			_currentSlug = context.params.term;
-			_currentType = path.match( /^\/category/ ) ? 'category' : 'post_tag';
+			_currentType = path.match( /^\/category/ ) ? 'category' : 'tag';
 		}
 
 		setBodyClass( 'archive' );
