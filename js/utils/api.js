@@ -121,7 +121,7 @@ export default {
 	// Get information about a term (category, tag)
 	// args: term, taxonomy
 	getTerm: function( args ) {
-		let url = `${FoxhoundSettings.URL.root}/terms/${args.taxonomy}/`;
+		let url = `${FoxhoundSettings.URL.root}/${args.taxonomy}/`;
 		args = {
 			search: args.term
 		};
