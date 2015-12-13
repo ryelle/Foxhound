@@ -75,6 +75,20 @@ export default {
 		} );
 	},
 
+	// Get a single post: /{post_type}/{id}
+	getPostById: function( id, type ) {
+		let url = `${FoxhoundSettings.URL.root}/${type}/${id}?_embed`;
+
+		jQuery.when(
+			_get( url, {} )
+		).done( function( data ) {
+			if ( data.constructor === Array ) {
+				data = first( data );
+			}
+			PostActions.fetchSingle( data );
+		} );
+	},
+
 	// Get comments for a single post
 	getComments: function( id, args ) {
 		let url = `${FoxhoundSettings.URL.root}/comments/`;

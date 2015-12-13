@@ -106,6 +106,20 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 	},
 
 	/**
+	 * Get the current post by ID
+	 *
+	 * @returns {array}
+	 */
+	getPostById: function( id ) {
+		id = parseInt( id );
+		var post = find( _posts, function( _post ) {
+			return id === parseInt( _post.id );
+		} );
+		post = post || {};
+		return post;
+	},
+
+	/**
 	 * Get the current post's categories
 	 *
 	 * @returns {array}

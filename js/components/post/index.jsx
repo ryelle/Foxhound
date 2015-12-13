@@ -9,6 +9,7 @@ import PostsStore from '../../stores/posts-store';
 
 import PostMeta from './meta';
 import Pagination from '../pagination/single';
+import Media from './image';
 import Comments from '../comments';
 
 /**
@@ -86,6 +87,10 @@ let SinglePost = React.createClass( {
 			<div className="card">
 				<article id={ `post-${ post.id }` } className={ classes }>
 					<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
+					{ post.featured_image ?
+						<Media postId={ post.featured_image } parentClass='entry-image' /> :
+						null
+					}
 					<div className="entry-meta"></div>
 					<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
 

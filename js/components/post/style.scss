@@ -6,6 +6,10 @@
 	.entry-content p:first-of-type {
 		@include font-size( 24 );
 	}
+
+	.entry-image {
+		margin-bottom: 24px;
+	}
 }
 
 .single-post {
