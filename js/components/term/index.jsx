@@ -33,28 +33,17 @@ let Term = React.createClass( {
 	},
 
 	componentDidMount: function() {
-		let filter = {};
-		if ( 'category' === this.props.taxonomy ) {
-			filter.category_name = this.props.term;
-		} else {
-			filter.tag = this.props.term;
-		}
-
 		TermStore.addChangeListener( this._onChange );
 		PostsStore.addChangeListener( this._onChange );
 
+		let filter = this.getFilter();
 		API.getTerm( this.props );
 		API.getPosts( { filter: filter, page: this.props.page } );
 	},
 
 	componentDidUpdate: function( prevProps, prevState ) {
 		if ( prevProps !== this.props ) {
-			let filter = {};
-			if ( 'category' === this.props.taxonomy ) {
-				filter.category_name = this.props.term;
-			} else {
-				filter.tag = this.props.term;
-			}
+			let filter = this.getFilter();
 			API.getTerm( this.props );
 			API.getPosts( { filter: filter, page: this.props.page } );
 		}
@@ -67,6 +56,16 @@ let Term = React.createClass( {
 
 	_onChange: function() {
 		this.setState( getState( this.props.term ) );
+	},
+
+	getFilter: function() {
+		let filter = {};
+		if ( 'categories' === this.props.taxonomy ) {
+			filter.category_name = this.props.term;
+		} else {
+			filter.tag = this.props.term;
+		}
+		return filter;
 	},
 
 	renderEmpty: function() {
