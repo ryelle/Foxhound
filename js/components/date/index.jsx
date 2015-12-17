@@ -1,6 +1,7 @@
 // External dependencies
 import React from 'react';
 import isEqual from 'lodash/lang/isEqual';
+import isNaN from 'lodash/lang/isNaN';
 
 // Internal dependencies
 import API from 'utils/api';
@@ -22,26 +23,26 @@ let DateArchive = React.createClass( {
 
 	propTypes: {
 		page: React.PropTypes.number.isRequired,
-		year: React.PropTypes.number.isRequired,
-		month: React.PropTypes.number,
+		year: React.PropTypes.string.isRequired,
+		month: React.PropTypes.string,
 	},
 
 	getDefaultProps: function() {
 		return {
-			month: 0
+			month: ''
 		};
 	},
 
 	getInitialState: function() {
-		return getState( this.props.year, this.props.month );
+		return getState();
 	},
 
 	getFilter: function() {
 		let filter = {
-			year: this.props.year
+			year: parseInt( this.props.year )
 		};
-		if ( 0 !== this.props.month ) {
-			filter.monthnum = this.props.month;
+		if ( ( '' !== this.props.month ) && ! isNaN( parseInt( this.props.month ) ) ) {
+			filter.monthnum = parseInt( this.props.month );
 		}
 		return filter;
 	},
@@ -65,7 +66,7 @@ let DateArchive = React.createClass( {
 	},
 
 	_onChange: function() {
-		this.setState( getState( this.props.year, this.props.month ) );
+		this.setState( getState() );
 	},
 
 	renderEmpty: function() {
@@ -78,6 +79,11 @@ let DateArchive = React.createClass( {
 			return this.renderEmpty();
 		}
 
+		let baseUrl = `/${ this.props.year }`;
+		if ( '' !== this.props.month ) {
+			baseUrl += `/${ this.props.month }`;
+		}
+
 		return (
 			<div className="card">
 				<header className="page-header">
@@ -85,7 +91,7 @@ let DateArchive = React.createClass( {
 				</header>
 				<PostList posts={ this.state.data } />
 
-				<Pagination current={ this.props.page } end={ this.state.paginationLimit } base={ `/${ this.props.year }/${ this.props.month }` }/>
+				<Pagination current={ this.props.page } end={ this.state.paginationLimit } base={ baseUrl }/>
 			</div>
 		);
 	}

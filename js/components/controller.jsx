@@ -67,11 +67,15 @@ let Controller = {
 
 	setupDate: function( context, next ) {
 		_currentDate = {
-			year: parseInt( context.params[0] ),
-			month: parseInt( context.params[1] )
+			year: context.params[0],
 		};
-		_currentPage = parseInt( context.params[2] ) || 1;
-		console.log( context.params );
+
+		if ( 'page' !== context.params[1] ) {
+			_currentDate.month = context.params[1];
+			_currentPage = parseInt( context.params[3] ) || 1;
+		} else {
+			_currentPage = parseInt( context.params[2] ) || 1;
+		}
 
 		setBodyClass( 'archive' );
 		next();
