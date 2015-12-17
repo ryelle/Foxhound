@@ -8,6 +8,7 @@ import Navigation from './navigation';
 import Index from './posts';
 import SinglePost from './post';
 import Term from './term';
+import DateArchive from './date';
 
 /**
  * The current slug, can be for single posts, pages, or term archives.
@@ -29,6 +30,13 @@ var _currentType;
  * @protected
  */
 var _currentPage;
+
+/**
+ * The current date value for an archive
+ * @type {object}
+ * @protected
+ */
+var _currentDate;
 
 /**
  * Set the classes on the <body> tag.
@@ -54,6 +62,18 @@ let Controller = {
 
 		setBodyClass( 'home' );
 		window.scrollTo( 0, 0 );
+		next();
+	},
+
+	setupDate: function( context, next ) {
+		_currentDate = {
+			year: parseInt( context.params[0] ),
+			month: parseInt( context.params[1] )
+		};
+		_currentPage = parseInt( context.params[2] ) || 1;
+		console.log( context.params );
+
+		setBodyClass( 'archive' );
 		next();
 	},
 
@@ -104,6 +124,13 @@ let Controller = {
 	posts: function() {
 		ReactDOM.render(
 			<Index page={ _currentPage } />,
+			document.getElementById( 'main' )
+		);
+	},
+
+	dateArchive: function() {
+		ReactDOM.render(
+			<DateArchive { ..._currentDate } page={ _currentPage } />,
 			document.getElementById( 'main' )
 		);
 	},
