@@ -1,6 +1,6 @@
 // External dependencies
 import React from 'react';
-import classNames from 'classnames';
+import isEqual from 'lodash/lang/isEqual';
 
 // Internal dependencies
 import API from 'utils/api';
@@ -42,7 +42,7 @@ let Term = React.createClass( {
 	},
 
 	componentDidUpdate: function( prevProps, prevState ) {
-		if ( prevProps !== this.props ) {
+		if ( ! isEqual( prevProps, this.props ) ) {
 			let filter = this.getFilter();
 			API.getTerm( this.props );
 			API.getPosts( { filter: filter, page: this.props.page } );

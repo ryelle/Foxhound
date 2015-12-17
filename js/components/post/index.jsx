@@ -1,6 +1,7 @@
 // External dependencies
 import React from 'react';
 import classNames from 'classnames';
+import isEqual from 'lodash/lang/isEqual';
 
 // Internal dependencies
 import API from 'utils/api';
@@ -45,7 +46,7 @@ let SinglePost = React.createClass( {
 	},
 
 	componentDidUpdate: function( prevProps, prevState ) {
-		if ( prevProps !== this.props ) {
+		if ( ! isEqual( prevProps, this.props ) ) {
 			API.getPost( this.props.slug, this.props.type );
 		}
 	},
