@@ -8,6 +8,7 @@ import API from 'utils/api';
 import PostsStore from '../../stores/posts-store';
 import PostList from '../posts/list';
 import Pagination from '../pagination/archive';
+import moment from 'moment';
 
 /**
  * Method to retrieve state from Stores
@@ -79,15 +80,21 @@ let DateArchive = React.createClass( {
 			return this.renderEmpty();
 		}
 
-		let baseUrl = `/${ this.props.year }`;
+		let baseUrl, date, dateString;
 		if ( '' !== this.props.month ) {
-			baseUrl += `/${ this.props.month }`;
+			baseUrl += `/${ this.props.year }/${ this.props.month }`;
+			date = moment( `${ this.props.year } ${ this.props.month }`, 'YYYY MM' );
+			dateString = date.format( 'MMMM YYYY' );
+		} else {
+			baseUrl = `/${ this.props.year }`;
+			date = moment( `${ this.props.year }`, 'YYYY' );
+			dateString = date.format( 'YYYY' );
 		}
 
 		return (
 			<div className="card">
 				<header className="page-header">
-					<h1 className="page-title">Date Archive</h1>
+					<h1 className="page-title">Archive for { dateString }</h1>
 				</header>
 				<PostList posts={ this.state.data } />
 
