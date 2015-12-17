@@ -11,7 +11,7 @@ import Pagination from '../pagination/archive';
 /**
  * Method to retrieve state from Stores
  */
-function getState( term ) {
+function getState() {
 	return {
 		data: PostsStore.getPosts(),
 		paginationLimit: PostsStore.getPaginationLimit(),
