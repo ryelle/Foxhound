@@ -11,21 +11,21 @@ import Term from './term';
 
 /**
  * The current slug, can be for single posts, pages, or term archives.
- * @type {array}
+ * @type {string}
  * @protected
  */
 var _currentSlug;
 
 /**
  * The current page type: post, page, category, post_tag
- * @type {array}
+ * @type {string}
  * @protected
  */
 var _currentType;
 
 /**
  * The current pagination value for an archive (defaults to 1 on single views)
- * @type {array}
+ * @type {int}
  * @protected
  */
 var _currentPage;
