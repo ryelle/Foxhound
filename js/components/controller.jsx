@@ -72,7 +72,12 @@ let Controller = {
 
 		if ( 'page' !== context.params[1] ) {
 			_currentDate.month = context.params[1];
-			_currentPage = parseInt( context.params[3] ) || 1;
+			if ( 'page' !== context.params[2] ) {
+				_currentDate.day = context.params[2];
+				_currentPage = parseInt( context.params[4] ) || 1;
+			} else {
+				_currentPage = parseInt( context.params[3] ) || 1;
+			}
 		} else {
 			_currentPage = parseInt( context.params[2] ) || 1;
 		}

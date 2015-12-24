@@ -20,10 +20,14 @@ page.base( '/' );
 page( '',                              Controller.setupHome, Controller.navigation, Controller.posts );
 page( 'page/:page',                    Controller.setupHome, Controller.navigation, Controller.posts );
 
-page(/^(\d{4})\/(\d{2})\/?$/,              Controller.setupDate, Controller.navigation, Controller.dateArchive );
-page(/^(\d{4})\/(\d{2})\/(page)\/(\d*)\/?$/, Controller.setupDate, Controller.navigation, Controller.dateArchive );
-page(/^(\d{4})\/?$/,                       Controller.setupDate, Controller.navigation, Controller.dateArchive );
-page(/^(\d{4})\/(page)\/(\d*)\/?$/,          Controller.setupDate, Controller.navigation, Controller.dateArchive );
+page(/^(\d{4})\/(\d{2})\/(\d{2})\/?$/,                Controller.setupDate, Controller.navigation, Controller.dateArchive );
+page(/^(\d{4})\/(\d{2})\/(\d{2})\/(page)\/(\d*)\/?$/, Controller.setupDate, Controller.navigation, Controller.dateArchive );
+page(/^(\d{4})\/(\d{2})\/?$/,                         Controller.setupDate, Controller.navigation, Controller.dateArchive );
+page(/^(\d{4})\/(\d{2})\/(page)\/(\d*)\/?$/,          Controller.setupDate, Controller.navigation, Controller.dateArchive );
+page(/^(\d{4})\/?$/,                                  Controller.setupDate, Controller.navigation, Controller.dateArchive );
+page(/^(\d{4})\/(page)\/(\d*)\/?$/,                   Controller.setupDate, Controller.navigation, Controller.dateArchive );
+
+
 
 page( 'category/:term',                Controller.setupTerm, Controller.navigation, Controller.termArchive );
 page( 'category/:term/page/:page',     Controller.setupTerm, Controller.navigation, Controller.termArchive );

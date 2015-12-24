@@ -26,11 +26,13 @@ let DateArchive = React.createClass( {
 		page: React.PropTypes.number.isRequired,
 		year: React.PropTypes.string.isRequired,
 		month: React.PropTypes.string,
+		day: React.PropTypes.string,
 	},
 
 	getDefaultProps: function() {
 		return {
-			month: ''
+			month: '',
+			day: '',
 		};
 	},
 
@@ -44,6 +46,9 @@ let DateArchive = React.createClass( {
 		};
 		if ( ( '' !== this.props.month ) && ! isNaN( parseInt( this.props.month ) ) ) {
 			filter.monthnum = parseInt( this.props.month );
+		}
+		if ( ( '' !== this.props.day ) && ! isNaN( parseInt( this.props.day ) ) ) {
+			filter.day = parseInt( this.props.day );
 		}
 		return filter;
 	},
@@ -81,7 +86,12 @@ let DateArchive = React.createClass( {
 		}
 
 		let baseUrl, date, dateString;
-		if ( '' !== this.props.month ) {
+
+		if ( '' !== this.props.day ) {
+			baseUrl += `/${ this.props.year }/${ this.props.month }/${ this.props.day }`;
+			date = moment( `${ this.props.year } ${ this.props.month } ${ this.props.day }`, 'YYYY MM DD' );
+			dateString = date.format( 'MMMM Do YYYY' );
+		} else if ( '' !== this.props.month ) {
 			baseUrl += `/${ this.props.year }/${ this.props.month }`;
 			date = moment( `${ this.props.year } ${ this.props.month }`, 'YYYY MM' );
 			dateString = date.format( 'MMMM YYYY' );
