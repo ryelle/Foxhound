@@ -11,6 +11,10 @@ let Post = React.createClass( {
 	render: function() {
 		let post = this.props;
 
+		if ( 'attachment' === post.type ) {
+			return null;
+		}
+
 		let classes = classNames( {
 			'entry': true
 		} );
