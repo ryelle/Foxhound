@@ -18,6 +18,7 @@ function getState( id ) {
 let Media = React.createClass( {
 	propTypes: {
 		postId: React.PropTypes.number.isRequired,
+		parentClass: React.PropTypes.string,
 	},
 
 	getInitialState: function() {
