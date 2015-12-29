@@ -21,6 +21,7 @@
 		margin-bottom: 40px;
 
 		&:nth-of-type( odd ) {
+			clear: left;
 			padding-right: 20px;
 		}
 		&:nth-of-type( even ) {
@@ -36,5 +37,35 @@
 			clear: both;
 			width: 100%;
 		}
+	}
+}
+
+.widget {
+	ul {
+		margin: 0;
+	}
+}
+
+.widget_calendar {
+	caption, th {
+		padding-bottom: 10px;
+	}
+
+	table {
+		text-align: center;
+	}
+
+	tbody {
+		a {
+			margin-left: -8px;
+			margin-right: -8px;
+			padding-left: 8px;
+			padding-right: 8px;
+			padding-bottom: 4px;
+		}
+	}
+
+	tfoot td {
+		padding-top: 10px;
 	}
 }

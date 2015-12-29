@@ -38,7 +38,10 @@ h3, h4, h5, h6 {
 	text-align: center;
 }
 
-.widget-title {
+.widget-title,
+.widget_calendar th,
+.widget_calendar #next,
+.widget_calendar #prev {
 	margin-top: 0;
 	margin-bottom: 20px;
 	font-family: $font__nav;

@@ -23,7 +23,8 @@ a {
 		text-decoration: none;
 	}
 
-	.entry-content & {
+	.entry-content &,
+	.widget_calendar tbody & {
 		margin-left: -2px;
 		margin-right: -2px;
 		padding-left: 2px;
@@ -32,6 +33,12 @@ a {
 
 		&:hover, &:focus {
 			background-color: $color__link-hover-background;
+		}
+	}
+
+	.widget & {
+		&:hover, &:focus {
+			box-shadow: inset 0 -2px 0 $color__link-border;
 		}
 	}
 }

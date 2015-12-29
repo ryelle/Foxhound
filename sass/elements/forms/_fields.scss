@@ -27,3 +27,20 @@ textarea {
 	padding-left: 3px;
 	width: 100%;
 }
+
+select {
+	max-width: 100%;
+}
+
+::-webkit-input-placeholder {
+	line-height: normal;
+}
+::-moz-placeholder { /* Firefox 19+ */
+	line-height: normal;
+}
+:-ms-input-placeholder {
+	line-height: normal;
+}
+:-moz-placeholder { /* Firefox 18- */
+	line-height: normal;
+}
