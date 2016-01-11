@@ -2,6 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
+import page from 'page';
+import qs from 'qs';
 
 // Components
 import Navigation from './navigation';
@@ -9,6 +11,7 @@ import Index from './posts';
 import SinglePost from './post';
 import Term from './term';
 import DateArchive from './date';
+import SearchList from './search';
 
 /**
  * The current slug, can be for single posts, pages, or term archives.
@@ -57,15 +60,41 @@ var setBodyClass = function( type ) {
 }
 
 let Controller = {
-	setupHome: function( context, next ) {
-		_currentPage = parseInt( context.params.page ) || 1;
+	parse: function( context, next ) {
+		context.query = qs.parse( location.search.slice( 1 ) );
+		next();
+	},
 
-		setBodyClass( 'home' );
+	load: function( context, next ) {
 		window.scrollTo( 0, 0 );
 		next();
 	},
 
-	setupDate: function( context, next ) {
+	navigation: function( context, next ) {
+		ReactDOM.render(
+			<Navigation />,
+			document.getElementById( 'site-navigation' )
+		);
+
+		next();
+	},
+
+	posts: function( context ) {
+		setBodyClass( 'home' );
+
+		if ( Object.keys( context.query ).length && ( 'undefined' !== typeof context.query.s ) ) {
+			page( '/search/' + context.query.s );
+		}
+
+		_currentPage = parseInt( context.params.page ) || 1;
+
+		ReactDOM.render(
+			<Index page={ _currentPage } />,
+			document.getElementById( 'main' )
+		);
+	},
+
+	dateArchive: function( context ) {
 		_currentDate = {
 			year: context.params[0],
 		};
@@ -83,10 +112,14 @@ let Controller = {
 		}
 
 		setBodyClass( 'archive' );
-		next();
+
+		ReactDOM.render(
+			<DateArchive { ..._currentDate } page={ _currentPage } />,
+			document.getElementById( 'main' )
+		);
 	},
 
-	setupTerm: function( context, next ) {
+	termArchive: function( context ) {
 		var path = context.pathname.split('#')[0];
 
 		_currentPage = parseInt( context.params.page ) || 1;
@@ -97,11 +130,26 @@ let Controller = {
 		}
 
 		setBodyClass( 'archive' );
-		window.scrollTo( 0, 0 );
-		next();
+
+		ReactDOM.render(
+			<Term page={ _currentPage } term={ _currentSlug } taxonomy={ _currentType } />,
+			document.getElementById( 'main' )
+		);
 	},
 
-	setupSingle: function( context, next ) {
+	search: function( context ) {
+		_currentPage = parseInt( context.params.page ) || 1;
+		_currentSlug = context.params.term;
+
+		setBodyClass( 'search' );
+
+		ReactDOM.render(
+			<SearchList page={ _currentPage } term={ _currentSlug } />,
+			document.getElementById( 'main' )
+		);
+	},
+
+	post: function( context ) {
 		var path = context.pathname.split('#')[0];
 
 		if ( path.substr( -1 ) === '/' ) {
@@ -117,41 +165,7 @@ let Controller = {
 		}
 
 		setBodyClass( 'single' );
-		window.scrollTo( 0, 0 );
-		next();
-	},
 
-	navigation: function( context, next ) {
-		ReactDOM.render(
-			<Navigation />,
-			document.getElementById( 'site-navigation' )
-		);
-
-		next();
-	},
-
-	posts: function() {
-		ReactDOM.render(
-			<Index page={ _currentPage } />,
-			document.getElementById( 'main' )
-		);
-	},
-
-	dateArchive: function() {
-		ReactDOM.render(
-			<DateArchive { ..._currentDate } page={ _currentPage } />,
-			document.getElementById( 'main' )
-		);
-	},
-
-	termArchive: function() {
-		ReactDOM.render(
-			<Term page={ _currentPage } term={ _currentSlug } taxonomy={ _currentType } />,
-			document.getElementById( 'main' )
-		);
-	},
-
-	post: function() {
 		ReactDOM.render(
 			<SinglePost slug={ _currentSlug } type={ _currentType } />,
 			document.getElementById( 'main' )
