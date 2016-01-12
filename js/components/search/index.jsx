@@ -78,8 +78,8 @@ let Search = React.createClass( {
 			<div className='site-content'>
 				<header className="page-header">
 					<h1 className="page-title">Search results for &ldquo;{ term }&rdquo;</h1>
+					<SearchForm ref='searchForm' initialSearch={ this.props.term } onChange={ this.search } />
 				</header>
-				<SearchForm ref='searchForm' initialSearch={ this.props.term } onChange={ this.search } />
 
 				{ posts.length ?
 					<PostList posts={ posts } /> :
