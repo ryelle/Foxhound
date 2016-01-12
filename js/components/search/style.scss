@@ -8,6 +8,10 @@
 		background-color: transparent;
 		border: 1px solid $color__border-input;
 	}
+
+	.site-content & {
+		@extend %sidebar-padding;
+	}
 }
 
 .search-submit {
