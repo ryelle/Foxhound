@@ -3,8 +3,6 @@
 --------------------------------------------------------------*/
 
 .sidebar-widgets {
-	@extend %sidebar-margin;
-
 	margin-bottom: 50px;
 	padding-top: 75px;
 	max-width: 100%;
@@ -37,6 +35,10 @@
 			clear: both;
 			width: 100%;
 		}
+	}
+
+	@include breakpoint( '>660px' ) {
+		@include sidebar-margin;
 	}
 }
 

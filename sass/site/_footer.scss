@@ -2,7 +2,7 @@
     Footer
 --------------------------------------------------------------*/
 .site-footer {
-	@extend %sidebar-margin;
+	margin: 0;
 	padding: 0 0 50px;
 
 	a {
@@ -11,5 +11,9 @@
 		&:focus {
 			text-decoration: underline;
 		}
+	}
+
+	@include breakpoint( '>660px' ) {
+		@include sidebar-margin;
 	}
 }

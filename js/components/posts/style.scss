@@ -15,17 +15,29 @@
 }
 
 .entry-title {
-	@extend %sidebar-padding;
 	flex: 1 100%;
 	max-width: 100%;
+	order: 1;
+
+	@include breakpoint( '>660px' ) {
+		@include sidebar-padding;
+		order: 1;
+	}
 }
 
 .entry-meta {
-	flex: 1 $size__site-sidebar;
-	width: $size__site-sidebar;
-	margin-top: 8px;
-	margin-right: $size__site-gutter;
-	text-align: right;
+	flex: 1 100%;
+	width: 100%;
+	order: 3;
+
+	@include breakpoint( '>660px' ) {
+		flex: 1 $size__site-sidebar;
+		order: 2;
+		width: $size__site-sidebar;
+		margin-top: 8px;
+		margin-right: $size__site-gutter;
+		text-align: right;
+	}
 }
 
 .entry-meta-label {
@@ -34,4 +46,9 @@
 
 .entry-content {
 	flex: 1 $size__site-content;
+	order: 2;
+
+	@include breakpoint( '>660px' ) {
+		order: 3;
+	}
 }

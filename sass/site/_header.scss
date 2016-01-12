@@ -2,11 +2,15 @@
     Header
 --------------------------------------------------------------*/
 .site-header {
-	margin: 75px auto 40px;
+	margin: 20px auto 40px;
 	padding-bottom: 40px;
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
+
+	@include breakpoint( '>660px' ) {
+		margin-top: 75px;
+	}
 }
 
 .site-branding {

@@ -2,8 +2,6 @@
 .posts-navigation,
 .post-navigation,
 .comment-navigation {
-	@extend %sidebar-margin;
-
 	margin-bottom: 50px;
 	border-bottom: 1px solid $color__border;
 	border-top: 1px solid $color__border;
@@ -17,6 +15,10 @@
 
 	div + div {
 		border-left: 1px solid $color__border;
+	}
+
+	@include breakpoint( '>660px' ) {
+		@include sidebar-margin;
 	}
 }
 

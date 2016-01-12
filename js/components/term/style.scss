@@ -3,6 +3,9 @@
 --------------------------------------------------------------*/
 
 .page-header {
-	@extend %sidebar-margin;
 	margin-bottom: 50px;
+
+	@include breakpoint( '>660px' ) {
+		@include sidebar-margin;
+	}
 }

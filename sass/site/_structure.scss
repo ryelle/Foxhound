@@ -4,4 +4,8 @@
 .site {
 	margin: 0 auto;
 	max-width: $size__site-container;
+
+	@include breakpoint( '<660px' ) {
+		padding: 0 25px;
+	}
 }

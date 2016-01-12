@@ -3,8 +3,11 @@
 --------------------------------------------------------------*/
 
 .comments-area {
-	@extend %sidebar-margin;
 	margin-bottom: 75px;
+
+	@include breakpoint( '>660px' ) {
+		@include sidebar-margin;
+	}
 }
 
 .comments-title,

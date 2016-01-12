@@ -7,6 +7,14 @@
 		@include font-size( 24 );
 	}
 
+	.entry-title,
+	.entry-image,
+	.entry-meta,
+	.entry-content,
+	footer.entry-meta {
+		order: unset;
+	}
+
 	.entry-image {
 		margin-bottom: 24px;
 		width: 100%;
@@ -22,8 +30,6 @@
 }
 
 footer.entry-meta {
-	@extend %sidebar-margin;
-
 	flex: 1 100%;
 	margin-top: 25px;
 	margin-bottom: 50px;
@@ -39,5 +45,9 @@ footer.entry-meta {
 
 	a:last-of-type:after {
 		content: '';
+	}
+
+	@include breakpoint( '>660px' ) {
+		@include sidebar-margin;
 	}
 }

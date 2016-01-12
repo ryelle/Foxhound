@@ -25,6 +25,8 @@ let Post = React.createClass( {
 					<a href={ this.props.link } rel="bookmark" dangerouslySetInnerHTML={ this.getTitle( this.props ) } />
 				</h2>
 
+				<div className="entry-content" dangerouslySetInnerHTML={ this.getExcerpt( post ) } />
+
 				<div className="entry-meta">
 					<div className="entry-meta-label">published</div>
 					<div className="entry-meta-value">
@@ -33,8 +35,6 @@ let Post = React.createClass( {
 						</a>
 					</div>
 				</div>
-
-				<div className="entry-content" dangerouslySetInnerHTML={ this.getExcerpt( post ) } />
 			</article>
 		);
 	}
