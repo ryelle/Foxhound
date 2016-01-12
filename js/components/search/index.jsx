@@ -71,10 +71,14 @@ let Search = React.createClass( {
 
 	render: function() {
 		let posts = this.state.data;
+		let term = this.getSearchValue();
 		this.setTitle();
 
 		return (
-			<div>
+			<div className='site-content'>
+				<header className="page-header">
+					<h1 className="page-title">Search results for &ldquo;{ term }&rdquo;</h1>
+				</header>
 				<SearchForm ref='searchForm' initialSearch={ this.props.term } onChange={ this.search } />
 
 				{ posts.length ?
