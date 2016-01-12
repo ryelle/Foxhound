@@ -84,6 +84,7 @@ let Controller = {
 
 		if ( Object.keys( context.query ).length && ( 'undefined' !== typeof context.query.s ) ) {
 			page( '/search/' + context.query.s );
+			return;
 		}
 
 		_currentPage = parseInt( context.params.page ) || 1;
