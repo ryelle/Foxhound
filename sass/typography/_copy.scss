@@ -12,7 +12,14 @@ dfn, cite, em, i {
 }
 
 blockquote {
-	margin: 0 1.5em;
+	margin: 0 0 0 20px;
+	padding: 0 0 0 20px;
+	border-left: 4px solid $color__border;
+
+	cite {
+		display: block;
+		margin: 15px 0 0;
+	}
 }
 
 address {
@@ -51,6 +58,16 @@ small {
 
 big {
 	font-size: 125%;
+}
+
+.entry-content table {
+	th, td {
+		padding: 3px 5px;
+	}
+
+	th {
+		text-align: left;
+	}
 }
 
 .entry-meta,
