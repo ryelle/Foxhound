@@ -15,7 +15,8 @@ A11Y.skipLinks();
 // Internal dependencies
 import Controller from './components/controller';
 
-page.base( '/' );
+const basePath = FoxhoundSettings.basePath || '/';
+page.base( basePath );
 
 page( '*', Controller.parse, Controller.load );
 
