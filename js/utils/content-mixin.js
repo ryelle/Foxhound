@@ -16,11 +16,11 @@ export default {
 
 	getDate: function( data ) {
 		let date = moment( data.date );
-		return date.format('MMMM Do YYYY');
+		return date.format( 'MMMM Do YYYY' );
 	},
 
 	getTime: function( data ) {
 		let date = moment( data.date );
-		return date.format('h:mm a');
+		return date.format( 'h:mm a' );
 	},
 };

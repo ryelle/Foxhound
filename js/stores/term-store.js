@@ -16,9 +16,10 @@ var CHANGE_EVENT = 'change';
 var _terms = [];
 
 /**
- * Load this array into our posts list
+ * Load a single term into the term list
  *
- * @param {array} data - array of posts, pulled from API
+ * @param {int}  id  ID of the term to be inserted
+ * @param {object}  data  term data, including ID, to be inserted
  */
 function _loadTerm( id, data ) {
 	var key = findIndex( _terms, function( _term ) {
@@ -43,9 +44,10 @@ let TermStore = assign( {}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * Get the current term
+	 * Get a term by slug
 	 *
-	 * @returns {array}
+	 * @param {string}  slug  Name of the term to fetch
+	 * @returns {object}  The term matching the given slug
 	 */
 	getTerm: function( slug ) {
 		var term = find( _terms, function( _term ) {

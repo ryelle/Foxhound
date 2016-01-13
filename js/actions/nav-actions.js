@@ -3,7 +3,7 @@ import AppConstants from '../constants/constants';
 
 export default {
 	/**
-	 * @param  {array}  menu
+	 * @param  {array}  menu  The menu items, as returned by the API
 	 */
 	fetch: function( menu ) {
 		AppDispatcher.handleViewAction( {
@@ -13,7 +13,8 @@ export default {
 	},
 
 	/**
-	 * @param  {array}  menu
+	 * @param  {string}  message  Error message from API
+	 * @param  {object}  request  The request response
 	 */
 	fetchFailed: function( message, request ) {
 		AppDispatcher.handleViewAction( {

@@ -23,6 +23,9 @@ function _loadMenu( data ) {
 
 /**
  * Notify the user (via dev tools for now) that the menus couldn't load.
+ *
+ * @param  {string}  message  Error message from API
+ * @param  {object}  request  The request response
  */
 function _notifyError( message, request ) {
 	let error = `Menus failed to load. The endpoint returned: ${message}: ${request.responseJSON.message}`;
@@ -48,7 +51,7 @@ let NavigationStore = assign( {}, EventEmitter.prototype, {
 	/**
 	 * Get the menu
 	 *
-	 * @returns {array}
+	 * @returns {array}  The current menu
 	 */
 	getMenu: function() {
 		return _menu;

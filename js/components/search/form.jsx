@@ -1,6 +1,5 @@
 // External dependencies
 import React from 'react';
-import classNames from 'classnames';
 
 let SearchForm = React.createClass( {
 	getValue: function() {

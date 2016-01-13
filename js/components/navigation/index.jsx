@@ -21,7 +21,7 @@ let SubMenu = React.createClass( {
 } );
 
 let MenuItem = React.createClass( {
-	blur: function( event ){
+	blur: function( event ) {
 		event.target.blur();
 	},
 
@@ -30,7 +30,6 @@ let MenuItem = React.createClass( {
 
 		// Move up through the ancestors of the current link until we hit .nav-menu.
 		while ( -1 === self.className.indexOf( 'nav-menu' ) ) {
-
 			// On li elements toggle the class .focus.
 			if ( 'li' === self.tagName.toLowerCase() ) {
 				if ( -1 !== self.className.indexOf( 'focus' ) ) {
@@ -63,7 +62,7 @@ let MenuItem = React.createClass( {
 			<li className={ classes } aria-haspopup={ this.props.item.children.length > 0 }>
 				<a href={ this.props.item.url } onClick={ this.blur } onFocus={ this.toggleFocus } onBlur={ this.toggleFocus }>{ this.props.item.title }</a>
 				{ this.props.item.children.length ?
-					<SubMenu items={ this.props.item.children } />:
+					<SubMenu items={ this.props.item.children } /> :
 					null
 				}
 			</li>
@@ -71,7 +70,7 @@ let MenuItem = React.createClass( {
 	}
 } );
 
-/**
+/*
  * Method to retrieve state from Stores
  */
 function getState() {

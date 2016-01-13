@@ -3,7 +3,7 @@ import AppConstants from '../constants/constants';
 
 export default {
 	/**
-	 * @param  {object}  term
+	 * @param  {object}  term  A single term object from the API
 	 */
 	fetch: function( term ) {
 		AppDispatcher.handleViewAction( {

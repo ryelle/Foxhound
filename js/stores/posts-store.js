@@ -27,7 +27,7 @@ var _archive_page_limit = 1;
  * @type {int}
  * @protected
  */
-var _archive_total = 0;
+var _archive_total = 0; // eslint-disable-line no-unused-vars
 
 /**
  * Load this array into our posts list
@@ -39,12 +39,13 @@ function _loadPosts( data ) {
 }
 
 /**
- * Load this array into our posts list
+ * Load a single post into the posts list
  *
- * @param {array} data - array of posts, pulled from API
+ * @param {int}  id  post ID of the post to be inserted
+ * @param {object}  data  post data, including ID, to be inserted
  */
 function _loadPost( id, data ) {
-	var key = findIndex( _posts, function( _post ) {
+	let key = findIndex( _posts, function( _post ) {
 		return parseInt( id ) === parseInt( _post.id );
 	} );
 	if ( -1 === key ) {
@@ -86,19 +87,20 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 	/**
 	 * Get the post list
 	 *
-	 * @returns {array}
+	 * @returns {array}  The current post list
 	 */
 	getPosts: function() {
 		return _posts;
 	},
 
 	/**
-	 * Get the current post
+	 * Get a post by slug (post name)
 	 *
-	 * @returns {array}
+	 * @param {string}  slug  Name of the post to fetch
+	 * @returns {object}  The post matching the given slug
 	 */
 	getPost: function( slug ) {
-		var post = find( _posts, function( _post ) {
+		let post = find( _posts, function( _post ) {
 			return slug === _post.slug;
 		} );
 		post = post || {};
@@ -106,13 +108,15 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * Get the current post by ID
+	 * Get a post by ID
 	 *
-	 * @returns {array}
+	 * @param {int}  id  ID of the post to fetch
+	 * @returns {object}  The post matching the given ID
 	 */
 	getPostById: function( id ) {
+		let post;
 		id = parseInt( id );
-		var post = find( _posts, function( _post ) {
+		post = find( _posts, function( _post ) {
 			return id === parseInt( _post.id );
 		} );
 		post = post || {};
@@ -120,32 +124,36 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 	},
 
 	/**
-	 * Get the current post's categories
+	 * Get a post's categories
 	 *
-	 * @returns {array}
+	 * @param {string}  slug  Name of the post to fetch
+	 * @returns {array}  A list of categories for this post
 	 */
 	getCategoriesForPost: function( slug ) {
+		let categories;
 		let post = this.getPost( slug );
 		if ( post === {} ) {
 			return [];
 		}
-		let categories = find( post._embedded['https://api.w.org/term'], function( item, i ) {
+		categories = find( post._embedded['https://api.w.org/term'], function( item ) {
 			return ( ( item.constructor === Array ) && ( 'undefined' !== typeof item[0] ) && ( item[0].taxonomy === 'category' ) );
 		} );
 		return categories;
 	},
 
 	/**
-	 * Get the current post's tags
-	 *
-	 * @returns {array}
+	* Get a post's tags
+	*
+	* @param {string}  slug  Name of the post to fetch
+	* @returns {array}  A list of tags for this post
 	 */
 	getTagsForPost: function( slug ) {
+		let tags;
 		let post = this.getPost( slug );
 		if ( post === {} ) {
 			return [];
 		}
-		let tags = find( post._embedded['https://api.w.org/term'], function( item, i ) {
+		tags = find( post._embedded['https://api.w.org/term'], function( item ) {
 			return ( ( item.constructor === Array ) && ( 'undefined' !== typeof item[0] ) && ( item[0].taxonomy === 'post_tag' ) );
 		} );
 		return tags;
@@ -154,7 +162,7 @@ let PostsStore = assign( {}, EventEmitter.prototype, {
 	/**
 	 * Get the number of available category pages
 	 *
-	 * @returns {array}
+	 * @returns {array}  The total number of pages available
 	 */
 	getPaginationLimit: function() {
 		return _archive_page_limit;

@@ -9,7 +9,7 @@ let Pagination = React.createClass( {
 		base: React.PropTypes.string,
 	},
 
-	getDefaultProps: function(){
+	getDefaultProps: function() {
 		return {
 			start: 1,
 			current: 1,

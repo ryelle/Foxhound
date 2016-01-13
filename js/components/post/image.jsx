@@ -1,12 +1,11 @@
 // External dependencies
 import React from 'react';
-import classNames from 'classnames';
 
 // Internal dependencies
 import API from 'utils/api';
 import PostsStore from '../../stores/posts-store';
 
-/**
+/*
  * Method to retrieve state from Stores
  */
 function getState( id ) {
@@ -30,7 +29,7 @@ let Media = React.createClass( {
 		API.getPostById( this.props.postId, 'media' );
 	},
 
-	componentDidUpdate: function( prevProps, prevState ) {
+	componentDidUpdate: function( prevProps ) {
 		if ( prevProps.postId !== this.props.postId ) {
 			API.getPostById( this.props.postId, 'media' );
 		}
@@ -55,7 +54,7 @@ let Media = React.createClass( {
 			return this.renderPlaceholder();
 		}
 
-		let attrs = {
+		let attrs = { // eslint-disable-line no-unused-vars
 			height: this.props.height || 'auto',
 			width: this.props.width || 'auto',
 		};

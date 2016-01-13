@@ -1,3 +1,5 @@
+/* global FoxhoundSettings */
+/* eslint-disable no-multi-spaces */
 /**
  * Entry point for the app.
  * `page` is used to trigger the right controller for a route.
@@ -23,12 +25,12 @@ page( '*', Controller.parse, Controller.load );
 page( '',                              Controller.navigation, Controller.posts );
 page( 'page/:page',                    Controller.navigation, Controller.posts );
 
-page(/^(\d{4})\/(\d{2})\/(\d{2})\/?$/,                Controller.navigation, Controller.dateArchive );
-page(/^(\d{4})\/(\d{2})\/(\d{2})\/(page)\/(\d*)\/?$/, Controller.navigation, Controller.dateArchive );
-page(/^(\d{4})\/(\d{2})\/?$/,                         Controller.navigation, Controller.dateArchive );
-page(/^(\d{4})\/(\d{2})\/(page)\/(\d*)\/?$/,          Controller.navigation, Controller.dateArchive );
-page(/^(\d{4})\/?$/,                                  Controller.navigation, Controller.dateArchive );
-page(/^(\d{4})\/(page)\/(\d*)\/?$/,                   Controller.navigation, Controller.dateArchive );
+page( /^(\d{4})\/(\d{2})\/(\d{2})\/?$/,                Controller.navigation, Controller.dateArchive );
+page( /^(\d{4})\/(\d{2})\/(\d{2})\/(page)\/(\d*)\/?$/, Controller.navigation, Controller.dateArchive );
+page( /^(\d{4})\/(\d{2})\/?$/,                         Controller.navigation, Controller.dateArchive );
+page( /^(\d{4})\/(\d{2})\/(page)\/(\d*)\/?$/,          Controller.navigation, Controller.dateArchive );
+page( /^(\d{4})\/?$/,                                  Controller.navigation, Controller.dateArchive );
+page( /^(\d{4})\/(page)\/(\d*)\/?$/,                   Controller.navigation, Controller.dateArchive );
 
 page( 'category/:term',                Controller.navigation, Controller.termArchive );
 page( 'category/:term/page/:page',     Controller.navigation, Controller.termArchive );

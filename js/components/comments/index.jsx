@@ -1,6 +1,5 @@
 // External dependencies
 import React from 'react';
-import classNames from 'classnames';
 
 // Internal dependencies
 import API from 'utils/api';
@@ -10,10 +9,10 @@ import CommentPagination from '../pagination/comments';
 import Comment from './single';
 import CommentForm from './form';
 
-/**
+/*
  * Method to retrieve state from Stores
  */
-function getState( id ) {
+function getState() {
 	return {
 		data: CommentsStore.getComments(),
 		total: CommentsStore.getTotal(),
@@ -29,7 +28,7 @@ let SinglePost = React.createClass( {
 	},
 
 	getInitialState: function() {
-		let state = getState( this.props.postId );
+		let state = getState();
 		state.page = 1;
 		return state;
 	},
@@ -50,7 +49,7 @@ let SinglePost = React.createClass( {
 	},
 
 	_onChange: function() {
-		let state = getState( this.props.postId );
+		let state = getState();
 		this.setState( {
 			data: state.data,
 			pagination: state.pagination,

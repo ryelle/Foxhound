@@ -1,3 +1,4 @@
+/* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
 import isEqual from 'lodash/lang/isEqual';
@@ -8,7 +9,7 @@ import PostsStore from '../../stores/posts-store';
 import PostList from './list';
 import Pagination from '../pagination/archive';
 
-/**
+/*
  * Method to retrieve state from Stores
  */
 function getState() {
@@ -33,7 +34,7 @@ let Index = React.createClass( {
 		API.getPosts( { page: this.props.page } );
 	},
 
-	componentDidUpdate: function( prevProps, prevState ) {
+	componentDidUpdate: function( prevProps ) {
 		if ( ! isEqual( prevProps, this.props ) ) {
 			API.getPosts( { page: this.props.page } );
 		}

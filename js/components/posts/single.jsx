@@ -16,11 +16,11 @@ let Post = React.createClass( {
 		}
 
 		let classes = classNames( {
-			'entry': true
+			entry: true
 		} );
 
 		return (
-			<article id={ "post-" + this.props.id } className={ classes }>
+			<article id={ `post-${this.props.id}` } className={ classes }>
 				<h2 className="entry-title">
 					<a href={ this.props.link } rel="bookmark" dangerouslySetInnerHTML={ this.getTitle( this.props ) } />
 				</h2>

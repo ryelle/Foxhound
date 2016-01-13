@@ -1,3 +1,4 @@
+/* global FoxhoundSettings */
 // React
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -121,7 +122,7 @@ let Controller = {
 	},
 
 	termArchive: function( context ) {
-		var path = context.pathname.split('#')[0];
+		var path = context.pathname.split( '#' )[0];
 
 		_currentPage = parseInt( context.params.page ) || 1;
 
@@ -151,7 +152,7 @@ let Controller = {
 	},
 
 	post: function( context ) {
-		var path = context.pathname.split('#')[0];
+		var path = context.pathname.split( '#' )[0];
 
 		if ( path.substr( -1 ) === '/' ) {
 			path = path.substr( 0, path.length - 1 );

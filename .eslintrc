@@ -57,11 +57,11 @@
 		// We split external, internal, module variables
 		"one-var": 0,
 		"operator-linebreak": [ 1, "after", { "overrides": {
-			"?": "before",
-			":": "before"
+			"?": "after",
+			":": "after"
 		} } ],
 		"padded-blocks": [ 1, "never" ],
-		"quote-props": [ 1, "as-needed" ],
+		"quote-props": [ 1, "consistent-as-needed" ],
 		"quotes": [ 1, "single", "avoid-escape" ],
 		"semi-spacing": 1,
 		"space-after-keywords": [ 1, "always" ],

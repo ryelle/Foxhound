@@ -10,7 +10,7 @@ import PostList from '../posts/list';
 import Pagination from '../pagination/archive';
 import moment from 'moment';
 
-/**
+/*
  * Method to retrieve state from Stores
  */
 function getState() {
@@ -60,7 +60,7 @@ let DateArchive = React.createClass( {
 		API.getPosts( { filter: filter, page: this.props.page } );
 	},
 
-	componentDidUpdate: function( prevProps, prevState ) {
+	componentDidUpdate: function( prevProps ) {
 		if ( ! isEqual( prevProps, this.props ) ) {
 			let filter = this.getFilter();
 			API.getPosts( { filter: filter, page: this.props.page } );

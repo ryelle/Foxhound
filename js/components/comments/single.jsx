@@ -1,6 +1,5 @@
 // External dependencies
 import React from 'react';
-import classNames from 'classnames';
 
 // Internal dependencies
 import CommentsStore from '../../stores/comments-store';

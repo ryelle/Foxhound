@@ -1,4 +1,4 @@
-/* global jQuery */
+/* global jQuery, FoxhoundSettings */
 import first from 'lodash/array/first';
 
 /**
@@ -8,8 +8,6 @@ import PostActions from '../actions/post-actions';
 import TermActions from '../actions/term-actions';
 import NavActions from '../actions/nav-actions';
 import CommentActions from '../actions/comment-actions';
-
-var _noop = function() {};
 
 var _get = function( url, data ) {
 	return jQuery.ajax( {
@@ -25,7 +23,7 @@ var _post = function( url, data ) {
 		type: 'post',
 		data: data,
 		dataType: 'json',
-		beforeSend: function( xhr, settings ) {
+		beforeSend: function( xhr ) {
 			xhr.setRequestHeader( 'X-WP-Nonce', FoxhoundSettings.nonce );
 		},
 	} );
@@ -112,7 +110,7 @@ export default {
 
 		jQuery.when(
 			_post( url, args )
-		).done( function( data, status, request ) {
+		).done( function( data ) {
 			CommentActions.create( data );
 			callback();
 		} );
@@ -128,7 +126,7 @@ export default {
 
 		jQuery.when(
 			_get( url, args )
-		).done( function( data, status, request ) {
+		).done( function( data ) {
 			if ( data.constructor === Array ) {
 				data = first( data );
 			}

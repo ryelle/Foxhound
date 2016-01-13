@@ -3,7 +3,9 @@ import AppConstants from '../constants/constants';
 
 export default {
 	/**
-	 * @param  {array}  comments
+	 * @param  {array}  comments  Comments returned from API.
+	 * @param  {int}  pages Total number of pages available.
+	 * @param  {int}  total  Total number of comments available.
 	 */
 	fetch: function( comments, pages, total ) {
 		AppDispatcher.handleViewAction( {
@@ -15,7 +17,7 @@ export default {
 	},
 
 	/**
-	 * @param  {object}  comment
+	 * @param  {object}  comment  A single comment from the API
 	 */
 	create: function( comment ) {
 		AppDispatcher.handleViewAction( {

@@ -87,16 +87,16 @@ let CommentsStore = assign( {}, EventEmitter.prototype, {
 	/**
 	 * Get the comments list
 	 *
-	 * @returns {array}
+	 * @returns  {array}  The current list of comments
 	 */
 	getComments: function() {
 		return _comments;
 	},
 
 	/**
-	 * Get the current post
-	 *
-	 * @returns {array}
+	 * Get a comment, given an ID
+	 * @param  {int}  id  The ID of a comment
+	 * @returns  {object}  The comment for this ID, or an empty object
 	 */
 	getComment: function( id ) {
 		var comment = find( _comments, function( _comment ) {
@@ -117,7 +117,7 @@ let CommentsStore = assign( {}, EventEmitter.prototype, {
 	/**
 	 * Get the number of available category pages
 	 *
-	 * @returns {array}
+	 * @returns {int}  The total number of pages available
 	 */
 	getPaginationLimit: function() {
 		return _comments_page_limit;
@@ -126,7 +126,7 @@ let CommentsStore = assign( {}, EventEmitter.prototype, {
 	/**
 	 * Get the number of available comments
 	 *
-	 * @returns {array}
+	 * @returns {int}  The total number of comments available
 	 */
 	getTotal: function() {
 		return _comments_total;

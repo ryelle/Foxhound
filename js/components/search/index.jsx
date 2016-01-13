@@ -1,17 +1,15 @@
+/* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
 import isEqual from 'lodash/lang/isEqual';
-import classNames from 'classnames';
 
 // Internal dependencies
 import API from 'utils/api';
 import PostsStore from '../../stores/posts-store';
 import PostList from '../posts/list';
-import Pagination from '../pagination/archive';
 import SearchForm from './form';
 
-
-/**
+/*
  * Method to retrieve state from Stores
  */
 function getState() {
@@ -40,7 +38,7 @@ let Search = React.createClass( {
 		API.getPosts( { filter: filter, page: this.props.page } );
 	},
 
-	componentDidUpdate: function( prevProps, prevState ) {
+	componentDidUpdate: function( prevProps ) {
 		if ( ! isEqual( prevProps, this.props ) ) {
 			let filter = {
 				s: this.getSearchValue(),

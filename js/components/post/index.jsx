@@ -1,3 +1,4 @@
+/* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
 import classNames from 'classnames';
@@ -13,7 +14,7 @@ import Pagination from '../pagination/single';
 import Media from './image';
 import Comments from '../comments';
 
-/**
+/*
  * Method to retrieve state from Stores
  */
 function getState( id ) {
@@ -30,7 +31,7 @@ let SinglePost = React.createClass( {
 		type: React.PropTypes.oneOf( [ 'post', 'page' ] ),
 	},
 
-	getDefaultProps: function(){
+	getDefaultProps: function() {
 		return {
 			type: 'post',
 		};
@@ -45,7 +46,7 @@ let SinglePost = React.createClass( {
 		API.getPost( this.props.slug, this.props.type );
 	},
 
-	componentDidUpdate: function( prevProps, prevState ) {
+	componentDidUpdate: function( prevProps ) {
 		if ( ! isEqual( prevProps, this.props ) ) {
 			API.getPost( this.props.slug, this.props.type );
 		}
@@ -81,7 +82,7 @@ let SinglePost = React.createClass( {
 		this.setTitle();
 
 		classes = classNames( {
-			'entry': true
+			entry: true
 		} );
 
 		return (

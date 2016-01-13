@@ -1,6 +1,5 @@
 // External dependencies
 import React from 'react';
-import classNames from 'classnames';
 
 // Internal dependencies
 import PostsStore from '../../stores/posts-store';
@@ -51,7 +50,7 @@ let PostMeta = React.createClass( {
 					null
 				}
 				{ categories && tags ?
-					<span className="fancy-amp"> &amp; </span>:
+					<span className="fancy-amp"> &amp; </span> :
 					null
 				}
 

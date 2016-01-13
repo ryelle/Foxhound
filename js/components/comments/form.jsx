@@ -1,14 +1,13 @@
+/* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
-import classNames from 'classnames';
 
 // Internal dependencies
 import API from 'utils/api';
-import CommentsStore from '../../stores/comments-store';
 
 let CommentForm = React.createClass( {
 
-	onSubmit: function( event ){
+	onSubmit: function( event ) {
 		event.preventDefault();
 		let keys = [ 'author', 'author_id', 'email', 'url', 'comment', 'comment_post_ID', 'comment_parent' ];
 		let rawValues = {};

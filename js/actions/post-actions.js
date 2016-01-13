@@ -3,7 +3,9 @@ import AppConstants from '../constants/constants';
 
 export default {
 	/**
-	 * @param  {array}  posts
+	 * @param  {array}  posts  The post items, as returned by the API
+	 * @param  {int}  pages Total number of pages available.
+	 * @param  {int}  total  Total number of posts available.
 	 */
 	fetch: function( posts, pages, total ) {
 		AppDispatcher.handleViewAction( {
@@ -15,7 +17,7 @@ export default {
 	},
 
 	/**
-	 * @param  {array}  posts
+	 * @param  {object}  post  A single post from the API
 	 */
 	fetchSingle: function( post ) {
 		AppDispatcher.handleViewAction( {

@@ -9,7 +9,7 @@ import TermStore from '../../stores/term-store';
 import PostList from '../posts/list';
 import Pagination from '../pagination/archive';
 
-/**
+/*
  * Method to retrieve state from Stores
  */
 function getState( term ) {
@@ -41,7 +41,7 @@ let Term = React.createClass( {
 		API.getPosts( { filter: filter, page: this.props.page } );
 	},
 
-	componentDidUpdate: function( prevProps, prevState ) {
+	componentDidUpdate: function( prevProps ) {
 		if ( ! isEqual( prevProps, this.props ) ) {
 			let filter = this.getFilter();
 			API.getTerm( this.props );
@@ -83,7 +83,7 @@ let Term = React.createClass( {
 				<header className="page-header">
 					<h1 className="page-title">{ term.name }</h1>
 					{ term.description.length > 0 ?
-						<div className="taxonomy-description">{ term.description }</div>:
+						<div className="taxonomy-description">{ term.description }</div> :
 						null
 					}
 				</header>

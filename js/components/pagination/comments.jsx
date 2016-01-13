@@ -1,3 +1,4 @@
+/* eslint-disable key-spacing */
 // External dependencies
 import React from 'react';
 import noop from 'lodash/utility/noop';
@@ -11,7 +12,7 @@ let Pagination = React.createClass( {
 		onPreviousPage: React.PropTypes.func,
 	},
 
-	getDefaultProps: function(){
+	getDefaultProps: function() {
 		return {
 			start: 1,
 			current: 1,
