@@ -3,7 +3,7 @@
 --------------------------------------------------------------*/
 
 .single {
-	.entry-content p:first-of-type {
+	.entry-content > p:first-of-type {
 		@include font-size( 24 );
 	}
 
