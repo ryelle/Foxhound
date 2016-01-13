@@ -30,6 +30,7 @@ h3, h4, h5, h6 {
 	font-family: $font__main;
 	font-weight: $font__weight-bold;
 	@include font-size( $font__size-header );
+	line-height: 1.1;
 	color: $red;
 }
 
