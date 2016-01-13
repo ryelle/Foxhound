@@ -52,17 +52,19 @@
 	@include font-size( $font__size-meta );
 }
 
-.comment-form-required {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: flex-start;
+@include breakpoint( '>660px' ) {
+	.comment-form-required {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: flex-start;
 
-	& > div {
-		flex: 1;
-	}
+		& > div {
+			flex: 1;
+		}
 
-	.comment-form-author {
-		margin-right: 20px;
+		.comment-form-author {
+			margin-right: 20px;
+		}
 	}
 }
 
@@ -82,7 +84,7 @@
 
 	input, textarea {
 		flex: 1;
-		padding: 13px 40px 14px 0;
+		padding: 13px 20px 14px 0;
 		width: 100%;
 		color: $color__text-input;
 		background-color: $color__background-body;
