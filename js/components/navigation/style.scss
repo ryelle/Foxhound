@@ -142,7 +142,9 @@
 	&::after {
 		content: '\2193';
 		float: right;
+		vertical-align: bottom;
 		color: $blue;
+		line-height: 30px;
 
 		.main-navigation .menu-open & {
 			content: '\2191';
