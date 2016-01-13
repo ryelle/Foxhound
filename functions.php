@@ -63,18 +63,6 @@ function foxhound_setup() {
 		'caption',
 	) );
 
-	/*
-	 * Enable support for Post Formats.
-	 * See https://developer.wordpress.org/themes/functionality/post-formats/
-	 */
-	add_theme_support( 'post-formats', array(
-		'aside',
-		'image',
-		'video',
-		'quote',
-		'link',
-	) );
-
 	add_post_type_support( 'post', 'comments' );
 	add_post_type_support( 'page', 'comments' );
 }
