@@ -3,7 +3,7 @@
 --------------------------------------------------------------*/
 .site-header {
 	margin: 20px auto 0;
-	padding-bottom: 20px;
+	padding-bottom: 40px;
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
@@ -11,7 +11,6 @@
 	@include breakpoint( '>660px' ) {
 		margin-top: 75px;
 		margin-bottom: 40px;
-		padding-bottom: 40px;
 	}
 }
 
