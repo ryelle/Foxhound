@@ -6,15 +6,6 @@ import classNames from 'classnames';
 import API from 'utils/api';
 import NavigationStore from '../../stores/navigation-store';
 
-/**
- * Method to retrieve state from Stores
- */
-function getState() {
-	return {
-		data: NavigationStore.getMenu(),
-	};
-}
-
 let SubMenu = React.createClass( {
 	render: function() {
 		let menu = this.props.items.map( function( item, i ) {
@@ -80,6 +71,16 @@ let MenuItem = React.createClass( {
 	}
 } );
 
+/**
+ * Method to retrieve state from Stores
+ */
+function getState() {
+	return {
+		data: NavigationStore.getMenu(),
+		isMenuOpen: false,
+	};
+}
+
 let Navigation = React.createClass( {
 	getInitialState: function() {
 		return getState();
@@ -98,13 +99,26 @@ let Navigation = React.createClass( {
 		this.setState( getState() );
 	},
 
+	toggleMenu: function( event ) {
+		event.preventDefault();
+		this.setState( { isMenuOpen: ! this.state.isMenuOpen } );
+	},
+
 	render: function() {
 		let menu = this.state.data.map( function( item, i ) {
 			return <MenuItem item={ item } key={ i } />
 		} );
 
+		let menuClasses = classNames( {
+			'menu-container': true,
+			'menu-open': this.state.isMenuOpen,
+		} );
+
 		return (
-			<div className="menu-container">
+			<div className={ menuClasses }>
+				<div className="menu-toggle" onClick={ this.toggleMenu }>
+					<button onClick={ this.toggleMenu }>Menu</button>
+				</div>
 				<ul className="menu nav-menu" aria-expanded="false">
 					{ menu }
 				</ul>

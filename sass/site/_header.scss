@@ -2,27 +2,37 @@
     Header
 --------------------------------------------------------------*/
 .site-header {
-	margin: 20px auto 40px;
-	padding-bottom: 40px;
+	margin: 20px auto 0;
+	padding-bottom: 20px;
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
 
 	@include breakpoint( '>660px' ) {
 		margin-top: 75px;
+		margin-bottom: 40px;
+		padding-bottom: 40px;
 	}
 }
 
 .site-branding {
-	flex: 1 $size__site-sidebar;
-	width: $size__site-sidebar;
-	margin-right: $size__site-gutter;
-	text-align: right;
+	flex: 1 100%;
+
+	@include breakpoint( '>660px' ) {
+		flex: 1 $size__site-sidebar;
+		width: $size__site-sidebar;
+		margin-right: $size__site-gutter;
+		text-align: right;
+	}
 }
 
 .main-navigation {
-	flex: 1 $size__site-content;
-	margin-top: 15px;
+	flex: 1 100%;
+
+	@include breakpoint( '>660px' ) {
+		flex: 1 $size__site-content;
+		margin-top: 15px;
+	}
 }
 
 .site-title a,

@@ -8,6 +8,7 @@
 	color: $blue;
 
 	ul {
+		display: none;
 		list-style: none;
 		margin: 0;
 		padding-left: 0;
@@ -87,25 +88,98 @@
 		border-bottom-color: $color__background-body;
 	}
 
+	a:hover,
+	a:active {
+		color: $black;
+	}
+
 	a:focus,
 	.focus > a:focus {
 		outline: none;
 		text-decoration: underline;
 	}
+
+	@include breakpoint( '<660px' ) {
+		li {
+			float: none;
+			border: none;
+
+			a {
+				margin-bottom: 0;
+				border: none;
+			}
+		}
+
+		ul ul {
+			float: none;
+			position: static;
+			top: auto;
+			left: auto;
+			margin-left: 0;
+			padding: 0;
+			min-width: 100%;
+			border: none;
+
+			a {
+				display: block;
+				padding: 10px 0;
+
+				&:before {
+					content: '\2014 ';
+				}
+			}
+		}
+	}
 }
 
 /* Small menu. */
 .menu-toggle {
-	display: none;
+	display: block;
+	margin: 10px 0;
+	width: 100%;
+	border-bottom: 2px solid rgba( $blue, 0.15 );
+
+	&::after {
+		content: '\2193';
+		float: right;
+		color: $blue;
+
+		.main-navigation .menu-open & {
+			content: '\2191';
+		}
+	}
+
+	button {
+		margin-bottom: -2px;
+		padding: 3px 2px;
+		background: transparent;
+		border: none;
+		border-bottom: 2px solid $blue;
+		border-radius: 0;
+		box-shadow: none;
+		text-align: left;
+		color: $blue;
+	}
+
+	&:hover button,
+	button:hover,
+	button:active,
+	button:focus {
+		outline: none;
+		color: $black;
+	}
 }
 
-@media screen and (max-width: 600px) {
-	.menu-toggle,
-	.main-navigation.toggled .nav-menu {
-		display: block;
+.main-navigation .menu-open ul {
+	display: block;
+}
+
+@include breakpoint( '>660px' ) {
+	.menu-toggle {
+		display: none;
 	}
 
 	.main-navigation ul {
-		display: none;
+		display: block;
 	}
 }
