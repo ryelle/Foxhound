@@ -13,32 +13,40 @@
 		border-top: none;
 	}
 
-	.widget {
-		float: left;
-		width: 50%;
-		margin-bottom: 40px;
+	@include breakpoint( '>660px' ) {
+		@include sidebar-margin;
+	}
 
-		&:nth-of-type( odd ) {
-			clear: left;
-			padding-right: 20px;
-		}
-		&:nth-of-type( even ) {
-			padding-left: 20px;
-		}
+	@include breakpoint( '>480px' ) {
+		.widget {
+			float: left;
+			width: 50%;
+			margin-bottom: 40px;
 
-		&:last-of-type {
-			margin-bottom: 0;
-		}
+			&:nth-of-type( odd ) {
+				clear: left;
+				padding-right: 20px;
+			}
+			&:nth-of-type( even ) {
+				padding-left: 20px;
+			}
 
-		&:nth-of-type( odd ):last-of-type {
-			float: none;
-			clear: both;
-			width: 100%;
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+
+			&:nth-of-type( odd ):last-of-type {
+				float: none;
+				clear: both;
+				width: 100%;
+			}
 		}
 	}
 
-	@include breakpoint( '>660px' ) {
-		@include sidebar-margin;
+	@include breakpoint( '<480px' ) {
+		.widget {
+			margin-bottom: 40px;
+		}
 	}
 }
 
