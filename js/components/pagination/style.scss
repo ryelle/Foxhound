@@ -55,3 +55,25 @@
 		padding-left: 5px;
 	}
 }
+
+@include breakpoint( '<480px' ) {
+	.posts-navigation,
+	.post-navigation,
+	.comment-navigation {
+		div + div {
+			border-left: none;
+			border-top: 1px solid $color__border;
+		}
+	}
+	.posts-navigation .nav-previous,
+	.post-navigation .nav-previous,
+	.comment-navigation .nav-previous,
+	.posts-navigation .nav-next,
+	.post-navigation .nav-next,
+	.comment-navigation .nav-next {
+		float: none;
+		width: 100%;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
