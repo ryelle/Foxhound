@@ -119,7 +119,7 @@ function foxhound_scripts() {
 	wp_enqueue_script( 'foxhound-react', get_template_directory_uri() . '/js/app.js', array( 'jquery' ), FOXHOUND_VERSION, true );
 
 	$url = home_url();
-	$path = parse_url( $url, PHP_URL_PATH );
+	$path = trailingslashit( parse_url( $url, PHP_URL_PATH ) );
 
 	wp_localize_script( 'foxhound-react', 'FoxhoundSettings', array(
 		'nonce' => wp_create_nonce( 'wp_rest' ),
