@@ -12,4 +12,16 @@ export default {
 			data: term
 		} );
 	},
+
+	/**
+	 * @param  {string}  message  Error message
+	 * @param  {object}  data     The response data from the API
+	 */
+	failed: function( message, data ) {
+		AppDispatcher.handleViewAction( {
+			actionType: AppConstants.REQUEST_TERM_ERROR,
+			message: message,
+			data: data
+		} );
+	},
 }

@@ -30,6 +30,17 @@ function _loadTerm( id, data ) {
 	}
 }
 
+/**
+ * Notify the user (via dev tools for now) that the menus couldn't load.
+ *
+ * @param  {string}  message  Error message from API
+ * @param  {object}  data     Response from API
+ */
+function _notifyError( message, data ) {
+	let error = `Term failed to load. ${message}`;
+	console.warn( error, data );
+}
+
 let TermStore = assign( {}, EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit( CHANGE_EVENT );
@@ -64,6 +75,9 @@ let TermStore = assign( {}, EventEmitter.prototype, {
 		switch ( action.actionType ) {
 			case AppConstants.REQUEST_TERM_SUCCESS:
 				_loadTerm( action.id, action.data );
+				break;
+			case AppConstants.REQUEST_TERM_ERROR:
+				_notifyError( action.message, action.data );
 				break;
 		}
 

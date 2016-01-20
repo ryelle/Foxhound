@@ -128,10 +128,15 @@ export default {
 		jQuery.when(
 			_get( url, args )
 		).done( function( data ) {
+			let originalData = data;
 			if ( data.constructor === Array ) {
 				data = find( data, { slug: args.search } );
 			}
-			TermActions.fetch( data );
+			if ( data ) {
+				TermActions.fetch( data );
+			} else {
+				TermActions.failed( `No categories matched the term ${ args.search }`, originalData );
+			}
 		} );
 	},
 };

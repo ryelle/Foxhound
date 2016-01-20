@@ -19,6 +19,7 @@ export default keyMirror( {
 
 	// Category pages
 	REQUEST_TERM_SUCCESS: null,
+	REQUEST_TERM_ERROR: null,
 
 	// Post actions
 	REQUEST_POST: null,
