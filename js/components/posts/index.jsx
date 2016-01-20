@@ -54,7 +54,7 @@ let Index = React.createClass( {
 
 	renderPlaceholder: function() {
 		return (
-			<div className="placeholder">Deliciousness is loading…</div>
+			<div className="placeholder">Your posts are loading…</div>
 		);
 	},
 

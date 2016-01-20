@@ -3,8 +3,14 @@
    Lists of posts
 --------------------------------------------------------------*/
 .placeholder {
-	padding: 50px;
 	text-align: center;
+
+	@include breakpoint( '>660px' ) {
+		@include sidebar-padding;
+		padding-top: 50px;
+		padding-bottom: 50px;
+		text-align: left;
+	}
 }
 
 .entry {
