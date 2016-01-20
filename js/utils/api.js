@@ -1,5 +1,6 @@
 /* global jQuery, FoxhoundSettings */
 import first from 'lodash/array/first';
+import find from 'lodash/collection/find';
 
 /**
  * Internal dependencies
@@ -128,7 +129,7 @@ export default {
 			_get( url, args )
 		).done( function( data ) {
 			if ( data.constructor === Array ) {
-				data = first( data );
+				data = find( data, { slug: args.search } );
 			}
 			TermActions.fetch( data );
 		} );
