@@ -13,6 +13,7 @@ import SinglePost from './post';
 import Term from './term';
 import DateArchive from './date';
 import SearchList from './search';
+import NotFound from './not-found';
 
 /**
  * The current slug, can be for single posts, pages, or term archives.
@@ -50,6 +51,7 @@ var _currentDate;
 var setBodyClass = function( type ) {
 	let bodyClass = {
 		'logged-in': ( parseInt( FoxhoundSettings.user ) !== 0 ),
+		'not-found': ( '404' === type ),
 		'home': ( 'home' === type ),
 		'single': ( 'single' === type ),
 		'archive': ( 'archive' === type ),
@@ -78,6 +80,15 @@ let Controller = {
 		);
 
 		next();
+	},
+
+	notFound: function( context ) {
+		setBodyClass( '404' );
+
+		ReactDOM.render(
+			<NotFound />,
+			document.getElementById( 'main' )
+		);
 	},
 
 	posts: function( context ) {
@@ -154,9 +165,15 @@ let Controller = {
 	post: function( context ) {
 		var path = context.pathname.split( '#' )[0];
 
+		if ( '/404' === path ) {
+			Controller.notFound( context );
+			return;
+		}
+
 		if ( path.substr( -1 ) === '/' ) {
 			path = path.substr( 0, path.length - 1 );
 		}
+
 		if ( path.length ) {
 			_currentSlug = path.substring( path.lastIndexOf( '/' ) + 1 );
 		}

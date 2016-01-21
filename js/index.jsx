@@ -39,6 +39,8 @@ page( 'tag/:term/page/:page',          Controller.navigation, Controller.termArc
 
 page( 'search/:term',                  Controller.navigation, Controller.search );
 
+page( '404', Controller.navigation, Controller.notFound );
+
 // Don't take over wp-admin
 page( /^(?!wp-admin).*/,           Controller.navigation, Controller.post );
 

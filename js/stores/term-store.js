@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import assign from 'object-assign';
+import page from 'page';
 import AppDispatcher from '../dispatcher/dispatcher';
 import AppConstants from '../constants/constants';
 
@@ -39,6 +40,8 @@ function _loadTerm( id, data ) {
 function _notifyError( message, data ) {
 	let error = `Term failed to load. ${message}`;
 	console.warn( error, data );
+
+	page( '/404' );
 }
 
 let TermStore = assign( {}, EventEmitter.prototype, {
