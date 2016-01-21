@@ -95,7 +95,8 @@ let Controller = {
 		setBodyClass( 'home' );
 
 		if ( Object.keys( context.query ).length && ( 'undefined' !== typeof context.query.s ) ) {
-			page( '/search/' + context.query.s );
+			const basePath = FoxhoundSettings.URL.basePath || '/';
+			page( `${ basePath }search/${ context.query.s }` );
 			return;
 		}
 

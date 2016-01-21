@@ -38,10 +38,11 @@ function _loadTerm( id, data ) {
  * @param  {object}  data     Response from API
  */
 function _notifyError( message, data ) {
+	const basePath = FoxhoundSettings.URL.basePath || '/';
 	let error = `Term failed to load. ${message}`;
 	console.warn( error, data );
 
-	page( '/404' );
+	page( `${ basePath }404` );
 }
 
 let TermStore = assign( {}, EventEmitter.prototype, {
