@@ -95,7 +95,7 @@ let Controller = {
 		setBodyClass( 'home' );
 
 		if ( Object.keys( context.query ).length && ( 'undefined' !== typeof context.query.s ) ) {
-			page( 'search/' + context.query.s );
+			page( '/search/' + context.query.s );
 			return;
 		}
 
