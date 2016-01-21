@@ -41,7 +41,7 @@ function _notifyError( message, data ) {
 	let error = `Term failed to load. ${message}`;
 	console.warn( error, data );
 
-	page( '/404' );
+	page( '404' );
 }
 
 let TermStore = assign( {}, EventEmitter.prototype, {
