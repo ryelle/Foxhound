@@ -53,6 +53,7 @@
 .entry-content {
 	flex: 1 $size__site-content;
 	order: 2;
+	overflow: hidden;
 
 	@include breakpoint( '>660px' ) {
 		order: 3;
