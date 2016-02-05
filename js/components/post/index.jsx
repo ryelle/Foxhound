@@ -72,7 +72,7 @@ let SinglePost = React.createClass( {
 	},
 
 	render: function() {
-		let post, classes;
+		let post, classes, featuredMedia;
 
 		post = this.state.data;
 		if ( 'undefined' === typeof post.title ) {
@@ -85,12 +85,14 @@ let SinglePost = React.createClass( {
 			entry: true
 		} );
 
+		featuredMedia = this.getFeaturedMedia( post );
+
 		return (
 			<div className="card">
 				<article id={ `post-${ post.id }` } className={ classes }>
 					<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
-					{ post.featured_image ?
-						<Media postId={ post.featured_image } parentClass='entry-image' /> :
+					{ featuredMedia ?
+						<Media media={ featuredMedia } parentClass='entry-image' /> :
 						null
 					}
 					<div className="entry-meta"></div>

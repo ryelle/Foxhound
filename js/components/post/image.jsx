@@ -1,65 +1,16 @@
 // External dependencies
 import React from 'react';
 
-// Internal dependencies
-import API from 'utils/api';
-import PostsStore from '../../stores/posts-store';
-
-/*
- * Method to retrieve state from Stores
- */
-function getState( id ) {
-	return {
-		data: PostsStore.getPostById( id )
-	};
-}
-
 let Media = React.createClass( {
 	propTypes: {
-		postId: React.PropTypes.number.isRequired,
+		media: React.PropTypes.object.isRequired,
 		parentClass: React.PropTypes.string,
 	},
 
-	getInitialState: function() {
-		return getState( this.props.postId );
-	},
-
-	componentDidMount: function() {
-		PostsStore.addChangeListener( this._onChange );
-		API.getPostById( this.props.postId, 'media' );
-	},
-
-	componentDidUpdate: function( prevProps ) {
-		if ( prevProps.postId !== this.props.postId ) {
-			API.getPostById( this.props.postId, 'media' );
-		}
-	},
-
-	componentWillUnmount: function() {
-		PostsStore.removeChangeListener( this._onChange );
-	},
-
-	_onChange: function() {
-		this.setState( getState( this.props.postId ) );
-	},
-
-	renderPlaceholder: function() {
-		return null;
-	},
-
 	render: function() {
-		let media = this.state.data;
+		let media, mediaElement;
 
-		if ( 'undefined' === typeof media.id ) {
-			return this.renderPlaceholder();
-		}
-
-		let attrs = { // eslint-disable-line no-unused-vars
-			height: this.props.height || 'auto',
-			width: this.props.width || 'auto',
-		};
-
-		let mediaElement = null;
+		media = this.props.media;
 
 		switch ( media.media_type ) {
 			case 'image':

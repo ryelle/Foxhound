@@ -1,4 +1,5 @@
 import moment from 'moment';
+import find from 'lodash/collection/find';
 
 export default {
 	getTitle: function( data ) {
@@ -23,4 +24,15 @@ export default {
 		let date = moment( data.date );
 		return date.format( 'h:mm a' );
 	},
+
+	getFeaturedMedia: function( data ) {
+		if ( 'undefined' === typeof data._embedded['https://api.w.org/featuredmedia'] ) {
+			return false;
+		}
+		let media = find( data._embedded['https://api.w.org/featuredmedia'], function( item ) {
+			return ( 'undefined' !== typeof item.source_url );
+		} );
+		return media;
+	},
+
 };
