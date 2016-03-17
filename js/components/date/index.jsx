@@ -85,7 +85,8 @@ let DateArchive = React.createClass( {
 			return this.renderEmpty();
 		}
 
-		let baseUrl, date, dateString;
+		let baseUrl = '';
+		let date, dateString;
 
 		if ( '' !== this.props.day ) {
 			baseUrl += `/${ this.props.year }/${ this.props.month }/${ this.props.day }`;
