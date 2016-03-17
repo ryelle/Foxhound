@@ -26,10 +26,10 @@ export default {
 	},
 
 	getFeaturedMedia: function( data ) {
-		if ( 'undefined' === typeof data._embedded['https://api.w.org/featuredmedia'] ) {
+		if ( 'undefined' === typeof data._embedded['wp:featuredmedia'] ) {
 			return false;
 		}
-		let media = find( data._embedded['https://api.w.org/featuredmedia'], function( item ) {
+		let media = find( data._embedded['wp:featuredmedia'], function( item ) {
 			return ( 'undefined' !== typeof item.source_url );
 		} );
 		return media;
