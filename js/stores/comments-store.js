@@ -3,8 +3,8 @@ import assign from 'object-assign';
 import AppDispatcher from '../dispatcher/dispatcher';
 import AppConstants from '../constants/constants';
 
-import find from 'lodash/collection/find';
-import findIndex from 'lodash/array/findIndex';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 
 var CHANGE_EVENT = 'change';
 

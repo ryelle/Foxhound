@@ -2,7 +2,7 @@
 // External dependencies
 import React from 'react';
 import classNames from 'classnames';
-import isEqual from 'lodash/lang/isEqual';
+import isEqual from 'lodash/isEqual';
 
 // Internal dependencies
 import API from 'utils/api';

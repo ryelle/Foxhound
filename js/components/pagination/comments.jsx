@@ -1,7 +1,7 @@
 /* eslint-disable key-spacing */
 // External dependencies
 import React from 'react';
-import noop from 'lodash/utility/noop';
+const noop = () => {};
 
 let Pagination = React.createClass( {
 	propTypes: {

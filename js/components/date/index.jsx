@@ -1,7 +1,7 @@
 // External dependencies
 import React from 'react';
-import isEqual from 'lodash/lang/isEqual';
-import isNaN from 'lodash/lang/isNaN';
+import isEqual from 'lodash/isEqual';
+import isNaN from 'lodash/isNaN';
 
 // Internal dependencies
 import API from 'utils/api';

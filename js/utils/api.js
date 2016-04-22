@@ -1,6 +1,6 @@
 /* global jQuery, FoxhoundSettings */
-import first from 'lodash/array/first';
-import find from 'lodash/collection/find';
+import head from 'lodash/head';
+import find from 'lodash/find';
 
 /**
  * Internal dependencies
@@ -68,7 +68,7 @@ export default {
 			_get( url, {} )
 		).done( function( data ) {
 			if ( data.constructor === Array ) {
-				data = first( data );
+				data = head( data );
 			}
 			PostActions.fetchSingle( data );
 		} );
@@ -82,7 +82,7 @@ export default {
 			_get( url, {} )
 		).done( function( data ) {
 			if ( data.constructor === Array ) {
-				data = first( data );
+				data = head( data );
 			}
 			PostActions.fetchSingle( data );
 		} );

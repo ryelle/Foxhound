@@ -1,5 +1,5 @@
 import moment from 'moment';
-import find from 'lodash/collection/find';
+import find from 'lodash/find';
 
 export default {
 	getTitle: function( data ) {
