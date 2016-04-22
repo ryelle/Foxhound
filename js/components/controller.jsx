@@ -82,7 +82,7 @@ let Controller = {
 		next();
 	},
 
-	notFound: function( context ) {
+	notFound: function( context ) { // eslint-disable-line
 		setBodyClass( '404' );
 
 		ReactDOM.render(
