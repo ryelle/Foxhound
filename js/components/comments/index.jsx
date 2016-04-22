@@ -20,7 +20,7 @@ function getState() {
 	};
 }
 
-let SinglePost = React.createClass( {
+let Comments = React.createClass( {
 	propTypes: {
 		postId: React.PropTypes.number.isRequired,
 		commentsOpen: React.PropTypes.bool,
@@ -118,4 +118,4 @@ let SinglePost = React.createClass( {
 	}
 } );
 
-export default SinglePost;
+export default Comments;
