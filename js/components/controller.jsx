@@ -100,6 +100,11 @@ let Controller = {
 			return;
 		}
 
+		if ( FoxhoundSettings.pageOnFront && '/' === context.path ) {
+			context.pathname = `/${FoxhoundSettings.pageOnFront}/`;
+			return Controller.post( context );
+		}
+
 		_currentPage = parseInt( context.params.page ) || 1;
 
 		ReactDOM.render(
@@ -177,6 +182,12 @@ let Controller = {
 
 		if ( path.length ) {
 			_currentSlug = path.substring( path.lastIndexOf( '/' ) + 1 );
+		}
+
+		console.log( context );
+		if ( FoxhoundSettings.blogPage && `/${FoxhoundSettings.blogPage}/` === context.pathname ) {
+			context.pathname = '/';
+			return Controller.posts( context );
 		}
 
 		_currentType = 'post';

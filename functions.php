@@ -109,10 +109,28 @@ function foxhound_scripts() {
 	$url = home_url();
 	$path = trailingslashit( parse_url( $url, PHP_URL_PATH ) );
 
+	$front_page_slug = false;
+	$blog_page_slug = false;
+	if ( 'posts' !== get_option( 'show_on_front' ) ) {
+		$front_page_id = get_option( 'page_on_front' );
+		$front_page = get_post( $front_page_id );
+		if ( $front_page->post_name ) {
+			$front_page_slug = $front_page->post_name;
+		}
+
+		$blog_page_id = get_option( 'page_for_posts' );
+		$blog_page = get_post( $blog_page_id );
+		if ( $blog_page->post_name ) {
+			$blog_page_slug = $blog_page->post_name;
+		}
+	}
+
 	wp_localize_script( 'foxhound-react', 'FoxhoundSettings', array(
 		'nonce' => wp_create_nonce( 'wp_rest' ),
 		'user' => get_current_user_id(),
 		'title' => get_bloginfo( 'name', 'display' ),
+		'pageOnFront' => $front_page_slug,
+		'blogPage' => $blog_page_slug,
 		'URL' => array(
 			'root' => esc_url_raw( get_rest_url( null, '/wp/v2' ) ),
 			'menuRoot' => esc_url_raw( get_rest_url( null, '/wp-api-menus/v2' ) ),
