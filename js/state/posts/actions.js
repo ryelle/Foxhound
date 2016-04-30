@@ -1,26 +1,27 @@
+/* global FoxhoundSettings */
 /**
  * Internal dependencies
  */
-import API from 'utils/api';
+const WP = require( 'wordpress-rest-api' )( { endpoint: FoxhoundSettings.URL.root } );
 import { POSTS_FETCH, POSTS_RECEIVE } from 'state/action-types';
 
 export default {
-	fetchSinglePost: function( postSlug, postType ) {
+	fetchPosts: function( { page } ) {
 		return ( dispatch ) => {
 			setTimeout( () => {
 				dispatch( {
 					type: POSTS_FETCH,
-					postSlug
+					page
 				} );
 			}, 1 );
 
-			API.getPost( postSlug, postType, ( data, error ) => { // eslint-disable-line
-				// if ( error ) {}
+			WP.posts().page( page ).then( ( data ) => {
 				dispatch( {
 					type: POSTS_RECEIVE,
+					page,
 					data
 				} );
 			} );
 		};
-	}
+	},
 };
