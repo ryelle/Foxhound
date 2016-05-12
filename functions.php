@@ -103,8 +103,8 @@ add_action( 'after_setup_theme', 'foxhound_content_width', 0 );
  * Enqueue scripts and styles.
  */
 function foxhound_scripts() {
-	wp_enqueue_style( 'foxhound-style', get_stylesheet_uri() );
-	wp_enqueue_script( 'foxhound-react', get_template_directory_uri() . '/js/app.js', array( 'jquery' ), FOXHOUND_VERSION, true );
+	wp_enqueue_style( 'foxhound-style', get_template_directory_uri() . '/build/style.css' );
+	wp_enqueue_script( 'foxhound-react', get_template_directory_uri() . '/build/app.js', array( 'jquery' ), FOXHOUND_VERSION, true );
 
 	$url = home_url();
 	$path = trailingslashit( parse_url( $url, PHP_URL_PATH ) );

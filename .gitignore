@@ -1,6 +1,3 @@
 node_modules
-js/app.js
-js/app.js.map
-style.css
-style.css.map
 sass-cache
+build
