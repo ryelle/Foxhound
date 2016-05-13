@@ -1,77 +1,58 @@
 /* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
-import isEqual from 'lodash/isEqual';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 // Internal dependencies
-import API from 'utils/api';
-import PostsStore from '../../stores/posts-store';
+import postActions from 'state/posts/actions';
+import { getVisiblePosts, getTotalPostsCount } from 'state/posts/selectors';
+import { getCurrentPage } from 'state/ui/selectors';
 import PostList from './list';
 import Pagination from '../pagination/archive';
 
-/*
- * Method to retrieve state from Stores
- */
-function getState() {
-	return {
-		data: PostsStore.getPosts(),
-		paginationLimit: PostsStore.getPaginationLimit(),
-	};
-}
-
-let Index = React.createClass( {
-
-	propTypes: {
-		page: React.PropTypes.number.isRequired,
+const Index = React.createClass( {
+	componentDidMount() {
+		this.props.fetchPosts();
 	},
 
-	getInitialState: function() {
-		return getState();
-	},
-
-	componentDidMount: function() {
-		PostsStore.addChangeListener( this._onChange );
-		API.getPosts( { page: this.props.page } );
-	},
-
-	componentDidUpdate: function( prevProps ) {
-		if ( ! isEqual( prevProps, this.props ) ) {
-			API.getPosts( { page: this.props.page } );
-		}
-	},
-
-	componentWillUnmount: function() {
-		PostsStore.removeChangeListener( this._onChange );
-	},
-
-	_onChange: function() {
-		this.setState( getState() );
-	},
-
-	setTitle: function() {
+	setTitle() {
 		document.title = FoxhoundSettings.title;
 	},
 
-	renderPlaceholder: function() {
+	renderPlaceholder() {
 		return (
 			<div className="placeholder">Your posts are loading…</div>
 		);
 	},
 
-	render: function() {
-		let posts = this.state.data;
+	render() {
+		let posts = this.props.posts;
 		this.setTitle();
 
 		return (
 			<div className="site-content">
-				{ posts.length ?
-					<PostList posts={ posts } /> :
-					this.renderPlaceholder()
+				{ this.props.isFetching ?
+					this.renderPlaceholder() :
+					<PostList posts={ posts } />
 				}
-				<Pagination current={ this.props.page } end={ this.state.paginationLimit } />
+				<Pagination current={ this.props.page } end={ this.props.total } />
 			</div>
 		);
 	}
 } );
 
-export default Index;
+export default connect(
+	state => {
+		// defaultFilter is a prop passed from the render function
+		return {
+			isFetching: state.posts.isFetching,
+			page: getCurrentPage( state ),
+			total: getTotalPostsCount( state ),
+			posts: getVisiblePosts( state )
+		};
+	},
+	dispatch => bindActionCreators( {
+		fetchPosts: postActions.fetchPosts,
+	}, dispatch )
+)( Index );

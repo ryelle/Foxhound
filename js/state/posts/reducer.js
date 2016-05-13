@@ -2,18 +2,25 @@
 * External dependencies
 */
 import { combineReducers } from 'redux';
+import uniqBy from 'lodash/uniqby';
 
 /**
  * Internal dependencies
  */
-import { POSTS_FETCH, POSTS_RECEIVE } from 'state/action-types';
+import { API_POSTS_FETCH, API_POSTS_RECEIVE, UI_POSTS_PAGE } from 'state/action-types';
 
-const isFetching = ( state, action ) => {
+const normalizePost = function( post, action ) {
+	post.page = action.page;
+	return post;
+}
+
+const isFetching = ( state = false, action ) => {
 	switch ( action.type ) {
-		case POSTS_FETCH:
-			// return Object.assign( {}, state, { [ action.siteId ]: true } );
-		case POSTS_RECEIVE:
-			// return Object.assign( {}, state, { [ action.siteId ]: false } );
+		case UI_POSTS_PAGE:
+		case API_POSTS_FETCH:
+			return true;
+		case API_POSTS_RECEIVE:
+			return false;
 		default:
 			return state;
 	}
@@ -21,8 +28,22 @@ const isFetching = ( state, action ) => {
 
 const items = ( state = [], action ) => {
 	switch ( action.type ) {
-		case POSTS_FETCH:
-		case POSTS_RECEIVE:
+		case API_POSTS_RECEIVE:
+			let posts = action.data.map( ( item ) => {
+				return normalizePost( item, action );
+			} );
+			let newState = [ ...state, ...posts ];
+			newState = uniqBy( newState, 'id' );
+			return newState;
+		default:
+			return state;
+	}
+}
+
+const total = ( state = 0, action ) => {
+	switch ( action.type ) {
+		case API_POSTS_RECEIVE:
+			return action.total;
 		default:
 			return state;
 	}
@@ -30,5 +51,6 @@ const items = ( state = [], action ) => {
 
 export default combineReducers( {
 	isFetching,
+	total,
 	items
 } );

@@ -132,7 +132,7 @@ function foxhound_scripts() {
 		'pageOnFront' => $front_page_slug,
 		'blogPage' => $blog_page_slug,
 		'URL' => array(
-			'root' => esc_url_raw( get_rest_url( null, '/wp/v2' ) ),
+			'root' => esc_url_raw( get_rest_url() ),
 			'menuRoot' => esc_url_raw( get_rest_url( null, '/wp-api-menus/v2' ) ),
 			'base' => esc_url_raw( home_url() ),
 			'basePath' => $path,

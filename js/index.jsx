@@ -1,47 +1,46 @@
-/* global FoxhoundSettings */
 /* eslint-disable no-multi-spaces */
-/**
- * Entry point for the app.
- * `page` is used to trigger the right controller for a route.
- * The controller renders the top-level component for a given page.
- */
+// React
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, browserHistory } from 'react-router';
 
 // Load in the babel (es6) polyfill
-require( 'babel-polyfill' );
+// require( 'babel-polyfill' );
 
-// External dependencies
-import page from 'page';
+// Load the CSS
+require( '../sass/style.scss' );
+
+// Internal
+import Index from 'components/posts';
+import { createReduxStore } from 'state';
+
+// Accessibility!
 import A11Y from 'utils/a11y';
 A11Y.skipLinks();
 
-// Internal dependencies
-import Controller from './components/controller';
+// Now the work starts.
+const store = createReduxStore();
 
-const basePath = FoxhoundSettings.URL.basePath || '/';
-page.base( basePath );
+const routes = (
+	<Router history={ browserHistory }>
+		<Route path="/" component={ Index } />
+	</Router>
+);
 
-page( '*', Controller.parse, Controller.load );
+const renderApp = () => {
+	render(
+		(
+			<Provider store={ store }>
+				{ routes }
+			</Provider>
+		),
+		document.getElementById( 'main' )
+	);
+}
 
-page( '',                              Controller.navigation, Controller.posts );
-page( 'page/:page',                    Controller.navigation, Controller.posts );
-
-page( /^(\d{4})\/(\d{2})\/(\d{2})\/?$/,                Controller.navigation, Controller.dateArchive );
-page( /^(\d{4})\/(\d{2})\/(\d{2})\/(page)\/(\d*)\/?$/, Controller.navigation, Controller.dateArchive );
-page( /^(\d{4})\/(\d{2})\/?$/,                         Controller.navigation, Controller.dateArchive );
-page( /^(\d{4})\/(\d{2})\/(page)\/(\d*)\/?$/,          Controller.navigation, Controller.dateArchive );
-page( /^(\d{4})\/?$/,                                  Controller.navigation, Controller.dateArchive );
-page( /^(\d{4})\/(page)\/(\d*)\/?$/,                   Controller.navigation, Controller.dateArchive );
-
-page( 'category/:term',                Controller.navigation, Controller.termArchive );
-page( 'category/:term/page/:page',     Controller.navigation, Controller.termArchive );
-page( 'tag/:term',                     Controller.navigation, Controller.termArchive );
-page( 'tag/:term/page/:page',          Controller.navigation, Controller.termArchive );
-
-page( 'search/:term',                  Controller.navigation, Controller.search );
-
-page( '404', Controller.navigation, Controller.notFound );
-
-// Don't take over wp-admin
-page( /^(?!wp-admin).*/,           Controller.navigation, Controller.post );
-
-page.start();
+renderApp();
+store.subscribe( renderApp );
+store.subscribe( () => {
+	console.log( store.getState() );
+} );
