@@ -13,7 +13,7 @@ export default {
 		};
 	},
 
-	paginate: function( page ) {
+	loadPage: function( page ) {
 		return ( dispatch ) => {
 			dispatch( {
 				type: UI_POSTS_PAGE,

@@ -23,6 +23,7 @@ export default {
 				dispatch( {
 					type: API_POSTS_RECEIVE,
 					page: parseInt( filter.paged ),
+					totalPages: parseInt( data._paging.totalPages ),
 					total: parseInt( data._paging.total ),
 					data
 				} );

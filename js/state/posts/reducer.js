@@ -49,8 +49,18 @@ const total = ( state = 0, action ) => {
 	}
 }
 
+const totalPages = ( state = 0, action ) => {
+	switch ( action.type ) {
+		case API_POSTS_RECEIVE:
+			return action.totalPages;
+		default:
+			return state;
+	}
+}
+
 export default combineReducers( {
 	isFetching,
 	total,
+	totalPages,
 	items
 } );

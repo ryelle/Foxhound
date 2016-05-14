@@ -25,6 +25,7 @@ const store = createReduxStore();
 const routes = (
 	<Router history={ browserHistory }>
 		<Route path="/" component={ Index } />
+		<Route path="/page/:paged" component={ Index } />
 	</Router>
 );
 

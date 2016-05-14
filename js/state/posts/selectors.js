@@ -10,4 +10,8 @@ const getTotalPostsCount = function( state ) {
 	return state.posts.total;
 };
 
-export { getVisiblePosts, getTotalPostsCount };
+const getTotalPagesCount = function( state ) {
+	return state.posts.totalPages;
+};
+
+export { getVisiblePosts, getTotalPostsCount, getTotalPagesCount };

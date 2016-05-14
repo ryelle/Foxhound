@@ -6,14 +6,20 @@ import { connect } from 'react-redux';
 
 // Internal dependencies
 import postActions from 'state/posts/actions';
-import { getVisiblePosts, getTotalPostsCount } from 'state/posts/selectors';
+import uiActions from 'state/ui/actions';
+import { getVisiblePosts, getTotalPostsCount, getTotalPagesCount } from 'state/posts/selectors';
 import { getCurrentPage } from 'state/ui/selectors';
+
+// Components
 import PostList from './list';
 import Pagination from '../pagination/archive';
 
 const Index = React.createClass( {
 	componentDidMount() {
-		this.props.fetchPosts();
+		const paged = this.props.params.paged || 1;
+		this.props.fetchPosts( { paged: paged } );
+		this.props.loadPage( paged );
+		console.log( 'Mounted, requesting posts…' );
 	},
 
 	setTitle() {
@@ -36,7 +42,7 @@ const Index = React.createClass( {
 					this.renderPlaceholder() :
 					<PostList posts={ posts } />
 				}
-				<Pagination current={ this.props.page } end={ this.props.total } />
+				<Pagination current={ this.props.page } end={ this.props.totalPages } />
 			</div>
 		);
 	}
@@ -49,10 +55,12 @@ export default connect(
 			isFetching: state.posts.isFetching,
 			page: getCurrentPage( state ),
 			total: getTotalPostsCount( state ),
+			totalPages: getTotalPagesCount( state ),
 			posts: getVisiblePosts( state )
 		};
 	},
 	dispatch => bindActionCreators( {
 		fetchPosts: postActions.fetchPosts,
+		loadPage: uiActions.loadPage,
 	}, dispatch )
 )( Index );
