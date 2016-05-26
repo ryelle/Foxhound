@@ -4,6 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 // Load in the babel (es6) polyfill
 // require( 'babel-polyfill' );
@@ -21,9 +22,10 @@ A11Y.skipLinks();
 
 // Now the work starts.
 const store = createReduxStore();
+const history = syncHistoryWithStore( browserHistory, store );
 
 const routes = (
-	<Router history={ browserHistory }>
+	<Router history={ history }>
 		<Route path="/" component={ Index } />
 		<Route path="/page/:paged" component={ Index } />
 	</Router>
@@ -43,5 +45,5 @@ const renderApp = () => {
 renderApp();
 store.subscribe( renderApp );
 store.subscribe( () => {
-	console.log( store.getState() );
+	console.log( '## Store updated:', store.getState() );
 } );

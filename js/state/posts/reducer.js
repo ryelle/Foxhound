@@ -2,65 +2,109 @@
 * External dependencies
 */
 import { combineReducers } from 'redux';
-import uniqBy from 'lodash/uniqby';
+import keyBy from 'lodash/keyBy';
 
 /**
  * Internal dependencies
  */
-import { API_POSTS_FETCH, API_POSTS_RECEIVE, UI_POSTS_PAGE } from 'state/action-types';
+import {
+	POST_REQUEST,
+	POST_REQUEST_SUCCESS,
+	POST_REQUEST_FAILURE,
+	POSTS_RECEIVE,
+	POSTS_REQUEST,
+	POSTS_REQUEST_SUCCESS,
+	POSTS_REQUEST_FAILURE
+} from 'state/action-types';
+import {
+	getSerializedPostsQuery
+} from './utils';
 
-const normalizePost = function( post, action ) {
-	post.page = action.page;
-	return post;
-}
-
-const isFetching = ( state = false, action ) => {
+/**
+ * Tracks all known post objects, indexed by post global ID.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action payload
+ * @return {Object}        Updated state
+ */
+export function items( state = {}, action ) {
 	switch ( action.type ) {
-		case UI_POSTS_PAGE:
-		case API_POSTS_FETCH:
-			return true;
-		case API_POSTS_RECEIVE:
-			return false;
+		case POSTS_RECEIVE:
+			const posts = keyBy( action.posts, 'id' );
+			return Object.assign( {}, state, posts );
 		default:
 			return state;
 	}
 }
 
-const items = ( state = [], action ) => {
+/**
+ * Returns the updated post requests state after an action has been
+ * dispatched. The state reflects a mapping of post ID to a
+ * boolean reflecting whether a request for the post is in progress.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action payload
+ * @return {Object}        Updated state
+ */
+export function requests( state = {}, action ) {
 	switch ( action.type ) {
-		case API_POSTS_RECEIVE:
-			let posts = action.data.map( ( item ) => {
-				return normalizePost( item, action );
+		case POST_REQUEST:
+		case POST_REQUEST_SUCCESS:
+		case POST_REQUEST_FAILURE:
+			return Object.assign( {}, state[ action.postId ], { [ action.postId ]: POST_REQUEST === action.type } );
+		default:
+			return state;
+	}
+}
+
+/**
+ * Returns the updated post query requesting state after an action has been
+ * dispatched. The state reflects a mapping of serialized query to whether a
+ * network request is in-progress for that query.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action payload
+ * @return {Object}        Updated state
+ */
+export function queryRequests( state = {}, action ) {
+	switch ( action.type ) {
+		case POSTS_REQUEST:
+		case POSTS_REQUEST_SUCCESS:
+		case POSTS_REQUEST_FAILURE:
+			const serializedQuery = getSerializedPostsQuery( action.query );
+			return Object.assign( {}, state, {
+				[ serializedQuery ]: POSTS_REQUEST === action.type
 			} );
-			let newState = [ ...state, ...posts ];
-			newState = uniqBy( newState, 'id' );
-			return newState;
+
 		default:
 			return state;
 	}
 }
 
-const total = ( state = 0, action ) => {
+/**
+ * Returns the updated post query state after an action has been dispatched.
+ * The state reflects a mapping of serialized query key to an array of post
+ * global IDs for the query, if a query response was successfully received.
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action payload
+ * @return {Object}        Updated state
+ */
+export function queries( state = {}, action ) {
 	switch ( action.type ) {
-		case API_POSTS_RECEIVE:
-			return action.total;
-		default:
-			return state;
+		case POSTS_REQUEST_SUCCESS:
+			const serializedQuery = getSerializedPostsQuery( action.query );
+			return Object.assign( {}, state, {
+				[ serializedQuery ]: action.posts.map( ( post ) => post.id )
+			} );
 	}
-}
 
-const totalPages = ( state = 0, action ) => {
-	switch ( action.type ) {
-		case API_POSTS_RECEIVE:
-			return action.totalPages;
-		default:
-			return state;
-	}
+	return state;
 }
 
 export default combineReducers( {
-	isFetching,
-	total,
-	totalPages,
-	items
+	items,
+	requests,
+	queryRequests,
+	queries
 } );

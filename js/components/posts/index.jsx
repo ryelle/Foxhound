@@ -1,27 +1,17 @@
 /* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 // Internal dependencies
-import postActions from 'state/posts/actions';
-import uiActions from 'state/ui/actions';
-import { getVisiblePosts, getTotalPostsCount, getTotalPagesCount } from 'state/posts/selectors';
-import { getCurrentPage } from 'state/ui/selectors';
+import QueryPosts from 'components/data/query-posts';
+import { isRequestingPostsForQuery, getPostsForQuery } from 'state/posts/selectors';
 
 // Components
 import PostList from './list';
-import Pagination from '../pagination/archive';
+// import Pagination from '../pagination/archive';
 
 const Index = React.createClass( {
-	componentDidMount() {
-		const paged = this.props.params.paged || 1;
-		this.props.fetchPosts( { paged: paged } );
-		this.props.loadPage( paged );
-		console.log( 'Mounted, requesting posts…' );
-	},
-
 	setTitle() {
 		document.title = FoxhoundSettings.title;
 	},
@@ -38,7 +28,8 @@ const Index = React.createClass( {
 
 		return (
 			<div className="site-content">
-				{ this.props.isFetching ?
+				<QueryPosts query={ this.props.query } />
+				{ this.props.requesting ?
 					this.renderPlaceholder() :
 					<PostList posts={ posts } />
 				}
@@ -48,19 +39,10 @@ const Index = React.createClass( {
 	}
 } );
 
-export default connect(
-	state => {
-		// defaultFilter is a prop passed from the render function
-		return {
-			isFetching: state.posts.isFetching,
-			page: getCurrentPage( state ),
-			total: getTotalPostsCount( state ),
-			totalPages: getTotalPagesCount( state ),
-			posts: getVisiblePosts( state )
-		};
-	},
-	dispatch => bindActionCreators( {
-		fetchPosts: postActions.fetchPosts,
-		loadPage: uiActions.loadPage,
-	}, dispatch )
-)( Index );
+export default connect( ( state, ownProps ) => {
+	return {
+		query: ownProps.query,
+		posts: getPostsForQuery( state, ownProps.query ),
+		requesting: isRequestingPostsForQuery( state, ownProps.query )
+	};
+} )( Index );

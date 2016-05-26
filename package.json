@@ -38,6 +38,7 @@
     "react-router": "^2.4.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
+    "shallowequal": "^0.2.2",
     "wordpress-rest-api": "^0.6.0"
   },
   "engines": {
