@@ -23,7 +23,7 @@ const Index = React.createClass( {
 	},
 
 	render() {
-		let posts = this.props.posts;
+		let posts = this.props.posts || [];
 		this.setTitle();
 
 		return (
@@ -40,9 +40,12 @@ const Index = React.createClass( {
 } );
 
 export default connect( ( state, ownProps ) => {
+	let query = {};
+	query.paged = ownProps.params.paged || 1;
+
 	return {
-		query: ownProps.query,
-		posts: getPostsForQuery( state, ownProps.query ),
-		requesting: isRequestingPostsForQuery( state, ownProps.query )
+		query: query,
+		posts: getPostsForQuery( state, query ),
+		requesting: isRequestingPostsForQuery( state, query )
 	};
 } )( Index );
