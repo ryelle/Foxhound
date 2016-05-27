@@ -1,11 +1,12 @@
 // External dependencies
 import React from 'react';
 
-let SearchForm = React.createClass( {
-	getValue: function() {
+const SearchForm = React.createClass( {
+	getValue() {
 		return this.refs.input.value;
 	},
-	render: function() {
+
+	render() {
 		return (
 			<form role="search" className="search-form">
 				<label>

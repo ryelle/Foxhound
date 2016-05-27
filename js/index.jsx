@@ -16,6 +16,7 @@ require( '../sass/style.scss' );
 import Index from 'components/posts';
 import SinglePost from 'components/post';
 import Term from 'components/term';
+import Search from 'components/search';
 import { createReduxStore } from 'state';
 
 // Accessibility!
@@ -30,6 +31,7 @@ const routes = (
 	<Router history={ history }>
 		<Route path="/" component={ Index } />
 		<Route path="/page/:paged" component={ Index } />
+		<Route path="/search/:search" component={ Search } />
 		<Route path="/category/:slug" taxonomy="category" component={ Term } />
 		<Route path="/tag/:slug" taxonomy="post_tag" component={ Term } />
 		<Route path="/:year/:month/:slug" component={ SinglePost } />
