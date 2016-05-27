@@ -52,10 +52,12 @@ export function requestPosts( query = {} ) {
 		} );
 
 		return WP.posts().filter( query ).then( ( data ) => {
+			const totalPages = data._paging.totalPages;
 			dispatch( receivePosts( data ) );
 			dispatch( {
 				type: POSTS_REQUEST_SUCCESS,
 				query,
+				totalPages,
 				posts: data
 			} );
 		} ).catch( ( error ) => {

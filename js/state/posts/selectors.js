@@ -31,7 +31,6 @@ export function getPost( state, globalId ) {
  */
 export function getPostsForQuery( state, query ) {
 	const serializedQuery = getSerializedPostsQuery( query );
-	console.log( 'Query & State:', serializedQuery, state.posts.queries );
 	if ( ! state.posts.queries[ serializedQuery ] ) {
 		return null;
 	}
@@ -52,6 +51,22 @@ export function getPostsForQuery( state, query ) {
 export function isRequestingPostsForQuery( state, query ) {
 	const serializedQuery = getSerializedPostsQuery( query );
 	return !! state.posts.queryRequests[ serializedQuery ];
+}
+
+/**
+ * Returns the number of total pages available for a given query.
+ *
+ * @param  {Object}  state  Global state tree
+ * @param  {Object}  query  Post query object
+ * @return {int}            Number of pages
+ */
+export function getTotalPagesForQuery( state, query ) {
+	const serializedQuery = getSerializedPostsQuery( query );
+	if ( ! state.posts.queries[ serializedQuery ] ) {
+		return 1;
+	}
+
+	return parseInt( state.posts.totalPages[ serializedQuery ] );
 }
 
 /**

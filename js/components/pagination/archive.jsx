@@ -5,19 +5,19 @@ import { Link } from 'react-router';
 let Pagination = React.createClass( {
 	render() {
 		let next, prev;
-		next = this.props.current + 1;
-		prev = this.props.current - 1;
+		next = parseInt( this.props.current ) + 1;
+		prev = parseInt( this.props.current ) - 1;
 
 		return (
 			<nav className="navigation posts-navigation clear" role="navigation">
 				<div className="nav-links">
-					{ ( prev > 0 ) ?
+					{ ! this.props.isFirstPage ?
 						<div className="nav-previous">
 							<Link to={ `/page/${ prev }` }>Previous Page</Link>
 						</div> :
 						null
 					}
-					{ ( next <= this.props.end ) ?
+					{ ! this.props.isLastPage ?
 						<div className="nav-next">
 							<Link to={ `/page/${ next }` }>Next Page</Link>
 						</div> :

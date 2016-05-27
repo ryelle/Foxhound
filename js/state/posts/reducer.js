@@ -82,6 +82,26 @@ export function queryRequests( state = {}, action ) {
 }
 
 /**
+ * Tracks the page length for a given query.
+ * @todo Bring in the "without paged" util, to reduce duplication
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action payload
+ * @return {Object}        Updated state
+ */
+export function totalPages( state = {}, action ) {
+	switch ( action.type ) {
+		case POSTS_REQUEST_SUCCESS:
+			const serializedQuery = getSerializedPostsQuery( action.query );
+			return Object.assign( {}, state, {
+				[ serializedQuery ]: action.totalPages
+			} );
+		default:
+			return state;
+	}
+}
+
+/**
  * Returns the updated post query state after an action has been dispatched.
  * The state reflects a mapping of serialized query key to an array of post
  * global IDs for the query, if a query response was successfully received.
@@ -105,6 +125,7 @@ export function queries( state = {}, action ) {
 export default combineReducers( {
 	items,
 	requests,
+	totalPages,
 	queryRequests,
 	queries
 } );
