@@ -18,7 +18,7 @@ class QueryPosts extends Component {
 	}
 
 	componentWillReceiveProps( nextProps ) {
-		if ( this.props.postId === nextProps.postId &&
+		if ( this.props.postSlug === nextProps.postSlug &&
 				shallowEqual( this.props.query, nextProps.query ) ) {
 			return;
 		}
@@ -27,7 +27,7 @@ class QueryPosts extends Component {
 	}
 
 	request( props ) {
-		const single = !! props.postId;
+		const single = !! props.postSlug;
 
 		if ( ! single && ! props.requestingPosts ) {
 			console.log( 'Request post list using query', props.query );
@@ -35,8 +35,8 @@ class QueryPosts extends Component {
 		}
 
 		if ( single && ! props.requestingPost ) {
-			console.log( 'Request single post', props.postId );
-			props.requestPost( props.postId );
+			console.log( 'Request single post', props.postSlug );
+			props.requestPost( props.postSlug );
 		}
 	}
 
@@ -46,7 +46,7 @@ class QueryPosts extends Component {
 }
 
 QueryPosts.propTypes = {
-	postId: PropTypes.number,
+	postSlug: PropTypes.string,
 	query: PropTypes.object,
 	requestingPosts: PropTypes.bool,
 	requestPosts: PropTypes.func
@@ -58,9 +58,9 @@ QueryPosts.defaultProps = {
 
 export default connect(
 	( state, ownProps ) => {
-		const { postId, query } = ownProps;
+		const { postSlug, query } = ownProps;
 		return {
-			requestingPost: isRequestingPost( state, postId ),
+			requestingPost: isRequestingPost( state, postSlug ),
 			requestingPosts: isRequestingPostsForQuery( state, query )
 		};
 	},

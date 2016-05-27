@@ -51,7 +51,7 @@ export function requests( state = {}, action ) {
 		case POST_REQUEST:
 		case POST_REQUEST_SUCCESS:
 		case POST_REQUEST_FAILURE:
-			return Object.assign( {}, state[ action.postId ], { [ action.postId ]: POST_REQUEST === action.type } );
+			return Object.assign( {}, state[ action.postSlug ], { [ action.postSlug ]: POST_REQUEST === action.type } );
 		default:
 			return state;
 	}
@@ -122,10 +122,29 @@ export function queries( state = {}, action ) {
 	return state;
 }
 
+/**
+ * Tracks the slug->ID mapping for posts & pages
+ *
+ * @param  {Object} state  Current state
+ * @param  {Object} action Action payload
+ * @return {Object}        Updated state
+ */
+export function slugs( state = {}, action ) {
+	switch ( action.type ) {
+		case POST_REQUEST_SUCCESS:
+			return Object.assign( {}, state, {
+				[ action.postSlug ]: action.postId
+			} );
+		default:
+			return state;
+	}
+}
+
 export default combineReducers( {
 	items,
 	requests,
 	totalPages,
 	queryRequests,
-	queries
+	queries,
+	slugs
 } );

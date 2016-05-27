@@ -73,14 +73,29 @@ export function getTotalPagesForQuery( state, query ) {
  * Returns true if a request is in progress for the specified post, or
  * false otherwise.
  *
- * @param  {Object}  state  Global state tree
- * @param  {Number}  postId Post ID
- * @return {Boolean}        Whether request is in progress
+ * @param  {Object}  state     Global state tree
+ * @param  {String}  postSlug  Post Slug
+ * @return {Boolean}           Whether request is in progress
  */
-export function isRequestingPost( state, postId ) {
+export function isRequestingPost( state, postSlug ) {
 	if ( ! state.posts.requests ) {
 		return false;
 	}
 
-	return !! state.posts.requests[ postId ];
+	return !! state.posts.requests[ postSlug ];
+}
+
+/**
+ * Returns the Post ID for a given page slug
+ *
+ * @param  {Object}  state  Global state tree
+ * @param  {string}  slug   Post slug
+ * @return {int}            Post ID
+ */
+export function getPostIdFromSlug( state, slug ) {
+	if ( ! state.posts.slugs[ slug ] ) {
+		return false;
+	}
+
+	return state.posts.slugs[ slug ];
 }

@@ -1,24 +1,28 @@
 // External dependencies
 import React from 'react';
+import { Link } from 'react-router';
+import find from 'lodash/find';
 
-// Internal dependencies
-import PostsStore from '../../stores/posts-store';
+function getTaxonomy( post, taxonomy ) {
+	if ( post === {} ) {
+		return [];
+	}
+	const terms = find( post._embedded['wp:term'], function( item ) {
+		return ( ( item.constructor === Array ) && ( 'undefined' !== typeof item[0] ) && ( item[0].taxonomy === taxonomy ) );
+	} );
+	return terms;
+}
 
 let PostMeta = React.createClass( {
-	propTypes: {
-		slug: React.PropTypes.string.isRequired,
-		date: React.PropTypes.string,
-		humanDate: React.PropTypes.string,
-	},
-
 	render: function() {
-		let categories = PostsStore.getCategoriesForPost( this.props.slug );
-		let tags = PostsStore.getTagsForPost( this.props.slug );
+		let categories = getTaxonomy( this.props.post, 'category' );
+		let tags = getTaxonomy( this.props.post, 'post_tag' );
 
 		if ( 'undefined' !== typeof categories ) {
 			categories = categories.map( function( item, i ) {
+				console.log( item );
 				return (
-					<a key={ i } href={ item.link }>{ item.name }</a>
+					<Link key={ i } to={ item.link }>{ item.name }</Link>
 				);
 			} );
 		} else {
@@ -28,7 +32,7 @@ let PostMeta = React.createClass( {
 		if ( 'undefined' !== typeof tags ) {
 			tags = tags.map( function( item, i ) {
 				return (
-					<a key={ i } href={ item.link }>{ item.name }</a>
+					<Link key={ i } to={ item.link }>{ item.name }</Link>
 				);
 			} );
 		} else {
@@ -39,7 +43,7 @@ let PostMeta = React.createClass( {
 			<footer className="entry-meta">
 				<div className="entry-meta-item">
 					<span className="entry-meta-label">published </span>
-					<time className="entry-meta-value entry-date published updated" dateTime={ this.props.date }>{ this.props.humanDate }</time>
+					<time className="entry-meta-value entry-date published updated" dateTime={ this.props.post.date }>{ this.props.humanDate }</time>
 				</div>
 				<div className="entry-meta-item">
 				{ categories ?

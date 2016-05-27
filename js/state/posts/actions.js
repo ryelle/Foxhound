@@ -73,26 +73,28 @@ export function requestPosts( query = {} ) {
 /**
  * Triggers a network request to fetch a specific post from a site.
  *
- * @param  {Number}   postId Post ID
- * @return {Function}        Action thunk
+ * @param  {string}   postSlug  Post slug
+ * @return {Function}           Action thunk
  */
-export function requestPost( postId ) {
+export function requestPost( postSlug ) {
 	return ( dispatch ) => {
 		dispatch( {
 			type: POST_REQUEST,
-			postId
+			postSlug
 		} );
 
-		return WP.posts().id( postId ).then( ( post ) => {
+		return WP.posts().slug( postSlug ).embed().then( ( data ) => {
+			const post = data[0];
 			dispatch( receivePost( post ) );
 			dispatch( {
 				type: POST_REQUEST_SUCCESS,
-				postId
+				postId: post.id,
+				postSlug
 			} );
 		} ).catch( ( error ) => {
 			dispatch( {
 				type: POST_REQUEST_FAILURE,
-				postId,
+				postSlug,
 				error
 			} );
 		} );
