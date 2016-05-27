@@ -1,7 +1,5 @@
-/* global FoxhoundSettings */
 import React from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 
 // Internal dependencies
 import QueryPosts from 'components/data/query-posts';
@@ -47,7 +45,6 @@ export default connect( ( state, ownProps ) => {
 	} else {
 		query.tag = ownProps.params.slug;
 	}
-	console.log( query );
 
 	return {
 		page: parseInt( query.paged ),
