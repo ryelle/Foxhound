@@ -4,6 +4,10 @@ import { Link } from 'react-router';
 
 let Pagination = React.createClass( {
 	render() {
+		if ( this.props.isFirstPage && this.props.isLastPage ) {
+			return null;
+		}
+
 		let next, prev;
 		next = parseInt( this.props.current ) + 1;
 		prev = parseInt( this.props.current ) - 1;
