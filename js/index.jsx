@@ -17,6 +17,7 @@ import Index from 'components/posts';
 import SinglePost from 'components/post';
 import Term from 'components/term';
 import Search from 'components/search';
+import DateArchive from 'components/date';
 import { createReduxStore } from 'state';
 
 // Accessibility!
@@ -34,6 +35,9 @@ const routes = (
 		<Route path="/search/:search" component={ Search } />
 		<Route path="/category/:slug" taxonomy="category" component={ Term } />
 		<Route path="/tag/:slug" taxonomy="post_tag" component={ Term } />
+		<Route path="/date/:year" component={ DateArchive } />
+		<Route path="/date/:year/:month" component={ DateArchive } />
+		<Route path="/date/:year/:month/:day" component={ DateArchive } />
 		<Route path="/:year/:month/:slug" component={ SinglePost } />
 	</Router>
 );

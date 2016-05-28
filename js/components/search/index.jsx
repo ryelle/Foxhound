@@ -48,11 +48,9 @@ const Search = React.createClass( {
 } );
 
 export default connect( ( state, ownProps ) => {
-	console.log( ownProps );
 	let query = {};
 	query.paged = ownProps.params.paged || 1;
 	query.s = ownProps.params.search || '';
-	console.log( query );
 
 	return {
 		page: parseInt( query.paged ),

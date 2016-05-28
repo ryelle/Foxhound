@@ -1,104 +1,33 @@
-// External dependencies
 import React from 'react';
-import isEqual from 'lodash/isEqual';
-import isNaN from 'lodash/isNaN';
+import { connect } from 'react-redux';
 
 // Internal dependencies
-import API from 'utils/api';
-import PostsStore from '../../stores/posts-store';
+import QueryPosts from 'components/data/query-posts';
+import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'state/posts/selectors';
+
+// Components
 import PostList from '../posts/list';
 import Pagination from '../pagination/archive';
 import moment from 'moment';
 
-/*
- * Method to retrieve state from Stores
- */
-function getState() {
-	return {
-		data: PostsStore.getPosts(),
-		paginationLimit: PostsStore.getPaginationLimit(),
-	};
-}
-
-let DateArchive = React.createClass( {
-
-	propTypes: {
-		page: React.PropTypes.number.isRequired,
-		year: React.PropTypes.string.isRequired,
-		month: React.PropTypes.string,
-		day: React.PropTypes.string,
-	},
-
-	getDefaultProps: function() {
-		return {
-			month: '',
-			day: '',
-		};
-	},
-
-	getInitialState: function() {
-		return getState();
-	},
-
-	getFilter: function() {
-		let filter = {
-			year: parseInt( this.props.year )
-		};
-		if ( ( '' !== this.props.month ) && ! isNaN( parseInt( this.props.month ) ) ) {
-			filter.monthnum = parseInt( this.props.month );
-		}
-		if ( ( '' !== this.props.day ) && ! isNaN( parseInt( this.props.day ) ) ) {
-			filter.day = parseInt( this.props.day );
-		}
-		return filter;
-	},
-
-	componentDidMount: function() {
-		PostsStore.addChangeListener( this._onChange );
-
-		let filter = this.getFilter();
-		API.getPosts( { filter: filter, page: this.props.page } );
-	},
-
-	componentDidUpdate: function( prevProps ) {
-		if ( ! isEqual( prevProps, this.props ) ) {
-			let filter = this.getFilter();
-			API.getPosts( { filter: filter, page: this.props.page } );
-		}
-	},
-
-	componentWillUnmount: function() {
-		PostsStore.removeChangeListener( this._onChange );
-	},
-
-	_onChange: function() {
-		this.setState( getState() );
-	},
-
-	renderEmpty: function() {
+const DateArchive = React.createClass( {
+	renderPlaceholder() {
 		return null;
 	},
 
-	render: function() {
-		let posts = this.state.data;
-		if ( ! posts.length ) {
-			return this.renderEmpty();
-		}
+	render() {
+		const posts = this.props.posts || [];
+		const dateObj = this.props.params;
 
-		let baseUrl = '';
 		let date, dateString;
-
-		if ( '' !== this.props.day ) {
-			baseUrl += `/${ this.props.year }/${ this.props.month }/${ this.props.day }`;
-			date = moment( `${ this.props.year } ${ this.props.month } ${ this.props.day }`, 'YYYY MM DD' );
+		if ( dateObj.day ) {
+			date = moment( `${ dateObj.year } ${ dateObj.month } ${ dateObj.day }`, 'YYYY MM DD' );
 			dateString = date.format( 'MMMM Do YYYY' );
-		} else if ( '' !== this.props.month ) {
-			baseUrl += `/${ this.props.year }/${ this.props.month }`;
-			date = moment( `${ this.props.year } ${ this.props.month }`, 'YYYY MM' );
+		} else if ( dateObj.month ) {
+			date = moment( `${ dateObj.year } ${ dateObj.month }`, 'YYYY MM' );
 			dateString = date.format( 'MMMM YYYY' );
 		} else {
-			baseUrl = `/${ this.props.year }`;
-			date = moment( `${ this.props.year }`, 'YYYY' );
+			date = moment( `${ dateObj.year }`, 'YYYY' );
 			dateString = date.format( 'YYYY' );
 		}
 
@@ -107,12 +36,36 @@ let DateArchive = React.createClass( {
 				<header className="page-header">
 					<h1 className="page-title">Archive for { dateString }</h1>
 				</header>
-				<PostList posts={ this.state.data } />
+				<QueryPosts query={ this.props.query } />
+				{ this.props.requesting ?
+					this.renderPlaceholder() :
+					<PostList posts={ posts } />
+				}
 
-				<Pagination current={ this.props.page } end={ this.state.paginationLimit } base={ baseUrl }/>
+				<Pagination current={ this.props.page } isFirstPage={ 1 === this.props.page } isLastPage={ this.props.totalPages === this.props.page } />
 			</div>
 		);
 	}
 } );
 
-export default DateArchive;
+export default connect( ( state, ownProps ) => {
+	let query = {};
+	query.paged = ownProps.params.paged || 1;
+	if ( ownProps.params.year ) {
+		query.year = parseInt( ownProps.params.year );
+	}
+	if ( ownProps.params.month ) {
+		query.monthnum = parseInt( ownProps.params.month );
+	}
+	if ( ownProps.params.day ) {
+		query.day = parseInt( ownProps.params.day );
+	}
+
+	return {
+		page: parseInt( query.paged ),
+		query: query,
+		posts: getPostsForQuery( state, query ),
+		totalPages: getTotalPagesForQuery( state, query ),
+		requesting: isRequestingPostsForQuery( state, query )
+	};
+} )( DateArchive );
