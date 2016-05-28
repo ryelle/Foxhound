@@ -18,6 +18,7 @@ import SinglePost from 'components/post';
 import Term from 'components/term';
 import Search from 'components/search';
 import DateArchive from 'components/date';
+import NotFound from 'components/not-found';
 import { createReduxStore } from 'state';
 
 // Accessibility!
@@ -39,6 +40,7 @@ const routes = (
 		<Route path="/date/:year/:month" component={ DateArchive } />
 		<Route path="/date/:year/:month/:day" component={ DateArchive } />
 		<Route path="/:year/:month/:slug" component={ SinglePost } />
+		<Route path="*" component={ NotFound } />
 	</Router>
 );
 
