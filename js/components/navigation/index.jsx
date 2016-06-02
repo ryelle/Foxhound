@@ -1,7 +1,6 @@
-/*global FoxhoundMenu, FoxhoundSettings */
+/*global FoxhoundMenu */
 // External dependencies
 import React from 'react';
-import { Link } from 'react-router';
 import classNames from 'classnames';
 
 const SubMenu = ( { items } ) => {
@@ -16,7 +15,8 @@ const SubMenu = ( { items } ) => {
 	);
 }
 
-const MenuItem = ( { item } ) => {
+// onClick={ this.blur } onFocus={ this.toggleFocus } onBlur={ this.toggleFocus }
+const MenuItem = ( { item, onClick } ) => {
 	let re;
 	if ( location.pathname !== '/' ) {
 		re = new RegExp( location.pathname + '$' );
@@ -31,12 +31,14 @@ const MenuItem = ( { item } ) => {
 		'current-menu-parent': false,
 	}, item.classes );
 
-	// onClick={ this.blur } onFocus={ this.toggleFocus } onBlur={ this.toggleFocus }
-	const path = item.url.replace( FoxhoundSettings.URL.base, '' );
+	const onClickEvent = ( event ) => {
+		event.preventDefault();
+		onClick( item.url );
+	};
 
 	return (
 		<li className={ classes } aria-haspopup={ item.children.length > 0 }>
-			<Link to={ path }>{ item.title }</Link>
+			<a onClick={ onClickEvent } href={ item.url }>{ item.title }</a>
 			{ item.children.length ?
 				<SubMenu items={ item.children } /> :
 				null
@@ -58,8 +60,8 @@ const Navigation = React.createClass( {
 	},
 
 	render() {
-		let menu = FoxhoundMenu.data.map( function( item, i ) {
-			return <MenuItem item={ item } key={ i } />
+		let menu = FoxhoundMenu.data.map( ( item, i ) => {
+			return <MenuItem item={ item } key={ i } onClick={ this.props.onClick } />
 		} );
 
 		let menuClasses = classNames( {

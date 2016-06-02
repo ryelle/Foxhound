@@ -1,4 +1,5 @@
 /* eslint-disable no-multi-spaces */
+/*global FoxhoundSettings */
 // React
 import React from 'react';
 import { render } from 'react-dom';
@@ -45,6 +46,14 @@ const routes = (
 	</Router>
 );
 
+const onNavClick = ( url ) => {
+	url = url.replace( FoxhoundSettings.URL.base, '' );
+	if ( url === '' ) {
+		url = '/';
+	}
+	history.push( url );
+}
+
 const renderApp = () => {
 	render(
 		(
@@ -56,7 +65,7 @@ const renderApp = () => {
 	);
 
 	render(
-		<Navigation />,
+		<Navigation onClick={ onNavClick } />,
 		document.getElementById( 'site-navigation' )
 	);
 }
