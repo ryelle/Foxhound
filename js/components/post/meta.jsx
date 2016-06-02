@@ -20,7 +20,6 @@ let PostMeta = React.createClass( {
 
 		if ( 'undefined' !== typeof categories ) {
 			categories = categories.map( function( item, i ) {
-				console.log( item );
 				return (
 					<Link key={ i } to={ item.link }>{ item.name }</Link>
 				);

@@ -1,110 +1,64 @@
+/*global FoxhoundMenu, FoxhoundSettings */
 // External dependencies
 import React from 'react';
+import { Link } from 'react-router';
 import classNames from 'classnames';
 
-// Internal dependencies
-import API from 'utils/api';
-import NavigationStore from '../../stores/navigation-store';
+const SubMenu = ( { items } ) => {
+	let menu = items.map( function( item, i ) {
+		return <MenuItem item={ item } key={ i } />
+	} );
 
-let SubMenu = React.createClass( {
-	render: function() {
-		let menu = this.props.items.map( function( item, i ) {
-			return <MenuItem item={ item } key={ i } />
-		} );
-
-		return (
-			<ul className="sub-menu">
-				{ menu }
-			</ul>
-		);
-	}
-} );
-
-let MenuItem = React.createClass( {
-	blur: function( event ) {
-		event.target.blur();
-	},
-
-	toggleFocus: function( event ) {
-		var self = event.target;
-
-		// Move up through the ancestors of the current link until we hit .nav-menu.
-		while ( -1 === self.className.indexOf( 'nav-menu' ) ) {
-			// On li elements toggle the class .focus.
-			if ( 'li' === self.tagName.toLowerCase() ) {
-				if ( -1 !== self.className.indexOf( 'focus' ) ) {
-					self.className = self.className.replace( ' focus', '' );
-				} else {
-					self.className += ' focus';
-				}
-			}
-
-			self = self.parentElement;
-		}
-	},
-
-	render: function() {
-		let re;
-		if ( location.pathname !== '/' ) {
-			re = new RegExp( location.pathname + '$' );
-		} else {
-			re = new RegExp( location.hostname + '/$' );
-		}
-		let classes = classNames( {
-			'menu-item': true,
-			'menu-item-has-children': this.props.item.children.length,
-			'current-menu-item': ( location.pathname === this.props.item.url ) || re.test( this.props.item.url ),
-			'current-menu-ancestor': false,
-			'current-menu-parent': false,
-		}, this.props.item.classes );
-
-		return (
-			<li className={ classes } aria-haspopup={ this.props.item.children.length > 0 }>
-				<a href={ this.props.item.url } onClick={ this.blur } onFocus={ this.toggleFocus } onBlur={ this.toggleFocus }>{ this.props.item.title }</a>
-				{ this.props.item.children.length ?
-					<SubMenu items={ this.props.item.children } /> :
-					null
-				}
-			</li>
-		);
-	}
-} );
-
-/*
- * Method to retrieve state from Stores
- */
-function getState() {
-	return {
-		data: NavigationStore.getMenu(),
-		isMenuOpen: false,
-	};
+	return (
+		<ul className="sub-menu">
+			{ menu }
+		</ul>
+	);
 }
 
-let Navigation = React.createClass( {
-	getInitialState: function() {
-		return getState();
+const MenuItem = ( { item } ) => {
+	let re;
+	if ( location.pathname !== '/' ) {
+		re = new RegExp( location.pathname + '$' );
+	} else {
+		re = new RegExp( location.hostname + '/$' );
+	}
+	const classes = classNames( {
+		'menu-item': true,
+		'menu-item-has-children': item.children.length,
+		'current-menu-item': ( location.pathname === item.url ) || re.test( item.url ),
+		'current-menu-ancestor': false,
+		'current-menu-parent': false,
+	}, item.classes );
+
+	// onClick={ this.blur } onFocus={ this.toggleFocus } onBlur={ this.toggleFocus }
+	const path = item.url.replace( FoxhoundSettings.URL.base, '' );
+
+	return (
+		<li className={ classes } aria-haspopup={ item.children.length > 0 }>
+			<Link to={ path }>{ item.title }</Link>
+			{ item.children.length ?
+				<SubMenu items={ item.children } /> :
+				null
+			}
+		</li>
+	);
+}
+
+const Navigation = React.createClass( {
+	getInitialState() {
+		return {
+			isMenuOpen: false,
+		}
 	},
 
-	componentDidMount: function() {
-		API.getMenu( '/menu-locations/primary/' );
-		NavigationStore.addChangeListener( this._onChange );
-	},
-
-	componentWillUnmount: function() {
-		NavigationStore.removeChangeListener( this._onChange );
-	},
-
-	_onChange: function() {
-		this.setState( getState() );
-	},
-
-	toggleMenu: function( event ) {
+	toggleMenu( event ) {
 		event.preventDefault();
 		this.setState( { isMenuOpen: ! this.state.isMenuOpen } );
 	},
 
-	render: function() {
-		let menu = this.state.data.map( function( item, i ) {
+	render() {
+		let menu = FoxhoundMenu.data.map( function( item, i ) {
 			return <MenuItem item={ item } key={ i } />
 		} );
 

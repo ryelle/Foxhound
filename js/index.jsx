@@ -13,6 +13,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 require( '../sass/style.scss' );
 
 // Internal
+import Navigation from 'components/navigation';
 import Index from 'components/posts';
 import SinglePost from 'components/post';
 import Term from 'components/term';
@@ -52,6 +53,11 @@ const renderApp = () => {
 			</Provider>
 		),
 		document.getElementById( 'main' )
+	);
+
+	render(
+		<Navigation />,
+		document.getElementById( 'site-navigation' )
 	);
 }
 

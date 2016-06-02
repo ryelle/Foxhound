@@ -13,7 +13,7 @@ class Foxhound_LoadMenu {
 	 * Dumps the global posts as JSON for first load render
 	 */
 	public function add_json_data() {
-		wp_localize_script( FOXHOUND_APP, 'menu', array(
+		wp_localize_script( FOXHOUND_APP, 'FoxhoundMenu', array(
 			'data' => $this->get_menu_data()
 		) );
 	}
