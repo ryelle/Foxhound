@@ -52,10 +52,7 @@ const SinglePost = React.createClass( {
 				<div className="entry-meta"></div>
 				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
 
-				{ 'post' === this.props.type ?
-					<PostMeta post={ post } humanDate={ this.getDate( post ) } /> :
-					null
-				}
+				<PostMeta post={ post } humanDate={ this.getDate( post ) } /> :
 			</article>
 		);
 	},
@@ -82,7 +79,6 @@ export default connect( ( state, ownProps ) => {
 	return {
 		slug,
 		postId,
-		type: ownProps.params.year ? 'post' : 'page',
 		requesting: isRequestingPost( state, slug ),
 		post: getPost( state, parseInt( postId ) )
 	};
