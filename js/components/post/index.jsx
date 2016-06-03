@@ -52,7 +52,7 @@ const SinglePost = React.createClass( {
 				<div className="entry-meta"></div>
 				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
 
-				<PostMeta post={ post } humanDate={ this.getDate( post ) } /> :
+				<PostMeta post={ post } humanDate={ this.getDate( post ) } />
 			</article>
 		);
 	},
