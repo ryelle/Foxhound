@@ -34,7 +34,7 @@ const history = syncHistoryWithStore( browserHistory, store );
 const routes = (
 	<Router history={ history }>
 		<Route path="/" component={ Index } />
-		<Route path="/page/:paged" component={ Index } />
+		<Route path="/p/:paged" component={ Index } />
 		<Route path="/search/:search" component={ Search } />
 		<Route path="/category/:slug" taxonomy="category" component={ Term } />
 		<Route path="/tag/:slug" taxonomy="post_tag" component={ Term } />

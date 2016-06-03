@@ -17,13 +17,13 @@ let Pagination = React.createClass( {
 				<div className="nav-links">
 					{ ! this.props.isFirstPage ?
 						<div className="nav-previous">
-							<Link to={ `/page/${ prev }` }>Previous Page</Link>
+							<Link to={ `/p/${ prev }` }>Previous Page</Link>
 						</div> :
 						null
 					}
 					{ ! this.props.isLastPage ?
 						<div className="nav-next">
-							<Link to={ `/page/${ next }` }>Next Page</Link>
+							<Link to={ `/p/${ next }` }>Next Page</Link>
 						</div> :
 						null
 					}
