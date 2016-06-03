@@ -1,5 +1,5 @@
 /* eslint-disable no-multi-spaces */
-/*global FoxhoundSettings */
+/*global FoxhoundSettings, jQuery */
 // React
 import React from 'react';
 import { render } from 'react-dom';
@@ -48,13 +48,16 @@ const routes = (
 	</Router>
 );
 
-const onNavClick = ( url ) => {
+jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
+	event.preventDefault();
+	let url = event.target.href;
+
 	url = url.replace( FoxhoundSettings.URL.base, '' );
 	if ( url === '' ) {
 		url = '/';
 	}
 	history.push( url );
-}
+} );
 
 const renderApp = () => {
 	render(
@@ -67,7 +70,7 @@ const renderApp = () => {
 	);
 
 	render(
-		<Navigation onClick={ onNavClick } />,
+		<Navigation />,
 		document.getElementById( 'site-navigation' )
 	);
 }
