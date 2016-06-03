@@ -40,7 +40,7 @@ const SinglePost = React.createClass( {
 		const classes = classNames( {
 			entry: true
 		} );
-		const featuredMedia = null; //this.getFeaturedMedia( post );
+		const featuredMedia = this.getFeaturedMedia( post );
 
 		return (
 			<article id={ `post-${ post.id }` } className={ classes }>
