@@ -3,9 +3,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const SubMenu = ( { items } ) => {
+const SubMenu = ( { items, onClick } ) => {
 	let menu = items.map( function( item, i ) {
-		return <MenuItem item={ item } key={ i } />
+		return <MenuItem item={ item } key={ i } onClick={ onClick } />
 	} );
 
 	return (
@@ -40,7 +40,7 @@ const MenuItem = ( { item, onClick } ) => {
 		<li className={ classes } aria-haspopup={ item.children.length > 0 }>
 			<a onClick={ onClickEvent } href={ item.url }>{ item.title }</a>
 			{ item.children.length ?
-				<SubMenu items={ item.children } /> :
+				<SubMenu items={ item.children } onClick={ onClick }/> :
 				null
 			}
 		</li>
