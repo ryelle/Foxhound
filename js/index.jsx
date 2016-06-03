@@ -50,7 +50,7 @@ const routes = (
 
 jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
 	event.preventDefault();
-	let url = event.target.href;
+	let url = event.currentTarget.href;
 
 	url = url.replace( FoxhoundSettings.URL.base, '' );
 	if ( url === '' ) {
