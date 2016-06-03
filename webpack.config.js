@@ -40,7 +40,7 @@ webpackConfig = {
 				query: {
 					presets: [ 'react', 'es2015' ],
 				},
-				exclude: [ /node_modules\/moment/ ],
+				exclude: [ /node_modules\/moment/, /node_modules\/wordpress-rest-api/ ],
 			},
 			{
 				test: /\.jsx?$/,
