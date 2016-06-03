@@ -17,6 +17,7 @@ require( '../sass/style.scss' );
 import Navigation from 'components/navigation';
 import Index from 'components/posts';
 import SinglePost from 'components/post';
+import SinglePage from 'components/post/page';
 import Term from 'components/term';
 import Search from 'components/search';
 import DateArchive from 'components/date';
@@ -41,6 +42,7 @@ const routes = (
 		<Route path="/date/:year" component={ DateArchive } />
 		<Route path="/date/:year/:month" component={ DateArchive } />
 		<Route path="/date/:year/:month/:day" component={ DateArchive } />
+		<Route path="/page/**" component={ SinglePage } />
 		<Route path="/:year/:month/:slug" component={ SinglePost } />
 		<Route path="*" component={ NotFound } />
 	</Router>

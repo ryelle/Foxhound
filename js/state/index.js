@@ -3,11 +3,13 @@ import thunkMiddleware from 'redux-thunk';
 import { routerReducer } from 'react-router-redux';
 
 import posts from 'state/posts/reducer';
+import pages from 'state/pages/reducer';
 import terms from 'state/terms/reducer';
 import ui from 'state/ui/reducer';
 
 const reducer = combineReducers( {
 	posts,
+	pages,
 	terms,
 	ui,
 	routing: routerReducer,

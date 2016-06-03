@@ -123,7 +123,7 @@ export function queries( state = {}, action ) {
 }
 
 /**
- * Tracks the slug->ID mapping for posts & pages
+ * Tracks the slug->ID mapping for posts
  *
  * @param  {Object} state  Current state
  * @param  {Object} action Action payload
