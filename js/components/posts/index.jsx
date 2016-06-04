@@ -1,4 +1,3 @@
-/* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
 import { connect } from 'react-redux';
