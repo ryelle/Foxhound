@@ -62,7 +62,7 @@ export function isRequestingPostsForQuery( state, query ) {
  */
 export function getTotalPagesForQuery( state, query ) {
 	const serializedQuery = getSerializedPostsQuery( query );
-	if ( ! state.posts.queries[ serializedQuery ] ) {
+	if ( ! state.posts.totalPages[ serializedQuery ] ) {
 		return 1;
 	}
 
