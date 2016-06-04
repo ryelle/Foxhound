@@ -2,16 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 
 const NotFound = React.createClass( {
-	setTitle() {
-		document.title = 'Page not found';
-	},
-
 	render() {
 		let classes = classNames( {
 			entry: true
 		} );
-
-		this.setTitle();
 
 		return (
 			<article className={ classes }>

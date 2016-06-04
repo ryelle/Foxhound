@@ -15,13 +15,6 @@ import Media from './image';
 const SinglePost = React.createClass( {
 	mixins: [ ContentMixin ],
 
-	setTitle() {
-		let post = this.state.data;
-		if ( 'undefined' !== typeof post.title ) {
-			document.title = `${post.title.rendered} — ${FoxhoundSettings.title}`;
-		}
-	},
-
 	renderPlaceholder() {
 		return (
 			<div>
@@ -35,6 +28,8 @@ const SinglePost = React.createClass( {
 		if ( ! post ) {
 			return null;
 		}
+
+		document.title = post.title.rendered + ' – ' + FoxhoundSettings.title;
 
 		const classes = classNames( {
 			entry: true
@@ -55,7 +50,6 @@ const SinglePost = React.createClass( {
 	},
 
 	render() {
-		// this.setTitle();
 		return (
 			<div className="card">
 				<QueryPage pagePath={ this.props.path } />

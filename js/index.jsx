@@ -22,6 +22,7 @@ import Term from 'components/term';
 import Search from 'components/search';
 import DateArchive from 'components/date';
 import NotFound from 'components/not-found';
+import { setMeta } from 'utils/set-meta';
 import { createReduxStore } from 'state';
 
 // Accessibility!
@@ -32,19 +33,20 @@ A11Y.skipLinks();
 const store = createReduxStore();
 const history = syncHistoryWithStore( browserHistory, store );
 
+// Route onEnter
 const routes = (
 	<Router history={ history }>
-		<Route path="/" component={ Index } />
-		<Route path="/p/:paged" component={ Index } />
-		<Route path="/search/:search" component={ Search } />
-		<Route path="/category/:slug" taxonomy="category" component={ Term } />
-		<Route path="/tag/:slug" taxonomy="post_tag" component={ Term } />
-		<Route path="/date/:year" component={ DateArchive } />
-		<Route path="/date/:year/:month" component={ DateArchive } />
-		<Route path="/date/:year/:month/:day" component={ DateArchive } />
-		<Route path="/page/**" component={ SinglePage } />
-		<Route path="/:year/:month/:slug" component={ SinglePost } />
-		<Route path="*" component={ NotFound } />
+		<Route onEnter={ setMeta( 'home' ) } path="/" component={ Index } />
+		<Route onEnter={ setMeta( 'home' ) } path="/p/:paged" component={ Index } />
+		<Route onEnter={ setMeta( 'search' ) } path="/search/:search" component={ Search } />
+		<Route onEnter={ setMeta( 'category' ) } path="/category/:slug" taxonomy="category" component={ Term } />
+		<Route onEnter={ setMeta( 'tag' ) } path="/tag/:slug" taxonomy="post_tag" component={ Term } />
+		<Route onEnter={ setMeta( 'date' ) } path="/date/:year" component={ DateArchive } />
+		<Route onEnter={ setMeta( 'date' ) } path="/date/:year/:month" component={ DateArchive } />
+		<Route onEnter={ setMeta( 'date' ) } path="/date/:year/:month/:day" component={ DateArchive } />
+		<Route onEnter={ setMeta( 'page' ) } path="/page/**" component={ SinglePage } />
+		<Route onEnter={ setMeta( 'post' ) } path="/:year/:month/:slug" component={ SinglePost } />
+		<Route onEnter={ setMeta( 'not-found' ) } path="*" component={ NotFound } />
 	</Router>
 );
 

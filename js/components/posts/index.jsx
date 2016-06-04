@@ -12,10 +12,6 @@ import PostList from './list';
 import Pagination from '../pagination/archive';
 
 const Index = React.createClass( {
-	setTitle() {
-		document.title = FoxhoundSettings.title;
-	},
-
 	renderPlaceholder() {
 		return (
 			<div className="placeholder">Your posts are loading…</div>
@@ -24,7 +20,6 @@ const Index = React.createClass( {
 
 	render() {
 		let posts = this.props.posts || [];
-		this.setTitle();
 
 		return (
 			<div className="site-content">
