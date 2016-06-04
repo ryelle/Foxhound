@@ -12,7 +12,7 @@ import ContentMixin from 'utils/content-mixin';
 import Media from './image';
 // import Comments from '../comments';
 
-const SinglePost = React.createClass( {
+const SinglePage = React.createClass( {
 	mixins: [ ContentMixin ],
 
 	renderPlaceholder() {
@@ -74,4 +74,4 @@ export default connect( ( state, ownProps ) => {
 		requesting: isRequestingPage( state, path ),
 		post: getPage( state, parseInt( postId ) )
 	};
-} )( SinglePost );
+} )( SinglePage );
