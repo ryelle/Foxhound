@@ -61,6 +61,7 @@ export function requestTerm( taxonomy, termSlug ) {
 				termSlug,
 				termId: term.id,
 			} );
+			return null;
 		} ).catch( ( error ) => {
 			dispatch( {
 				type: TERM_REQUEST_FAILURE,

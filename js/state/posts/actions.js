@@ -60,6 +60,7 @@ export function requestPosts( query = {} ) {
 				totalPages,
 				posts: data
 			} );
+			return null;
 		} ).catch( ( error ) => {
 			dispatch( {
 				type: POSTS_REQUEST_FAILURE,
@@ -91,6 +92,7 @@ export function requestPost( postSlug ) {
 				postId: post.id,
 				postSlug
 			} );
+			return null;
 		} ).catch( ( error ) => {
 			dispatch( {
 				type: POST_REQUEST_FAILURE,

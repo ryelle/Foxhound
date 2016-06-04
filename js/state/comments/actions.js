@@ -37,7 +37,7 @@ export function requestComments( postId ) {
 			postId,
 		} );
 
-		return WP.posts().id( postId ).comments().then( ( data ) => {
+		return WP.comments().forPost( postId ).then( ( data ) => {
 			dispatch( receiveComments( data ) );
 			dispatch( {
 				type: COMMENTS_REQUEST_SUCCESS,
@@ -45,6 +45,7 @@ export function requestComments( postId ) {
 				count: data._paging.total,
 				postId
 			} );
+			return null;
 		} ).catch( ( error ) => {
 			dispatch( {
 				type: COMMENTS_REQUEST_FAILURE,

@@ -46,6 +46,7 @@ export function requestPage( path ) {
 				pagePath: path,
 				page
 			} );
+			return null;
 		} ).catch( ( error ) => {
 			dispatch( {
 				type: PAGE_REQUEST_FAILURE,
