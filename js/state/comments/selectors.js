@@ -36,7 +36,7 @@ export function getCommentsForPost( state, postId ) {
  * @return {Boolean}         Whether comments are being requested
  */
 export function isRequestingCommentsForPost( state, postId ) {
-	return !! state.posts.requests[ postId ];
+	return !! state.comments.requests[ postId ];
 }
 
 /**
@@ -47,9 +47,9 @@ export function isRequestingCommentsForPost( state, postId ) {
  * @return {int}             Number of comments
  */
 export function getTotalCommentsForPost( state, postId ) {
-	if ( ! state.posts.totals[ postId ] ) {
+	if ( ! state.comments.totals[ postId ] ) {
 		return 0;
 	}
 
-	return parseInt( state.posts.totals[ postId ] );
+	return parseInt( state.comments.totals[ postId ] );
 }

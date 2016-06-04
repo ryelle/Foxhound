@@ -37,7 +37,7 @@ export function requestComments( postId ) {
 			postId,
 		} );
 
-		return WP.posts().comments().then( ( data ) => {
+		return WP.posts().id( postId ).comments().then( ( data ) => {
 			dispatch( receiveComments( data ) );
 			dispatch( {
 				type: COMMENTS_REQUEST_SUCCESS,
