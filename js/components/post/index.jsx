@@ -18,9 +18,10 @@ const SinglePost = React.createClass( {
 
 	renderPlaceholder() {
 		return (
-			<div>
-				<h1>REQUESTING......</h1>
-			</div>
+			<article className="entry entry-placeholder">
+				<h1 className="entry-title">Loading</h1>
+				<div className="entry-content"><br /><br /></div>
+			</article>
 		);
 	},
 
