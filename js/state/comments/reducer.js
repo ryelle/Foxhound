@@ -24,7 +24,7 @@ import {
 export function items( state = {}, action ) {
 	switch ( action.type ) {
 		case COMMENTS_RECEIVE:
-			const comments = keyBy( [ action.page ], 'id' );
+			const comments = keyBy( action.comments, 'id' );
 			return Object.assign( {}, state, comments );
 		default:
 			return state;
