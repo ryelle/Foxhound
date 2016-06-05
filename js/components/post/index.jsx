@@ -11,7 +11,7 @@ import ContentMixin from 'utils/content-mixin';
 // Components
 import PostMeta from './meta';
 import Media from './image';
-// import Comments from '../comments';
+import Comments from '../comments';
 
 const SinglePost = React.createClass( {
 	mixins: [ ContentMixin ],
@@ -53,6 +53,20 @@ const SinglePost = React.createClass( {
 		);
 	},
 
+	renderComments() {
+		const post = this.props.post;
+		if ( ! post ) {
+			return null;
+		}
+
+		return (
+			<Comments
+				postId={ this.props.postId }
+				title={ <span dangerouslySetInnerHTML={ this.getTitle( post ) } /> }
+				commentsOpen={ 'open' === post.comment_status } />
+		)
+	},
+
 	render() {
 		return (
 			<div className="card">
@@ -62,6 +76,8 @@ const SinglePost = React.createClass( {
 					this.renderPlaceholder() :
 					this.renderArticle()
 				}
+
+				{ ! this.props.requesting && this.renderComments() }
 			</div>
 		);
 	}
