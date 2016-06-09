@@ -47,7 +47,10 @@ const Comments = React.createClass( {
 		return (
 			<div className="comments-area" ref="comments">
 				<QueryComments postId={ this.props.postId } />
-				<h2 className="comments-title">{ titleString }&ldquo;{ this.props.title }&rdquo;</h2>
+				{ ( 0 === this.props.total ) ?
+					null :
+					<h2 className="comments-title">{ titleString }&ldquo;{ this.props.title }&rdquo;</h2>
+				}
 
 				<ol className="comment-list">
 					{ ! this.props.requesting && commentsList }
