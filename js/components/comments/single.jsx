@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // Internal dependencies
 import ContentMixin from 'utils/content-mixin';
-import { getComment } from 'wordpress-query-components/selectors';
+import { getComment } from 'data/state/selectors';
 
 const Comment = React.createClass( {
 	mixins: [ ContentMixin ],

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // Internal dependencies
-import QueryPage from 'wordpress-query-components/queryPage';
-import { getPageIdFromPath, isRequestingPage, getPage } from 'wordpress-query-components/selectors';
+import QueryPage from 'data/query-page';
+import { getPageIdFromPath, isRequestingPage, getPage } from 'data/state/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components

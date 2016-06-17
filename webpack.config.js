@@ -22,7 +22,7 @@ webpackConfig = {
 	resolve: {
 		extensions: [ '', '.js', '.jsx' ],
 		alias: {
-			state: path.join( __dirname, 'js/state' ),
+			data: path.join( __dirname, 'js/data' ),
 			components: path.join( __dirname, 'js/components' ),
 			utils: path.resolve( __dirname, 'js/utils' ),
 		},
@@ -40,7 +40,6 @@ webpackConfig = {
 				query: {
 					presets: [ 'react', 'es2015' ],
 				},
-				exclude: [ /node_modules\/moment/, /node_modules\/wordpress-rest-api/ ],
 			},
 			{
 				test: /\.jsx?$/,
@@ -69,7 +68,8 @@ webpackConfig = {
 			// NODE_ENV is used inside React to enable/disable features that should only
 			// be used in development
 			'process.env': {
-				NODE_ENV: JSON.stringify( NODE_ENV )
+				NODE_ENV: JSON.stringify( NODE_ENV ),
+				endpoint: 'http://trunk.wordpress.dev/wp-json/',
 			}
 		} ),
 		new ExtractTextPlugin( 'style.css' )

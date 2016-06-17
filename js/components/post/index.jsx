@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // Internal dependencies
-import QueryPosts from 'wordpress-query-components/queryPosts';
-import { getPostIdFromSlug, isRequestingPost, getPost } from 'wordpress-query-components/selectors';
+import QueryPosts from 'data/query-posts';
+import { getPostIdFromSlug, isRequestingPost, getPost } from 'data/state/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components
