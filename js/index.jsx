@@ -23,7 +23,7 @@ import Search from 'components/search';
 import DateArchive from 'components/date';
 import NotFound from 'components/not-found';
 import { setMeta } from 'utils/set-meta';
-import { createReduxStore } from 'state';
+import { createReduxStore } from './state';
 
 // Accessibility!
 import A11Y from 'utils/a11y';

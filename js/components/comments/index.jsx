@@ -3,8 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Internal dependencies
-import QueryComments from 'components/data/query-comments';
-import { isRequestingCommentsForPost, getCommentsForPost, getTotalCommentsForPost } from 'state/comments/selectors';
+import QueryComments from 'wordpress-query-components/queryComments';
+import { isRequestingCommentsForPost, getCommentsForPost, getTotalCommentsForPost } from 'wordpress-query-components/selectors';
 
 // Components
 // import CommentPagination from '../pagination/comments';

@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Internal dependencies
-import QueryPosts from 'components/data/query-posts';
-import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'state/posts/selectors';
+import QueryPosts from 'wordpress-query-components/queryPosts';
+import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'wordpress-query-components/selectors';
 
 // Components
 import TermHeader from './header';

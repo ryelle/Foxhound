@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Internal dependencies
-import QueryTerm from 'components/data/query-term';
-import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'state/terms/selectors';
+import QueryTerm from 'wordpress-query-components/queryTerm';
+import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'wordpress-query-components/selectors';
 
 const TermHeader = ( { term, taxonomy, requesting, termData = {} } ) => {
 	return (
