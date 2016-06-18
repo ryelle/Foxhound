@@ -65,7 +65,6 @@ webpackConfig = {
 			// be used in development
 			'process.env': {
 				NODE_ENV: JSON.stringify( NODE_ENV ),
-				endpoint: JSON.stringify( 'http://trunk.wordpress.dev/wp-json/' ),
 			}
 		} ),
 		new ExtractTextPlugin( 'style.css' )

@@ -133,6 +133,8 @@ function foxhound_scripts() {
 		}
 	}
 
+	wp_localize_script( FOXHOUND_APP, 'SiteEndpoint', esc_url_raw( get_rest_url() ) );
+
 	wp_localize_script( FOXHOUND_APP, 'FoxhoundSettings', array(
 		'nonce' => wp_create_nonce( 'wp_rest' ),
 		'user' => get_current_user_id(),
@@ -140,7 +142,6 @@ function foxhound_scripts() {
 		'pageOnFront' => $front_page_slug,
 		'blogPage' => $blog_page_slug,
 		'URL' => array(
-			'root' => esc_url_raw( get_rest_url() ),
 			'base' => esc_url_raw( home_url() ),
 			'basePath' => $path,
 		),
