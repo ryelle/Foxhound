@@ -37,9 +37,6 @@ webpackConfig = {
 				test: /\.jsx?$/,
 				exclude: /node_modules/,
 				loader: 'babel',
-				query: {
-					presets: [ 'react', 'es2015' ],
-				},
 			},
 			{
 				test: /\.jsx?$/,
@@ -64,12 +61,11 @@ webpackConfig = {
 
 	plugins: [
 		new webpack.DefinePlugin( {
-
 			// NODE_ENV is used inside React to enable/disable features that should only
 			// be used in development
 			'process.env': {
 				NODE_ENV: JSON.stringify( NODE_ENV ),
-				endpoint: 'http://trunk.wordpress.dev/wp-json/',
+				// endpoint: "http://trunk.wordpress.dev/wp-json/",
 			}
 		} ),
 		new ExtractTextPlugin( 'style.css' )
@@ -77,7 +73,6 @@ webpackConfig = {
 };
 
 // if ( NODE_ENV === 'production' ) {
-//
 // 	// When running in production, we want to use the minified script so that the file is smaller
 // 	webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
 // 		compress: {
