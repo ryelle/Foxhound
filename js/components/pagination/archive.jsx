@@ -1,41 +1,29 @@
 // External dependencies
 import React from 'react';
+import { Link } from 'react-router';
 
 let Pagination = React.createClass( {
-	propTypes: {
-		start: React.PropTypes.number,
-		current: React.PropTypes.number,
-		end: React.PropTypes.number.isRequired,
-		base: React.PropTypes.string,
-	},
+	render() {
+		if ( this.props.isFirstPage && this.props.isLastPage ) {
+			return null;
+		}
 
-	getDefaultProps: function() {
-		return {
-			start: 1,
-			current: 1,
-			base: '',
-		};
-	},
-
-	render: function() {
-		let next = this.props.current + 1;
-		let prev = this.props.current - 1;
+		let next, prev;
+		next = parseInt( this.props.current ) + 1;
+		prev = parseInt( this.props.current ) - 1;
 
 		return (
 			<nav className="navigation posts-navigation clear" role="navigation">
 				<div className="nav-links">
-					{ ( prev > 0 ) ?
+					{ ! this.props.isFirstPage ?
 						<div className="nav-previous">
-							{ ( prev === 1 ) ?
-								<a href={ `${ this.props.base }/` }>Previous Page</a> :
-								<a href={ `${ this.props.base }/page/${ prev }/` }>Previous Page</a>
-							}
+							<Link to={ `/p/${ prev }` }>Previous Page</Link>
 						</div> :
 						null
 					}
-					{ ( next <= this.props.end ) ?
+					{ ! this.props.isLastPage ?
 						<div className="nav-next">
-							<a href={ `${ this.props.base }/page/${ next }/` }>Next Page</a>
+							<Link to={ `/p/${ next }` }>Next Page</Link>
 						</div> :
 						null
 					}

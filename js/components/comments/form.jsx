@@ -2,10 +2,7 @@
 // External dependencies
 import React from 'react';
 
-// Internal dependencies
-import API from 'utils/api';
-
-let CommentForm = React.createClass( {
+const CommentForm = React.createClass( {
 
 	onSubmit: function( event ) {
 		event.preventDefault();
@@ -23,12 +20,10 @@ let CommentForm = React.createClass( {
 		values.content = rawValues.comment;
 		values.post = rawValues.comment_post_ID;
 
-		API.sendComment( values, () => {
-			this.refs.content.value = '';
-		} );
+		console.log( values );
 	},
 
-	render: function() {
+	render() {
 		return (
 			<form onSubmit={ this.onSubmit }>
 				<p className="comment-form-notes">

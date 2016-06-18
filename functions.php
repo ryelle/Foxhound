@@ -11,6 +11,10 @@ if ( ! defined( 'FOXHOUND_VERSION' ) ) {
 	define( 'FOXHOUND_VERSION', time() );
 }
 
+if ( ! defined( 'FOXHOUND_APP' ) ) {
+	define( 'FOXHOUND_APP', 'foxhound-react' );
+}
+
 if ( ! function_exists( 'foxhound_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -103,8 +107,12 @@ add_action( 'after_setup_theme', 'foxhound_content_width', 0 );
  * Enqueue scripts and styles.
  */
 function foxhound_scripts() {
-	wp_enqueue_style( 'foxhound-style', get_stylesheet_uri() );
-	wp_enqueue_script( 'foxhound-react', get_template_directory_uri() . '/js/app.js', array( 'jquery' ), FOXHOUND_VERSION, true );
+	wp_enqueue_style( 'foxhound-style', get_template_directory_uri() . '/build/style.css' );
+	wp_enqueue_script( FOXHOUND_APP, get_template_directory_uri() . '/build/app.js', array( 'jquery' ), FOXHOUND_VERSION, true );
+
+	if ( class_exists( 'Jetpack_Tiled_Gallery' ) ) {
+		Jetpack_Tiled_Gallery::default_scripts_and_styles();
+	}
 
 	$url = home_url();
 	$path = trailingslashit( parse_url( $url, PHP_URL_PATH ) );
@@ -125,15 +133,15 @@ function foxhound_scripts() {
 		}
 	}
 
-	wp_localize_script( 'foxhound-react', 'FoxhoundSettings', array(
+	wp_localize_script( FOXHOUND_APP, 'SiteEndpoint', esc_url_raw( get_rest_url() ) );
+
+	wp_localize_script( FOXHOUND_APP, 'FoxhoundSettings', array(
 		'nonce' => wp_create_nonce( 'wp_rest' ),
 		'user' => get_current_user_id(),
 		'title' => get_bloginfo( 'name', 'display' ),
 		'pageOnFront' => $front_page_slug,
 		'blogPage' => $blog_page_slug,
 		'URL' => array(
-			'root' => esc_url_raw( get_rest_url( null, '/wp/v2' ) ),
-			'menuRoot' => esc_url_raw( get_rest_url( null, '/wp-api-menus/v2' ) ),
 			'base' => esc_url_raw( home_url() ),
 			'basePath' => $path,
 		),
@@ -212,3 +220,7 @@ function foxhound_fonts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_fonts' );
+
+// Include extra functionality
+require get_template_directory() . '/inc/load-menu.php';
+require get_template_directory() . '/inc/permalinks.php';

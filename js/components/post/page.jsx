@@ -4,16 +4,15 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 // Internal dependencies
-import QueryPosts from 'data/query-posts';
-import { getPostIdFromSlug, isRequestingPost, getPost } from 'data/state/selectors';
+import QueryPage from 'data/query-page';
+import { getPageIdFromPath, isRequestingPage, getPage } from 'data/state/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components
-import PostMeta from './meta';
 import Media from './image';
-import Comments from '../comments';
+import Comments from 'components/comments';
 
-const SinglePost = React.createClass( {
+const SinglePage = React.createClass( {
 	mixins: [ ContentMixin ],
 
 	renderPlaceholder() {
@@ -47,8 +46,6 @@ const SinglePost = React.createClass( {
 				}
 				<div className="entry-meta"></div>
 				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
-
-				<PostMeta post={ post } humanDate={ this.getDate( post ) } />
 			</article>
 		);
 	},
@@ -70,7 +67,7 @@ const SinglePost = React.createClass( {
 	render() {
 		return (
 			<div className="card">
-				<QueryPosts postSlug={ this.props.slug } />
+				<QueryPage pagePath={ this.props.path } />
 
 				{ this.props.requesting ?
 					this.renderPlaceholder() :
@@ -84,13 +81,13 @@ const SinglePost = React.createClass( {
 } );
 
 export default connect( ( state, ownProps ) => {
-	const slug = ownProps.params.slug || false;
-	const postId = getPostIdFromSlug( state, slug );
+	const path = ownProps.params.splat || false;
+	const postId = getPageIdFromPath( state, path );
 
 	return {
-		slug,
+		path,
 		postId,
-		requesting: isRequestingPost( state, slug ),
-		post: getPost( state, parseInt( postId ) )
+		requesting: isRequestingPage( state, path ),
+		post: getPage( state, parseInt( postId ) )
 	};
-} )( SinglePost );
+} )( SinglePage );

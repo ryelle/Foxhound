@@ -1,77 +1,47 @@
-/* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
-import isEqual from 'lodash/isEqual';
+import { connect } from 'react-redux';
 
 // Internal dependencies
-import API from 'utils/api';
-import PostsStore from '../../stores/posts-store';
+import QueryPosts from 'data/query-posts';
+import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'data/state/selectors';
+
+// Components
 import PostList from './list';
 import Pagination from '../pagination/archive';
 
-/*
- * Method to retrieve state from Stores
- */
-function getState() {
-	return {
-		data: PostsStore.getPosts(),
-		paginationLimit: PostsStore.getPaginationLimit(),
-	};
-}
-
-let Index = React.createClass( {
-
-	propTypes: {
-		page: React.PropTypes.number.isRequired,
-	},
-
-	getInitialState: function() {
-		return getState();
-	},
-
-	componentDidMount: function() {
-		PostsStore.addChangeListener( this._onChange );
-		API.getPosts( { page: this.props.page } );
-	},
-
-	componentDidUpdate: function( prevProps ) {
-		if ( ! isEqual( prevProps, this.props ) ) {
-			API.getPosts( { page: this.props.page } );
-		}
-	},
-
-	componentWillUnmount: function() {
-		PostsStore.removeChangeListener( this._onChange );
-	},
-
-	_onChange: function() {
-		this.setState( getState() );
-	},
-
-	setTitle: function() {
-		document.title = FoxhoundSettings.title;
-	},
-
-	renderPlaceholder: function() {
+const Index = React.createClass( {
+	renderPlaceholder() {
 		return (
 			<div className="placeholder">Your posts are loading…</div>
 		);
 	},
 
-	render: function() {
-		let posts = this.state.data;
-		this.setTitle();
+	render() {
+		let posts = this.props.posts || [];
 
 		return (
 			<div className="site-content">
-				{ posts.length ?
-					<PostList posts={ posts } /> :
-					this.renderPlaceholder()
+				<QueryPosts query={ this.props.query } />
+				{ this.props.requesting ?
+					this.renderPlaceholder() :
+					<PostList posts={ posts } />
 				}
-				<Pagination current={ this.props.page } end={ this.state.paginationLimit } />
+				<Pagination current={ this.props.page } isFirstPage={ 1 === this.props.page } isLastPage={ this.props.totalPages === this.props.page } />
 			</div>
 		);
 	}
 } );
 
-export default Index;
+export default connect( ( state, ownProps ) => {
+	let query = {};
+	query.paged = ownProps.params.paged || 1;
+
+	return {
+		page: parseInt( query.paged ),
+		query: query,
+		posts: getPostsForQuery( state, query ),
+		totalPages: getTotalPagesForQuery( state, query ),
+		requesting: isRequestingPostsForQuery( state, query )
+	};
+} )( Index );

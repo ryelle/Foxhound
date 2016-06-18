@@ -1,91 +1,62 @@
-/* global FoxhoundSettings */
-// External dependencies
 import React from 'react';
-import isEqual from 'lodash/isEqual';
+import { connect } from 'react-redux';
 
 // Internal dependencies
-import API from 'utils/api';
-import PostsStore from '../../stores/posts-store';
+import QueryPosts from 'data/query-posts';
+import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'data/state/selectors';
+
+// Components
 import PostList from '../posts/list';
 import SearchForm from './form';
 
-/*
- * Method to retrieve state from Stores
- */
-function getState() {
-	return {
-		data: PostsStore.getPosts(),
-		paginationLimit: PostsStore.getPaginationLimit(),
-	};
-}
-
-let Search = React.createClass( {
-
-	propTypes: {
-		page: React.PropTypes.number.isRequired,
+const Search = React.createClass( {
+	search( event ) {
+		event.preventDefault();
+		// this.context.router.transitionTo( `/search/${ this.getSearchValue() }` );
 	},
 
-	getInitialState: function() {
-		return getState();
-	},
-
-	componentDidMount: function() {
-		PostsStore.addChangeListener( this._onChange );
-
-		let filter = {
-			s: this.getSearchValue(),
-		};
-		API.getPosts( { filter: filter, page: this.props.page } );
-	},
-
-	componentDidUpdate: function( prevProps ) {
-		if ( ! isEqual( prevProps, this.props ) ) {
-			let filter = {
-				s: this.getSearchValue(),
-			};
-			API.getPosts( { filter: filter, page: this.props.page } );
-		}
-	},
-
-	componentWillUnmount: function() {
-		PostsStore.removeChangeListener( this._onChange );
-	},
-
-	_onChange: function() {
-		this.setState( getState() );
-	},
-
-	getSearchValue: function() {
+	getSearchValue() {
 		if ( 'undefined' !== typeof this.refs.searchForm ) {
 			return this.refs.searchForm.getValue();
 		}
-		return '';
+		return this.props.params.search;
 	},
 
-	setTitle: function() {
-		let term = this.getSearchValue();
-		document.title = `Search results for ${term} — ${FoxhoundSettings.title}`;
+	renderPlaceholder() {
+		return null;
 	},
 
-	render: function() {
-		let posts = this.state.data;
+	render() {
+		const posts = this.props.posts || [];
 		let term = this.getSearchValue();
-		this.setTitle();
 
 		return (
 			<div className='site-content'>
 				<header className="page-header">
 					<h1 className="page-title">Search results for &ldquo;{ term }&rdquo;</h1>
-					<SearchForm ref='searchForm' initialSearch={ this.props.term } onChange={ this.search } />
+					<SearchForm ref='searchForm' initialSearch={ term } onChange={ this.search } />
 				</header>
 
-				{ posts.length ?
-					<PostList posts={ posts } /> :
-					null
+				<QueryPosts query={ this.props.query } />
+				{ this.props.requesting ?
+					this.renderPlaceholder() :
+					<PostList posts={ posts } />
 				}
 			</div>
 		);
 	}
 } );
 
-export default Search;
+export default connect( ( state, ownProps ) => {
+	let query = {};
+	query.paged = ownProps.params.paged || 1;
+	query.s = ownProps.params.search || '';
+
+	return {
+		page: parseInt( query.paged ),
+		query: query,
+		posts: getPostsForQuery( state, query ),
+		totalPages: getTotalPagesForQuery( state, query ),
+		requesting: isRequestingPostsForQuery( state, query )
+	};
+} )( Search );

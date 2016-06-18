@@ -1,20 +1,11 @@
-// External dependencies
 import React from 'react';
 import classNames from 'classnames';
 
-// Internal dependencies
-
-let NotFound = React.createClass( {
-	setTitle: function() {
-		document.title = 'Page not found';
-	},
-
-	render: function() {
+const NotFound = React.createClass( {
+	render() {
 		let classes = classNames( {
 			entry: true
 		} );
-
-		this.setTitle();
 
 		return (
 			<article className={ classes }>

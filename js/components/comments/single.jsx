@@ -1,21 +1,22 @@
 // External dependencies
 import React from 'react';
+import { connect } from 'react-redux';
 
 // Internal dependencies
-import CommentsStore from '../../stores/comments-store';
 import ContentMixin from 'utils/content-mixin';
+import { getComment } from 'data/state/selectors';
 
-let Comment = React.createClass( {
+const Comment = React.createClass( {
 	mixins: [ ContentMixin ],
 
-	render: function() {
-		let comment = this.props.comment;
-		let classes = 'comment'; // byuser comment-author-melchoyce even thread-even depth-1
+	render() {
+		const comment = this.props.comment;
+		const classes = 'comment'; // byuser comment-author-melchoyce even thread-even depth-1
 
 		let replyParentString = null;
-		if ( comment.parent > 0 ) {
+		if ( this.props.parent ) {
 			replyParentString = (
-				<span>In reply to { CommentsStore.getCommentAuthorName( comment.parent ) }&nbsp;&bull;&nbsp;</span>
+				<span>In reply to { this.props.parent.author_name }&nbsp;&bull;&nbsp;</span>
 			);
 		}
 
@@ -55,4 +56,10 @@ let Comment = React.createClass( {
 	}
 } );
 
-export default Comment;
+export default connect( ( state, ownProps ) => {
+	const commentParent = ownProps.comment.parent || false;
+
+	return {
+		parent: commentParent ? getComment( state, commentParent ) : false,
+	};
+} )( Comment );

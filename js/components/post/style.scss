@@ -2,7 +2,8 @@
     Single Posts & Pages
 --------------------------------------------------------------*/
 
-.single {
+.single,
+body.page {
 	.entry-content > p:first-of-type {
 		@include font-size( 24 );
 	}
