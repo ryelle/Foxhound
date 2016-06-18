@@ -1,3 +1,4 @@
 [submodule "js/data"]
 	path = js/data
-	url = /Users/kelly/Projects/Javascript/wordpress-query-components/
+	url = https://github.com/ryelle/wordpress-query-components.git
+	branch = master
