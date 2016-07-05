@@ -61,24 +61,20 @@ jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => 
 	history.push( url );
 } );
 
-const renderApp = () => {
-	render(
-		(
-			<Provider store={ store }>
-				{ routes }
-			</Provider>
-		),
-		document.getElementById( 'main' )
-	);
+render(
+	(
+		<Provider store={ store }>
+			{ routes }
+		</Provider>
+	),
+	document.getElementById( 'main' )
+);
 
-	render(
-		<Navigation />,
-		document.getElementById( 'site-navigation' )
-	);
-}
+render(
+	<Navigation />,
+	document.getElementById( 'site-navigation' )
+);
 
-renderApp();
-store.subscribe( renderApp );
 store.subscribe( () => {
 	console.log( '## Store updated:', store.getState() );
 } );
