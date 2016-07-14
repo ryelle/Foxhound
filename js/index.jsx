@@ -32,20 +32,21 @@ A11Y.skipLinks();
 // Now the work starts.
 const store = createReduxStore();
 const history = syncHistoryWithStore( browserHistory, store );
+const path = FoxhoundSettings.URL.path || '/';
 
 // Route onEnter
 const routes = (
 	<Router history={ history }>
-		<Route onEnter={ setMeta( 'home' ) } path="/" component={ Index } />
-		<Route onEnter={ setMeta( 'home' ) } path="/p/:paged" component={ Index } />
-		<Route onEnter={ setMeta( 'search' ) } path="/search/:search" component={ Search } />
-		<Route onEnter={ setMeta( 'category' ) } path="/category/:slug" taxonomy="category" component={ Term } />
-		<Route onEnter={ setMeta( 'tag' ) } path="/tag/:slug" taxonomy="post_tag" component={ Term } />
-		<Route onEnter={ setMeta( 'date' ) } path="/date/:year" component={ DateArchive } />
-		<Route onEnter={ setMeta( 'date' ) } path="/date/:year/:month" component={ DateArchive } />
-		<Route onEnter={ setMeta( 'date' ) } path="/date/:year/:month/:day" component={ DateArchive } />
-		<Route onEnter={ setMeta( 'page' ) } path="/page/**" component={ SinglePage } />
-		<Route onEnter={ setMeta( 'post' ) } path="/:year/:month/:slug" component={ SinglePost } />
+		<Route onEnter={ setMeta( 'home' ) } path={ path } component={ Index } />
+		<Route onEnter={ setMeta( 'home' ) } path={ `${ path }p/:paged` } component={ Index } />
+		<Route onEnter={ setMeta( 'search' ) } path={ `${ path }search/:search` } component={ Search } />
+		<Route onEnter={ setMeta( 'category' ) } path={ `${ path }category/:slug" taxonomy="category` } component={ Term } />
+		<Route onEnter={ setMeta( 'tag' ) } path={ `${ path }tag/:slug" taxonomy="post_tag` } component={ Term } />
+		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year` } component={ DateArchive } />
+		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year/:month` } component={ DateArchive } />
+		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
+		<Route onEnter={ setMeta( 'page' ) } path={ `${ path }page/**` } component={ SinglePage } />
+		<Route onEnter={ setMeta( 'post' ) } path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
 		<Route onEnter={ setMeta( 'not-found' ) } path="*" component={ NotFound } />
 	</Router>
 );
@@ -54,10 +55,7 @@ jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => 
 	event.preventDefault();
 	let url = event.currentTarget.href;
 
-	url = url.replace( FoxhoundSettings.URL.base, '' );
-	if ( url === '' ) {
-		url = '/';
-	}
+	url = url.replace( FoxhoundSettings.URL.base, FoxhoundSettings.URL.path );
 	history.push( url );
 } );
 

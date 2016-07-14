@@ -114,7 +114,7 @@ function foxhound_scripts() {
 		Jetpack_Tiled_Gallery::default_scripts_and_styles();
 	}
 
-	$url = home_url();
+	$url = trailingslashit( home_url() );
 	$path = trailingslashit( parse_url( $url, PHP_URL_PATH ) );
 
 	$front_page_slug = false;
@@ -142,8 +142,8 @@ function foxhound_scripts() {
 		'pageOnFront' => $front_page_slug,
 		'blogPage' => $blog_page_slug,
 		'URL' => array(
-			'base' => esc_url_raw( home_url() ),
-			'basePath' => $path,
+			'base' => esc_url_raw( $url ),
+			'path' => $path,
 		),
 	) );
 }
