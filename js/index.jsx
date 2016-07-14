@@ -40,8 +40,8 @@ const routes = (
 		<Route onEnter={ setMeta( 'home' ) } path={ path } component={ Index } />
 		<Route onEnter={ setMeta( 'home' ) } path={ `${ path }p/:paged` } component={ Index } />
 		<Route onEnter={ setMeta( 'search' ) } path={ `${ path }search/:search` } component={ Search } />
-		<Route onEnter={ setMeta( 'category' ) } path={ `${ path }category/:slug" taxonomy="category` } component={ Term } />
-		<Route onEnter={ setMeta( 'tag' ) } path={ `${ path }tag/:slug" taxonomy="post_tag` } component={ Term } />
+		<Route onEnter={ setMeta( 'category' ) } path={ `${ path }category/:slug` } taxonomy="category" component={ Term } />
+		<Route onEnter={ setMeta( 'tag' ) } path={ `${ path }tag/:slug` } taxonomy="post_tag" component={ Term } />
 		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year` } component={ DateArchive } />
 		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year/:month` } component={ DateArchive } />
 		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
