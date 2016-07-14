@@ -26,6 +26,9 @@ export default {
 	},
 
 	getFeaturedMedia: function( data ) {
+		if ( ! data._embedded ) {
+			return false;
+		}
 		if ( 'undefined' === typeof data._embedded['wp:featuredmedia'] ) {
 			return false;
 		}
