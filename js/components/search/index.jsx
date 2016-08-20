@@ -1,6 +1,7 @@
 /*global FoxhoundSettings */
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import DocumentMeta from 'react-document-meta';
 
 // Internal dependencies
@@ -14,7 +15,8 @@ import SearchForm from './form';
 const Search = React.createClass( {
 	search( event ) {
 		event.preventDefault();
-		// this.context.router.transitionTo( `/search/${ this.getSearchValue() }` );
+		const url = `${ FoxhoundSettings.URL.path }search/${ this.getSearchValue() }`;
+		this.props.router.push( url );
 	},
 
 	getSearchValue() {
@@ -40,7 +42,7 @@ const Search = React.createClass( {
 				<DocumentMeta { ...meta } />
 				<header className="page-header">
 					<h1 className="page-title">Search results for &ldquo;{ term }&rdquo;</h1>
-					<SearchForm ref='searchForm' initialSearch={ term } onChange={ this.search } />
+					<SearchForm ref='searchForm' initialSearch={ term } onSubmit={ this.search } />
 				</header>
 
 				<QueryPosts query={ this.props.query } />
@@ -53,7 +55,7 @@ const Search = React.createClass( {
 	}
 } );
 
-export default connect( ( state, ownProps ) => {
+export default withRouter( connect( ( state, ownProps ) => {
 	let query = {};
 	query.paged = ownProps.params.paged || 1;
 	query.s = ownProps.params.search || '';
@@ -65,4 +67,4 @@ export default connect( ( state, ownProps ) => {
 		totalPages: getTotalPagesForQuery( state, query ),
 		requesting: isRequestingPostsForQuery( state, query )
 	};
-} )( Search );
+} )( Search ) );
