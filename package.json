@@ -39,7 +39,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "shallowequal": "^0.2.2",
-    "wordpress-rest-api": "^0.7.0"
+    "wpapi": "^0.9.0"
   },
   "engines": {
     "node": ">=0.10"
