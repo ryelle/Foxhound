@@ -44,6 +44,10 @@ webpackConfig = {
 				exclude: [ /node_modules/ ],
 			},
 			{
+				test: /\.json$/,
+				loader: 'json',
+			},
+			{
 				test: /\.scss$/,
 				loader: ExtractTextPlugin.extract( 'style-loader', 'css!sass' )
 			}
