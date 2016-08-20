@@ -1,6 +1,8 @@
+/*global FoxhoundSettings */
 // External dependencies
 import React from 'react';
 import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
@@ -18,10 +20,16 @@ const Index = React.createClass( {
 	},
 
 	render() {
-		let posts = this.props.posts || [];
+		const posts = this.props.posts || [];
+		const meta = {
+			title: FoxhoundSettings.meta.title,
+			description: FoxhoundSettings.meta.description,
+			canonical: FoxhoundSettings.URL.base,
+		};
 
 		return (
 			<div className="site-content">
+				<DocumentMeta { ...meta } />
 				<QueryPosts query={ this.props.query } />
 				{ this.props.requesting ?
 					this.renderPlaceholder() :

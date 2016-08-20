@@ -1,13 +1,21 @@
+/*global FoxhoundSettings */
 import React from 'react';
 import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
 
 // Internal dependencies
 import QueryTerm from 'data/query-term';
 import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'data/state/selectors';
 
 const TermHeader = ( { term, taxonomy, requesting, termData = {} } ) => {
+	const meta = {
+		title: termData.name + ' – ' + FoxhoundSettings.meta.title,
+		description: termData.description,
+	};
+
 	return (
 		<div>
+			<DocumentMeta { ...meta } />
 			<QueryTerm taxonomy={ taxonomy } termSlug={ term } />
 			{ requesting ?
 				null :

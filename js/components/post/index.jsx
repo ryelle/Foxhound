@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import DocumentMeta from 'react-document-meta';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
@@ -31,7 +32,11 @@ const SinglePost = React.createClass( {
 			return null;
 		}
 
-		document.title = post.title.rendered + ' – ' + FoxhoundSettings.title;
+		const meta = {
+			title: post.title.rendered + ' – ' + FoxhoundSettings.meta.title,
+			description: post.excerpt.rendered,
+			canonical: post.link,
+		};
 
 		const classes = classNames( {
 			entry: true
@@ -40,6 +45,7 @@ const SinglePost = React.createClass( {
 
 		return (
 			<article id={ `post-${ post.id }` } className={ classes }>
+				<DocumentMeta { ...meta } />
 				<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
 				{ featuredMedia ?
 					<Media media={ featuredMedia } parentClass='entry-image' /> :

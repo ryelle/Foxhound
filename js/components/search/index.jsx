@@ -1,5 +1,7 @@
+/*global FoxhoundSettings */
 import React from 'react';
 import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
@@ -28,10 +30,14 @@ const Search = React.createClass( {
 
 	render() {
 		const posts = this.props.posts || [];
-		let term = this.getSearchValue();
+		const term = this.getSearchValue();
+		const meta = {
+			title: 'Search Results for "' + term + '" – ' + FoxhoundSettings.meta.title,
+		};
 
 		return (
 			<div className='site-content'>
+				<DocumentMeta { ...meta } />
 				<header className="page-header">
 					<h1 className="page-title">Search results for &ldquo;{ term }&rdquo;</h1>
 					<SearchForm ref='searchForm' initialSearch={ term } onChange={ this.search } />

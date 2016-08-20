@@ -22,7 +22,6 @@ import Term from 'components/term';
 import Search from 'components/search';
 import DateArchive from 'components/date';
 import NotFound from 'components/not-found';
-import { setMeta } from 'utils/set-meta';
 import { createReduxStore } from './state';
 
 // Accessibility!
@@ -37,17 +36,17 @@ const path = FoxhoundSettings.URL.path || '/';
 // Route onEnter
 const routes = (
 	<Router history={ history }>
-		<Route onEnter={ setMeta( 'home' ) } path={ path } component={ Index } />
-		<Route onEnter={ setMeta( 'home' ) } path={ `${ path }p/:paged` } component={ Index } />
-		<Route onEnter={ setMeta( 'search' ) } path={ `${ path }search/:search` } component={ Search } />
-		<Route onEnter={ setMeta( 'category' ) } path={ `${ path }category/:slug` } taxonomy="category" component={ Term } />
-		<Route onEnter={ setMeta( 'tag' ) } path={ `${ path }tag/:slug` } taxonomy="post_tag" component={ Term } />
-		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year` } component={ DateArchive } />
-		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year/:month` } component={ DateArchive } />
-		<Route onEnter={ setMeta( 'date' ) } path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
-		<Route onEnter={ setMeta( 'page' ) } path={ `${ path }page/**` } component={ SinglePage } />
-		<Route onEnter={ setMeta( 'post' ) } path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
-		<Route onEnter={ setMeta( 'not-found' ) } path="*" component={ NotFound } />
+		<Route path={ path } component={ Index } />
+		<Route path={ `${ path }p/:paged` } component={ Index } />
+		<Route path={ `${ path }search/:search` } component={ Search } />
+		<Route path={ `${ path }category/:slug` } taxonomy="category" component={ Term } />
+		<Route path={ `${ path }tag/:slug` } taxonomy="post_tag" component={ Term } />
+		<Route path={ `${ path }date/:year` } component={ DateArchive } />
+		<Route path={ `${ path }date/:year/:month` } component={ DateArchive } />
+		<Route path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
+		<Route path={ `${ path }page/**` } component={ SinglePage } />
+		<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
+		<Route path="*" component={ NotFound } />
 	</Router>
 );
 

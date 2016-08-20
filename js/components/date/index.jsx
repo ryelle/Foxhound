@@ -1,5 +1,7 @@
+/*global FoxhoundSettings */
 import React from 'react';
 import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
@@ -31,8 +33,13 @@ const DateArchive = React.createClass( {
 			dateString = date.format( 'YYYY' );
 		}
 
+		const meta = {
+			title: dateString + ' – ' + FoxhoundSettings.meta.title,
+		};
+
 		return (
 			<div className="card">
+				<DocumentMeta { ...meta } />
 				<header className="page-header">
 					<h1 className="page-title">Archive for { dateString }</h1>
 				</header>

@@ -138,13 +138,18 @@ function foxhound_scripts() {
 	wp_localize_script( FOXHOUND_APP, 'FoxhoundSettings', array(
 		'nonce' => wp_create_nonce( 'wp_rest' ),
 		'user' => get_current_user_id(),
-		'title' => get_bloginfo( 'name', 'display' ),
-		'pageOnFront' => $front_page_slug,
-		'blogPage' => $blog_page_slug,
+		'frontPage' => array(
+			'page' => $front_page_slug,
+			'blog' => $blog_page_slug,
+		),
 		'URL' => array(
 			'base' => esc_url_raw( $url ),
 			'path' => $path,
 		),
+		'meta' => array(
+			'title' => get_bloginfo( 'name', 'display' ),
+			'description' => get_bloginfo( 'description', 'display' ),
+		)
 	) );
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_scripts' );

@@ -31,6 +31,7 @@
     "lodash": "^4.13.1",
     "moment": "^2.13.0",
     "react": "^15.1.0",
+    "react-document-meta": "^2.0.3",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
