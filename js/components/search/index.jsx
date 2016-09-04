@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import DocumentMeta from 'react-document-meta';
+import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
@@ -40,6 +41,7 @@ const Search = React.createClass( {
 		return (
 			<div className='site-content'>
 				<DocumentMeta { ...meta } />
+				<BodyClass classes={ [ 'search' ] } />
 				<header className="page-header">
 					<h1 className="page-title">Search results for &ldquo;{ term }&rdquo;</h1>
 					<SearchForm ref='searchForm' initialSearch={ term } onSubmit={ this.search } />

@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
+import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
@@ -30,6 +31,7 @@ const Index = React.createClass( {
 		return (
 			<div className="site-content">
 				<DocumentMeta { ...meta } />
+				<BodyClass classes={ [ 'home', 'blog' ] } />
 				<QueryPosts query={ this.props.query } />
 				{ this.props.requesting ?
 					this.renderPlaceholder() :

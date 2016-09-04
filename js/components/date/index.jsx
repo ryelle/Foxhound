@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
+import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
@@ -40,6 +41,7 @@ const DateArchive = React.createClass( {
 		return (
 			<div className="card">
 				<DocumentMeta { ...meta } />
+				<BodyClass classes={ [ 'archive', 'date' ] } />
 				<header className="page-header">
 					<h1 className="page-title">Archive for { dateString }</h1>
 				</header>

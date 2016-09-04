@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import DocumentMeta from 'react-document-meta';
+import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryPage from 'data/query-page';
@@ -45,6 +46,7 @@ const SinglePage = React.createClass( {
 		return (
 			<article id={ `post-${ post.id }` } className={ classes }>
 				<DocumentMeta { ...meta } />
+				<BodyClass classes={ [ 'page', 'single', 'single-page' ] } />
 				<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
 				{ featuredMedia ?
 					<Media media={ featuredMedia } parentClass='entry-image' /> :

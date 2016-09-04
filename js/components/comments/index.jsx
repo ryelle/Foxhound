@@ -1,6 +1,7 @@
 // External dependencies
 import React from 'react';
 import { connect } from 'react-redux';
+import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryComments from 'data/query-comments';
@@ -47,6 +48,7 @@ const Comments = React.createClass( {
 		return (
 			<div className="comments-area" ref="comments">
 				<QueryComments postId={ this.props.postId } />
+				<BodyClass classes={ { 'has-comments': !! this.props.total } } />
 				{ ( 0 === this.props.total ) ?
 					null :
 					<h2 className="comments-title">{ titleString }&ldquo;{ this.props.title }&rdquo;</h2>

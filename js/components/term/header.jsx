@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
+import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryTerm from 'data/query-term';
@@ -16,6 +17,7 @@ const TermHeader = ( { term, taxonomy, requesting, termData = {} } ) => {
 	return (
 		<div>
 			<DocumentMeta { ...meta } />
+			<BodyClass classes={ [ 'archive', taxonomy ] } />
 			<QueryTerm taxonomy={ taxonomy } termSlug={ term } />
 			{ requesting ?
 				null :

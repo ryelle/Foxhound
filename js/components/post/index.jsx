@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import DocumentMeta from 'react-document-meta';
+import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
@@ -46,6 +47,7 @@ const SinglePost = React.createClass( {
 		return (
 			<article id={ `post-${ post.id }` } className={ classes }>
 				<DocumentMeta { ...meta } />
+				<BodyClass classes={ [ 'single', 'single-post' ] } />
 				<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
 				{ featuredMedia ?
 					<Media media={ featuredMedia } parentClass='entry-image' /> :
