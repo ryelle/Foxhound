@@ -45,9 +45,3 @@ Known Issues/To Do
 ------------------
 
 This is very much a work-in-progress theme. If you notice anything acting strange, [let me know](https://github.com/ryelle/Foxhound/issues), but it might just be that I haven't built that part yet. I also try to keep updated with new WP-API releases, but I might be a little delayed. Same deal - see anything really broken, [let me know](https://github.com/ryelle/Foxhound/issues).
-
- - `replaceChild` error message. Doesn't break display? Not sure what's broken here.
- - New loading message
- - Single post navigation (next/previous). Might need to create endpoint/setting for this.
- - Social link styles for navigation
- - Attachment pages do not work
