@@ -3,6 +3,28 @@
 import React from 'react';
 import classNames from 'classnames';
 
+const blur = function( event ) {
+	event.target.blur();
+};
+
+const toggleFocus = function( event ) {
+	var self = event.target;
+
+	// Move up through the ancestors of the current link until we hit .nav-menu.
+	while ( -1 === self.className.indexOf( 'nav-menu' ) ) {
+		// On li elements toggle the class .focus.
+		if ( 'li' === self.tagName.toLowerCase() ) {
+			if ( -1 !== self.className.indexOf( 'focus' ) ) {
+				self.className = self.className.replace( ' focus', '' );
+			} else {
+				self.className += ' focus';
+			}
+		}
+
+		self = self.parentElement;
+	}
+};
+
 const SubMenu = ( { items } ) => {
 	let menu = items.map( function( item, i ) {
 		return <MenuItem item={ item } key={ i } />
@@ -15,7 +37,6 @@ const SubMenu = ( { items } ) => {
 	);
 }
 
-// onClick={ this.blur } onFocus={ this.toggleFocus } onBlur={ this.toggleFocus }
 const MenuItem = ( { item } ) => {
 	let re;
 	if ( location.pathname !== '/' ) {
@@ -23,6 +44,7 @@ const MenuItem = ( { item } ) => {
 	} else {
 		re = new RegExp( location.hostname + '/$' );
 	}
+
 	const classes = classNames( {
 		'menu-item': true,
 		'menu-item-has-children': item.children.length,
@@ -33,7 +55,7 @@ const MenuItem = ( { item } ) => {
 
 	return (
 		<li className={ classes } aria-haspopup={ item.children.length > 0 }>
-			<a href={ item.url }>{ item.title }</a>
+			<a href={ item.url } onClick={ blur } onFocus={ toggleFocus } onBlur={ toggleFocus }>{ item.title }</a>
 			{ item.children.length ?
 				<SubMenu items={ item.children } /> :
 				null
