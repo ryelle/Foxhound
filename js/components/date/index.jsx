@@ -51,7 +51,11 @@ const DateArchive = React.createClass( {
 					<PostList posts={ posts } />
 				}
 
-				<Pagination current={ this.props.page } isFirstPage={ 1 === this.props.page } isLastPage={ this.props.totalPages === this.props.page } />
+				<Pagination
+					path={ this.props.path }
+					current={ this.props.page }
+					isFirstPage={ 1 === this.props.page }
+					isLastPage={ this.props.totalPages === this.props.page } />
 			</div>
 		);
 	}
@@ -69,8 +73,16 @@ export default connect( ( state, ownProps ) => {
 	if ( ownProps.params.day ) {
 		query.day = parseInt( ownProps.params.day );
 	}
+	let path = FoxhoundSettings.URL.path || '/';
+	path += 'date/';
+	[ 'year', 'monthnum', 'day' ].map( ( key ) => {
+		if ( query.hasOwnProperty( key ) ) {
+			path += query[ key ] + '/';
+		}
+	} );
 
 	return {
+		path,
 		page: parseInt( query.paged ),
 		query: query,
 		posts: getPostsForQuery( state, query ),

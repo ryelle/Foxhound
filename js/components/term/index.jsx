@@ -1,3 +1,4 @@
+/*global FoxhoundSettings */
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -32,7 +33,11 @@ const Term = React.createClass( {
 					<PostList posts={ posts } />
 				}
 
-				<Pagination current={ this.props.page } isFirstPage={ 1 === this.props.page } isLastPage={ this.props.totalPages === this.props.page } />
+				<Pagination
+					path={ this.props.path }
+					current={ this.props.page }
+					isFirstPage={ 1 === this.props.page }
+					isLastPage={ this.props.totalPages === this.props.page } />
 			</div>
 		);
 	}
@@ -40,14 +45,18 @@ const Term = React.createClass( {
 
 export default connect( ( state, ownProps ) => {
 	let query = {};
+	let path = FoxhoundSettings.URL.path || '/';
 	query.paged = ownProps.params.paged || 1;
 	if ( 'category' === ownProps.route.taxonomy ) {
 		query.category_name = ownProps.params.slug;
+		path += 'category/' + ownProps.params.slug + '/';
 	} else {
 		query.tag = ownProps.params.slug;
+		path += 'tag/' + ownProps.params.slug + '/';
 	}
 
 	return {
+		path,
 		query,
 		page: parseInt( query.paged ),
 		posts: getPostsForQuery( state, query ),

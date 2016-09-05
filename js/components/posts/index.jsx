@@ -37,7 +37,11 @@ const Index = React.createClass( {
 					this.renderPlaceholder() :
 					<PostList posts={ posts } />
 				}
-				<Pagination current={ this.props.page } isFirstPage={ 1 === this.props.page } isLastPage={ this.props.totalPages === this.props.page } />
+				<Pagination
+					path={ this.props.path }
+					current={ this.props.page }
+					isFirstPage={ 1 === this.props.page }
+					isLastPage={ this.props.totalPages === this.props.page } />
 			</div>
 		);
 	}
@@ -47,7 +51,13 @@ export default connect( ( state, ownProps ) => {
 	let query = {};
 	query.paged = ownProps.params.paged || 1;
 
+	let path = FoxhoundSettings.URL.path || '/';
+	if ( FoxhoundSettings.frontPage.page ) {
+		path += 'page/' + FoxhoundSettings.frontPage.blog + '/';
+	}
+
 	return {
+		path,
 		page: parseInt( query.paged ),
 		query: query,
 		posts: getPostsForQuery( state, query ),
