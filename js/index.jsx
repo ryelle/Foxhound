@@ -50,10 +50,15 @@ const routes = (
 		{ frontSlug && <Route path={ path } slug={ frontSlug } component={ SinglePage } /> }
 		<Route path={ `${ path }search/:search` } component={ Search } />
 		<Route path={ `${ path }category/:slug` } taxonomy="category" component={ Term } />
+		<Route path={ `${ path }category/:slug/p/:paged` } taxonomy="category" component={ Term } />
 		<Route path={ `${ path }tag/:slug` } taxonomy="post_tag" component={ Term } />
+		<Route path={ `${ path }tag/:slug/p/:paged` } taxonomy="post_tag" component={ Term } />
 		<Route path={ `${ path }date/:year` } component={ DateArchive } />
+		<Route path={ `${ path }date/:year/p/:paged` } component={ DateArchive } />
 		<Route path={ `${ path }date/:year/:month` } component={ DateArchive } />
+		<Route path={ `${ path }date/:year/:month/p/:paged` } component={ DateArchive } />
 		<Route path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
+		<Route path={ `${ path }date/:year/:month/:day/p/:paged` } component={ DateArchive } />
 		<Route path={ `${ path }page/**` } component={ SinglePage } />
 		<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
 		<Route path="*" component={ NotFound } />
