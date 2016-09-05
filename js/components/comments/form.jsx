@@ -1,6 +1,9 @@
 /* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
+import debugFactory from 'debug';
+
+const debug = debugFactory( 'comment' );
 
 const CommentForm = React.createClass( {
 
@@ -20,7 +23,7 @@ const CommentForm = React.createClass( {
 		values.content = rawValues.comment;
 		values.post = rawValues.comment_post_ID;
 
-		console.log( values );
+		debug( values );
 	},
 
 	render() {
