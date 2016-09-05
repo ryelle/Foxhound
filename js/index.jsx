@@ -33,11 +33,21 @@ const store = createReduxStore();
 const history = syncHistoryWithStore( browserHistory, store );
 const path = FoxhoundSettings.URL.path || '/';
 
+let blogURL, frontSlug;
+if ( FoxhoundSettings.frontPage.page ) {
+	blogURL = path + 'page/' + FoxhoundSettings.frontPage.blog + '/';
+	frontSlug = FoxhoundSettings.frontPage.page;
+} else {
+	blogURL = path;
+	frontSlug = false;
+}
+
 // Route onEnter
 const routes = (
 	<Router history={ history }>
-		<Route path={ path } component={ Index } />
-		<Route path={ `${ path }p/:paged` } component={ Index } />
+		<Route path={ blogURL } component={ Index } />
+		<Route path={ `${ blogURL }p/:paged` } component={ Index } />
+		{ frontSlug && <Route path={ path } slug={ frontSlug } component={ SinglePage } /> }
 		<Route path={ `${ path }search/:search` } component={ Search } />
 		<Route path={ `${ path }category/:slug` } taxonomy="category" component={ Term } />
 		<Route path={ `${ path }tag/:slug` } taxonomy="post_tag" component={ Term } />

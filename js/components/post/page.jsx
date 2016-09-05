@@ -89,7 +89,7 @@ const SinglePage = React.createClass( {
 } );
 
 export default connect( ( state, ownProps ) => {
-	const path = ownProps.params.splat || false;
+	const path = ownProps.params.splat || ownProps.route.slug;
 	const postId = getPageIdFromPath( state, path );
 
 	return {
