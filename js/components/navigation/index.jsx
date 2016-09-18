@@ -3,6 +3,16 @@
 import React from 'react';
 import classNames from 'classnames';
 
+const isItemSelected = function( item ) {
+	let re;
+	if ( location.pathname !== '/' ) {
+		re = new RegExp( location.pathname + '$' );
+	} else {
+		re = new RegExp( location.hostname + '/$' );
+	}
+	return ( location.pathname === item.url ) || re.test( item.url );
+};
+
 const blur = function( event ) {
 	event.target.blur();
 };
@@ -27,7 +37,7 @@ const toggleFocus = function( event ) {
 
 const SubMenu = ( { items } ) => {
 	let menu = items.map( function( item, i ) {
-		return <MenuItem item={ item } key={ i } />
+		return <MenuItem item={ item } isSelected={ isItemSelected( item ) } key={ i } />
 	} );
 
 	return (
@@ -37,25 +47,18 @@ const SubMenu = ( { items } ) => {
 	);
 }
 
-const MenuItem = ( { item } ) => {
-	let re;
-	if ( location.pathname !== '/' ) {
-		re = new RegExp( location.pathname + '$' );
-	} else {
-		re = new RegExp( location.hostname + '/$' );
-	}
-
+const MenuItem = ( { item, onClick, isSelected = false } ) => {
 	const classes = classNames( {
 		'menu-item': true,
 		'menu-item-has-children': item.children.length,
-		'current-menu-item': ( location.pathname === item.url ) || re.test( item.url ),
+		'current-menu-item': isSelected,
 		'current-menu-ancestor': false,
 		'current-menu-parent': false,
 	}, item.classes );
 
 	return (
 		<li className={ classes } aria-haspopup={ item.children.length > 0 }>
-			<a href={ item.url } onClick={ blur } onFocus={ toggleFocus } onBlur={ toggleFocus }>{ item.title }</a>
+			<a href={ item.url } onClick={ onClick } onFocus={ toggleFocus } onBlur={ toggleFocus }>{ item.title }</a>
 			{ item.children.length ?
 				<SubMenu items={ item.children } /> :
 				null
@@ -68,6 +71,7 @@ const Navigation = React.createClass( {
 	getInitialState() {
 		return {
 			isMenuOpen: false,
+			selected: location.pathname,
 		}
 	},
 
@@ -78,7 +82,11 @@ const Navigation = React.createClass( {
 
 	render() {
 		let menu = FoxhoundMenu.data.map( ( item, i ) => {
-			return <MenuItem item={ item } key={ i } />
+			const onClick = ( event ) => {
+				blur( event );
+				this.setState( { selected: item.url } );
+			};
+			return <MenuItem item={ item } isSelected={ isItemSelected( item ) } onClick={ onClick } key={ i } />
 		} );
 
 		let menuClasses = classNames( {
