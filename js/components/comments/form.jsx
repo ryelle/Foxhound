@@ -1,9 +1,10 @@
 /* global FoxhoundSettings */
 // External dependencies
 import React from 'react';
-import debugFactory from 'debug';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-const debug = debugFactory( 'comment' );
+import { submitComment } from 'data/state/comments';
 
 const CommentForm = React.createClass( {
 
@@ -12,7 +13,9 @@ const CommentForm = React.createClass( {
 		let keys = [ 'author', 'author_id', 'email', 'url', 'comment', 'comment_post_ID', 'comment_parent' ];
 		let rawValues = {};
 		keys.map( function( key ) {
-			rawValues[ key ] = event.target[ key ].value;
+			if ( event.target[ key ] ) {
+				rawValues[ key ] = event.target[ key ].value;
+			}
 		} );
 		let values = {};
 
@@ -23,30 +26,54 @@ const CommentForm = React.createClass( {
 		values.content = rawValues.comment;
 		values.post = rawValues.comment_post_ID;
 
-		debug( values );
+		this.props.submitComment( values );
+	},
+
+	renderAnonFields() {
+		const fields = [];
+		fields.push(
+			<p className="comment-form-notes" key="0">
+				<span id="email-notes">Your email address will not be published.</span>
+			</p>
+		);
+
+		fields.push(
+			<div className="comment-form-required" key="1">
+				<div className="comment-form-field comment-form-author">
+					<label htmlFor="author">Name</label>
+					<input id="author" name="author" type="text" aria-required="true" required="required" />
+					<input id="author_id" name="author_id" type="hidden" value={ FoxhoundSettings.user } />
+				</div>
+				<div className="comment-form-field comment-form-email">
+					<label htmlFor="email">Email</label>
+					<input id="email" name="email" type="email" aria-describedby="email-notes" aria-required="true" required="required" />
+				</div>
+			</div>
+		);
+
+		fields.push(
+			<div className="comment-form-field comment-form-url" key="2">
+				<label htmlFor="url">Website</label>
+				<input id="url" name="url" type="url" />
+			</div>
+		);
+
+		return fields;
+	},
+
+	renderLoggedInNotice() {
+		return (
+			<p className="comment-form-notes">
+				<span id="email-notes">Logged in as { FoxhoundSettings.userDisplay }.</span>
+			</p>
+		);
 	},
 
 	render() {
 		return (
 			<form onSubmit={ this.onSubmit }>
-				<p className="comment-form-notes">
-					<span id="email-notes">Your email address will not be published.</span>
-				</p>
-				<div className="comment-form-required">
-					<div className="comment-form-field comment-form-author">
-						<label htmlFor="author">Name</label>
-						<input id="author" name="author" type="text" aria-required="true" required="required" />
-						<input id="author_id" name="author_id" type="hidden" value={ FoxhoundSettings.user } />
-					</div>
-					<div className="comment-form-field comment-form-email">
-						<label htmlFor="email">Email</label>
-						<input id="email" name="email" type="email" aria-describedby="email-notes" aria-required="true" required="required" />
-					</div>
-				</div>
-				<div className="comment-form-field comment-form-url">
-					<label htmlFor="url">Website</label>
-					<input id="url" name="url" type="url" />
-				</div>
+				{ FoxhoundSettings.user === '0' ? this.renderAnonFields() : this.renderLoggedInNotice() }
+
 				<div className="comment-form-field comment-form-comment">
 					<label htmlFor="comment">Comment</label>
 					<textarea ref="content" id="comment" name="comment" aria-required="true" required="required" />
@@ -61,4 +88,7 @@ const CommentForm = React.createClass( {
 	}
 } );
 
-export default CommentForm;
+export default connect(
+	() => ( {} ),
+	( dispatch ) => ( bindActionCreators( { submitComment }, dispatch ) )
+)( CommentForm );
