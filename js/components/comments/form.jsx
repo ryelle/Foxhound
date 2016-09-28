@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { isSubmittingCommentOnPost } from 'data/state/selectors/comments';
 import { submitComment } from 'data/state/comments';
 
 const CommentForm = React.createClass( {
@@ -79,8 +80,9 @@ const CommentForm = React.createClass( {
 					<textarea ref="content" id="comment" name="comment" aria-required="true" required="required" />
 				</div>
 				<div className="comment-form-submit form-submit">
-					<input name="submit" type="submit" id="submit" className="submit" value="Post Comment" />
-					<input type="hidden" name="comment_post_ID" value={ this.props.postId } id="comment_post_ID" />
+					<input type="submit" name="submit" id="submit" className="submit"
+						value="Post Comment" disabled={ this.props.isSubmitting } />
+					<input type="hidden" name="comment_post_ID" id="comment_post_ID" value={ this.props.postId } />
 					<input type="hidden" name="comment_parent" id="comment_parent" defaultValue={ 0 } />
 				</div>
 			</form>
@@ -89,6 +91,8 @@ const CommentForm = React.createClass( {
 } );
 
 export default connect(
-	() => ( {} ),
+	( state, ownProps ) => ( {
+		isSubmitting: isSubmittingCommentOnPost( state, ownProps.postId )
+	} ),
 	( dispatch ) => ( bindActionCreators( { submitComment }, dispatch ) )
 )( CommentForm );

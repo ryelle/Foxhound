@@ -112,4 +112,8 @@
 	input[type="submit"] {
 		background-color: $color__background-button-primary;
 	}
+
+	input[type="submit"][disabled] {
+		opacity: 0.5;
+	}
 }
