@@ -12,7 +12,11 @@ export default {
 	},
 
 	getContent: function( data ) {
-		return { __html: data.content.rendered };
+		if ( ! data.content.protected ) {
+			return { __html: data.content.rendered };
+		}
+
+		return { __html: '<p>This content is password-protected.</p>' };
 	},
 
 	getDate: function( data ) {
