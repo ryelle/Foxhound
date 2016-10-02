@@ -32,6 +32,10 @@ const Comments = React.createClass( {
 	},
 
 	render() {
+		// If this is a protected post, we don't want to display comments.
+		if ( this.props.protected ) {
+			return null;
+		}
 		const comments = this.props.comments;
 		let commentsList = null;
 		if ( comments && comments.length ) {

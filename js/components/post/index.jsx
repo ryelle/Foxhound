@@ -69,6 +69,7 @@ const SinglePost = React.createClass( {
 
 		return (
 			<Comments
+				protected={ post.content.protected }
 				postId={ this.props.postId }
 				title={ <span dangerouslySetInnerHTML={ this.getTitle( post ) } /> }
 				commentsOpen={ 'open' === post.comment_status } />
