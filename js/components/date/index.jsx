@@ -3,21 +3,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import moment from 'moment';
 
 // Internal dependencies
 import QueryPosts from 'data/query-posts';
 import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'data/state/selectors';
 
 // Components
-import PostList from '../posts/list';
-import Pagination from '../pagination/archive';
-import moment from 'moment';
+import PostList from 'components/posts/list';
+import Pagination from 'components/pagination/archive';
+import Placeholder from 'components/placeholder';
 
 const DateArchive = React.createClass( {
-	renderPlaceholder() {
-		return null;
-	},
-
 	render() {
 		const posts = this.props.posts || [];
 		const dateObj = this.props.params;
@@ -47,7 +44,7 @@ const DateArchive = React.createClass( {
 				</header>
 				<QueryPosts query={ this.props.query } />
 				{ this.props.requesting ?
-					this.renderPlaceholder() :
+					<Placeholder type="date" /> :
 					<PostList posts={ posts } />
 				}
 

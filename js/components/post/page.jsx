@@ -13,18 +13,10 @@ import ContentMixin from 'utils/content-mixin';
 // Components
 import Media from './image';
 import Comments from 'components/comments';
+import Placeholder from 'components/placeholder';
 
 const SinglePage = React.createClass( {
 	mixins: [ ContentMixin ],
-
-	renderPlaceholder() {
-		return (
-			<article className="entry entry-placeholder">
-				<h1 className="entry-title">Loading</h1>
-				<div className="entry-content"><br /><br /></div>
-			</article>
-		);
-	},
 
 	renderArticle() {
 		const post = this.props.post;
@@ -78,7 +70,7 @@ const SinglePage = React.createClass( {
 				<QueryPage pagePath={ this.props.path } />
 
 				{ this.props.requesting ?
-					this.renderPlaceholder() :
+					<Placeholder type="page" /> :
 					this.renderArticle()
 				}
 

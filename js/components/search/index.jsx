@@ -10,8 +10,9 @@ import QueryPosts from 'data/query-posts';
 import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'data/state/selectors';
 
 // Components
-import PostList from '../posts/list';
+import PostList from 'components/posts/list';
 import SearchForm from './form';
+import Placeholder from 'components/placeholder';
 
 const Search = React.createClass( {
 	search( event ) {
@@ -25,10 +26,6 @@ const Search = React.createClass( {
 			return this.refs.searchForm.getValue();
 		}
 		return this.props.params.search;
-	},
-
-	renderPlaceholder() {
-		return null;
 	},
 
 	render() {
@@ -49,7 +46,7 @@ const Search = React.createClass( {
 
 				<QueryPosts query={ this.props.query } />
 				{ this.props.requesting ?
-					this.renderPlaceholder() :
+					<Placeholder type="search" /> :
 					<PostList posts={ posts } />
 				}
 			</div>

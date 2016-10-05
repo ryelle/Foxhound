@@ -11,15 +11,10 @@ import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } fr
 
 // Components
 import PostList from './list';
-import Pagination from '../pagination/archive';
+import Pagination from 'components/pagination/archive';
+import Placeholder from 'components/placeholder';
 
 const Index = React.createClass( {
-	renderPlaceholder() {
-		return (
-			<div className="placeholder">Your posts are loading…</div>
-		);
-	},
-
 	render() {
 		const posts = this.props.posts || [];
 		const meta = {
@@ -34,7 +29,7 @@ const Index = React.createClass( {
 				<BodyClass classes={ [ 'home', 'blog' ] } />
 				<QueryPosts query={ this.props.query } />
 				{ this.props.requesting ?
-					this.renderPlaceholder() :
+					<Placeholder type="posts" /> :
 					<PostList posts={ posts } />
 				}
 				<Pagination

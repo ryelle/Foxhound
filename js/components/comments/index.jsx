@@ -11,6 +11,7 @@ import { isRequestingCommentsForPost, getCommentsForPost, getTotalCommentsForPos
 // import CommentPagination from '../pagination/comments';
 import Comment from './single';
 import CommentForm from './form';
+import Placeholder from 'components/placeholder';
 
 const Comments = React.createClass( {
 	renderForm() {
@@ -19,14 +20,6 @@ const Comments = React.createClass( {
 				<h3 className="comment-reply-title">Leave a Reply</h3>
 
 				<CommentForm postId={ this.props.postId } />
-			</div>
-		);
-	},
-
-	renderPlaceholder() {
-		return (
-			<div className="comments-area" ref="comments">
-				{ this.props.commentsOpen && this.renderForm() }
 			</div>
 		);
 	},
@@ -59,7 +52,10 @@ const Comments = React.createClass( {
 				}
 
 				<ol className="comment-list">
-					{ ! this.props.requesting && commentsList }
+					{ this.props.requesting ?
+						<Placeholder type="comments" /> :
+						commentsList
+					}
 				</ol>
 
 				{ this.props.commentsOpen && this.renderForm() }

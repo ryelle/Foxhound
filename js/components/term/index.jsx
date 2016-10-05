@@ -8,15 +8,12 @@ import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } fr
 
 // Components
 import TermHeader from './header';
-import PostList from '../posts/list';
-import Pagination from '../pagination/archive';
+import PostList from 'components/posts/list';
+import Pagination from 'components/pagination/archive';
+import Placeholder from 'components/placeholder';
 
 const Term = React.createClass( {
 	renderHeaderPlaceholder() {
-		return null;
-	},
-
-	renderPlaceholder() {
 		return null;
 	},
 
@@ -29,7 +26,7 @@ const Term = React.createClass( {
 
 				<QueryPosts query={ this.props.query } />
 				{ this.props.requesting ?
-					this.renderPlaceholder() :
+					<Placeholder type="term" /> :
 					<PostList posts={ posts } />
 				}
 
