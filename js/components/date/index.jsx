@@ -43,7 +43,7 @@ const DateArchive = React.createClass( {
 					<h1 className="page-title">Archive for { dateString }</h1>
 				</header>
 				<QueryPosts query={ this.props.query } />
-				{ this.props.requesting ?
+				{ this.props.loading ?
 					<Placeholder type="date" /> :
 					<PostList posts={ posts } />
 				}
@@ -78,12 +78,16 @@ export default connect( ( state, ownProps ) => {
 		}
 	} );
 
+	const posts = getPostsForQuery( state, query );
+	const requesting = isRequestingPostsForQuery( state, query );
+
 	return {
 		path,
+		query,
+		posts,
+		requesting,
+		loading: requesting && ! posts,
 		page: parseInt( query.paged ),
-		query: query,
-		posts: getPostsForQuery( state, query ),
 		totalPages: getTotalPagesForQuery( state, query ),
-		requesting: isRequestingPostsForQuery( state, query )
 	};
 } )( DateArchive );

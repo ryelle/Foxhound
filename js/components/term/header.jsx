@@ -8,7 +8,7 @@ import BodyClass from 'react-body-class';
 import QueryTerm from 'data/query-term';
 import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'data/state/selectors';
 
-const TermHeader = ( { term, taxonomy, requesting, termData = {} } ) => {
+const TermHeader = ( { term, taxonomy, loading, termData = {} } ) => {
 	const meta = {
 		title: termData.name + ' – ' + FoxhoundSettings.meta.title,
 		description: termData.description,
@@ -19,7 +19,7 @@ const TermHeader = ( { term, taxonomy, requesting, termData = {} } ) => {
 			<DocumentMeta { ...meta } />
 			<BodyClass classes={ [ 'archive', taxonomy ] } />
 			<QueryTerm taxonomy={ taxonomy } termSlug={ term } />
-			{ requesting ?
+			{ loading ?
 				null :
 				<header className="page-header">
 					<h1 className="page-title">{ termData.name }</h1>
@@ -34,11 +34,14 @@ export default connect( ( state, ownProps ) => {
 	const term = ownProps.params.slug;
 	const taxonomy = ownProps.params.taxonomy;
 	const termId = getTermIdFromSlug( state, taxonomy, term );
+	const termData = getTerm( state, termId );
+	const requesting = isRequestingTerm( state, taxonomy, term );
 
 	return {
 		term,
 		taxonomy,
-		termData: getTerm( state, termId ),
-		requesting: isRequestingTerm( state, taxonomy, term )
+		termData,
+		requesting,
+		loading: requesting && ! termData
 	};
 } )( TermHeader );

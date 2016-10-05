@@ -72,13 +72,12 @@ const SinglePost = React.createClass( {
 		return (
 			<div className="card">
 				<QueryPosts postSlug={ this.props.slug } />
-
-				{ this.props.requesting ?
+				{ this.props.loading ?
 					<Placeholder type="post" /> :
 					this.renderArticle()
 				}
 
-				{ ! this.props.requesting && this.renderComments() }
+				{ ! this.props.loading && this.renderComments() }
 			</div>
 		);
 	}
@@ -87,11 +86,14 @@ const SinglePost = React.createClass( {
 export default connect( ( state, ownProps ) => {
 	const slug = ownProps.params.slug || false;
 	const postId = getPostIdFromSlug( state, slug );
+	const requesting = isRequestingPost( state, slug );
+	const post = getPost( state, parseInt( postId ) );
 
 	return {
 		slug,
 		postId,
-		requesting: isRequestingPost( state, slug ),
-		post: getPost( state, parseInt( postId ) )
+		post,
+		requesting,
+		loading: requesting && ! post
 	};
 } )( SinglePost );

@@ -28,7 +28,7 @@ const Index = React.createClass( {
 				<DocumentMeta { ...meta } />
 				<BodyClass classes={ [ 'home', 'blog' ] } />
 				<QueryPosts query={ this.props.query } />
-				{ this.props.requesting ?
+				{ this.props.loading ?
 					<Placeholder type="posts" /> :
 					<PostList posts={ posts } />
 				}
@@ -51,12 +51,16 @@ export default connect( ( state, ownProps ) => {
 		path += 'page/' + FoxhoundSettings.frontPage.blog + '/';
 	}
 
+	const posts = getPostsForQuery( state, query );
+	const requesting = isRequestingPostsForQuery( state, query );
+
 	return {
 		path,
 		page: parseInt( query.paged ),
-		query: query,
-		posts: getPostsForQuery( state, query ),
+		query,
+		posts,
+		requesting,
+		loading: requesting && ! posts,
 		totalPages: getTotalPagesForQuery( state, query ),
-		requesting: isRequestingPostsForQuery( state, query )
 	};
 } )( Index );

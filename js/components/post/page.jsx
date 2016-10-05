@@ -69,12 +69,12 @@ const SinglePage = React.createClass( {
 			<div className="card">
 				<QueryPage pagePath={ this.props.path } />
 
-				{ this.props.requesting ?
+				{ this.props.loading ?
 					<Placeholder type="page" /> :
 					this.renderArticle()
 				}
 
-				{ ! this.props.requesting && this.renderComments() }
+				{ ! this.props.loading && this.renderComments() }
 			</div>
 		);
 	}
@@ -83,11 +83,14 @@ const SinglePage = React.createClass( {
 export default connect( ( state, ownProps ) => {
 	const path = ownProps.params.splat || ownProps.route.slug;
 	const postId = getPageIdFromPath( state, path );
+	const requesting = isRequestingPage( state, path );
+	const post = getPage( state, parseInt( postId ) );
 
 	return {
 		path,
 		postId,
-		requesting: isRequestingPage( state, path ),
-		post: getPage( state, parseInt( postId ) )
+		post,
+		requesting,
+		loading: requesting && ! post
 	};
 } )( SinglePage );

@@ -52,7 +52,7 @@ const Comments = React.createClass( {
 				}
 
 				<ol className="comment-list">
-					{ this.props.requesting ?
+					{ this.props.loading ?
 						<Placeholder type="comments" /> :
 						commentsList
 					}
@@ -66,11 +66,14 @@ const Comments = React.createClass( {
 
 export default connect( ( state, ownProps ) => {
 	const postId = ownProps.postId;
+	const comments = getCommentsForPost( state, postId );
+	const requesting = isRequestingCommentsForPost( state, postId );
 
 	return {
 		postId,
-		comments: getCommentsForPost( state, postId ),
+		comments,
+		requesting,
+		loading: requesting && ! comments,
 		total: getTotalCommentsForPost( state, postId ),
-		requesting: isRequestingCommentsForPost( state, postId )
 	};
 } )( Comments );

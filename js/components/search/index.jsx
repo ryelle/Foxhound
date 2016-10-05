@@ -45,7 +45,7 @@ const Search = React.createClass( {
 				</header>
 
 				<QueryPosts query={ this.props.query } />
-				{ this.props.requesting ?
+				{ this.props.loading ?
 					<Placeholder type="search" /> :
 					<PostList posts={ posts } />
 				}
@@ -58,12 +58,15 @@ export default withRouter( connect( ( state, ownProps ) => {
 	let query = {};
 	query.paged = ownProps.params.paged || 1;
 	query.s = ownProps.params.search || '';
+	const posts = getPostsForQuery( state, query );
+	const requesting = isRequestingPostsForQuery( state, query );
 
 	return {
 		page: parseInt( query.paged ),
-		query: query,
-		posts: getPostsForQuery( state, query ),
+		query,
+		posts,
+		requesting,
+		loading: requesting && ! posts,
 		totalPages: getTotalPagesForQuery( state, query ),
-		requesting: isRequestingPostsForQuery( state, query )
 	};
 } )( Search ) );

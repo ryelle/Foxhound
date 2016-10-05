@@ -25,7 +25,7 @@ const Term = React.createClass( {
 				<TermHeader params={ { taxonomy: this.props.route.taxonomy, slug: this.props.params.slug } } />
 
 				<QueryPosts query={ this.props.query } />
-				{ this.props.requesting ?
+				{ this.props.loading ?
 					<Placeholder type="term" /> :
 					<PostList posts={ posts } />
 				}
@@ -52,12 +52,16 @@ export default connect( ( state, ownProps ) => {
 		path += 'tag/' + ownProps.params.slug + '/';
 	}
 
+	const posts = getPostsForQuery( state, query );
+	const requesting = isRequestingPostsForQuery( state, query );
+
 	return {
 		path,
 		query,
+		posts,
+		requesting,
+		loading: requesting && ! posts,
 		page: parseInt( query.paged ),
-		posts: getPostsForQuery( state, query ),
 		totalPages: getTotalPagesForQuery( state, query ),
-		requesting: isRequestingPostsForQuery( state, query ),
 	};
 } )( Term );
