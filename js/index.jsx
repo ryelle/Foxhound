@@ -6,7 +6,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { POSTS_REQUEST, POSTS_RECEIVE, POSTS_REQUEST_SUCCESS } from 'data/state/posts';
+import { POSTS_RECEIVE, POSTS_REQUEST_SUCCESS, POST_REQUEST_SUCCESS } from 'data/state/posts';
+import { PAGE_REQUEST_SUCCESS } from 'data/state/pages';
 
 // Load in the babel (es6) polyfill
 // require( 'babel-polyfill' );
@@ -93,12 +94,7 @@ store.subscribe( () => {
 } );
 
 // If we have pre-loaded data, we know we're viewing the list of posts, and should pre-load it.
-if ( FoxhoundData.data.length ) {
-	store.dispatch( {
-		type: POSTS_REQUEST,
-		query: { paged: 1 },
-	} );
-
+if ( FoxhoundData.data.length > 1 ) {
 	store.dispatch( {
 		type: POSTS_RECEIVE,
 		posts: FoxhoundData.data
@@ -110,4 +106,25 @@ if ( FoxhoundData.data.length ) {
 		totalPages: FoxhoundData.paging,
 		posts: FoxhoundData.data
 	} );
+} else if ( FoxhoundData.data.length ) {
+	const post = FoxhoundData.data[ 0 ];
+	if ( 'page' === post.type ) {
+		store.dispatch( {
+			type: PAGE_REQUEST_SUCCESS,
+			postId: post.id,
+			pagePath: post.slug,
+			page: post,
+		} );
+	} else {
+		store.dispatch( {
+			type: POSTS_RECEIVE,
+			posts: [ post ]
+		} );
+
+		store.dispatch( {
+			type: POST_REQUEST_SUCCESS,
+			postId: post.id,
+			postSlug: post.slug,
+		} );
+	}
 }
