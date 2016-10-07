@@ -234,4 +234,5 @@ add_action( 'wp_enqueue_scripts', 'foxhound_fonts' );
 
 // Include extra functionality
 require get_template_directory() . '/inc/load-menu.php';
+require get_template_directory() . '/inc/load-data.php';
 require get_template_directory() . '/inc/permalinks.php';

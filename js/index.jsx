@@ -1,11 +1,12 @@
 /* eslint-disable no-multi-spaces */
-/*global FoxhoundSettings, jQuery */
+/*global FoxhoundSettings, FoxhoundData, jQuery */
 // React
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { POSTS_REQUEST, POSTS_RECEIVE, POSTS_REQUEST_SUCCESS } from 'data/state/posts';
 
 // Load in the babel (es6) polyfill
 // require( 'babel-polyfill' );
@@ -90,3 +91,23 @@ render(
 store.subscribe( () => {
 	console.log( '## Store updated:', store.getState() );
 } );
+
+// If we have pre-loaded data, we know we're viewing the list of posts, and should pre-load it.
+if ( FoxhoundData.data.length ) {
+	store.dispatch( {
+		type: POSTS_REQUEST,
+		query: { paged: 1 },
+	} );
+
+	store.dispatch( {
+		type: POSTS_RECEIVE,
+		posts: FoxhoundData.data
+	} );
+
+	store.dispatch( {
+		type: POSTS_REQUEST_SUCCESS,
+		query: { paged: 1 },
+		totalPages: FoxhoundData.paging,
+		posts: FoxhoundData.data
+	} );
+}
