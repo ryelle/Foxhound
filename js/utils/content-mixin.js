@@ -8,7 +8,11 @@ export default {
 
 	// <a href=${ data.link } class="read-more">Read More <span class="screen-reader-text">${ data.title.rendered }</span></a>
 	getExcerpt: function( data ) {
-		return { __html: data.excerpt.rendered };
+		if ( ! data.excerpt.protected ) {
+			return { __html: data.excerpt.rendered };
+		}
+
+		return { __html: '<p>This content is password-protected.</p>' };
 	},
 
 	getContent: function( data ) {
