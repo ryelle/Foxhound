@@ -6,38 +6,3 @@
 	margin: 2em 0;
 	text-align: center;
 }
-
-.slider {
-	width: 100%;
-	height: 20px;
-	background: transparent;
-	overflow: hidden;
-
-	.fill {
-		background: $color__background-background;
-		height: 100%;
-		width: 0%;
-
-		animation: slidein 2.5s linear infinite;
-	}
-}
-
-@keyframes slidein {
-	from {
-		width: 0%;
-	}
-
-	45% {
-		width: 90%;
-		margin-left: 0;
-	}
-
-	55% {
-		width: 100%;
-		margin-left: 10%;
-	}
-
-	to {
-		margin-left: 100%;
-	}
-}

@@ -4,13 +4,7 @@ import React from 'react';
 let Placeholder = React.createClass( {
 	render() {
 		let placeholderContent;
-		if ( 'posts' === this.props.type ) {
-			placeholderContent = (
-				<div className="slider">
-					<div className="fill"></div>
-				</div>
-			);
-		} else if ( 'comments' === this.props.type ) {
+		if ( 'comments' === this.props.type ) {
 			placeholderContent = (
 				<p className="placeholder-comment">Loading comments…</p>
 			);
