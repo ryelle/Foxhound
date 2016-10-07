@@ -81,7 +81,11 @@ const SinglePage = React.createClass( {
 } );
 
 export default connect( ( state, ownProps ) => {
-	const path = ownProps.params.splat || ownProps.route.slug;
+	let path = ownProps.params.splat || ownProps.route.slug;
+	if ( '/' === path[ path.length - 1 ] ) {
+		path = path.slice( 0, -1 );
+	}
+
 	const postId = getPageIdFromPath( state, path );
 	const requesting = isRequestingPage( state, path );
 	const post = getPage( state, parseInt( postId ) );
