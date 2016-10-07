@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Pre-load the navigation menu as a JSON object
  */
@@ -10,7 +10,7 @@ class Foxhound_LoadMenu {
 	}
 
 	/**
-	 * Dumps the global posts as JSON for first load render
+	 * Dumps the current menu as a JSON Object on the react script
 	 */
 	public function add_json_data() {
 		wp_localize_script( FOXHOUND_APP, 'FoxhoundMenu', array(
@@ -19,7 +19,7 @@ class Foxhound_LoadMenu {
 	}
 
 	/**
-	 * Gets global posts data from the JSON API server
+	 * Gets menu data from the JSON API server
 	 *
 	 * @param null $posts
 	 *
@@ -27,7 +27,7 @@ class Foxhound_LoadMenu {
 	 */
 	public function get_menu_data( $posts = null ) {
 		$menu = array();
-		
+
 		$request = new \WP_REST_Request();
 		$request['context'] = 'view';
 		$request['location'] = 'primary';
