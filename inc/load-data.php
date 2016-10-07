@@ -37,7 +37,7 @@ class Foxhound_LoadData {
 	 * @return array
 	 */
 	public function get_post_data( $posts = null ) {
-		if ( ! is_home() ) {
+		if ( ! is_home() || is_paged() ) {
 			return array();
 		}
 
