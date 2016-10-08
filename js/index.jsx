@@ -4,10 +4,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { POSTS_RECEIVE, POSTS_REQUEST_SUCCESS, POST_REQUEST_SUCCESS } from 'data/state/posts';
-import { PAGE_REQUEST_SUCCESS } from 'data/state/pages';
+import { useScroll } from 'react-router-scroll';
 
 // Load in the babel (es6) polyfill
 // require( 'babel-polyfill' );
@@ -25,6 +24,9 @@ import Search from 'components/search';
 import DateArchive from 'components/date';
 import NotFound from 'components/not-found';
 import { createReduxStore } from './state';
+
+import { POSTS_RECEIVE, POSTS_REQUEST_SUCCESS, POST_REQUEST_SUCCESS } from 'data/state/posts';
+import { PAGE_REQUEST_SUCCESS } from 'data/state/pages';
 
 // Accessibility!
 import A11Y from 'utils/a11y';
@@ -46,7 +48,7 @@ if ( FoxhoundSettings.frontPage.page ) {
 
 // Route onEnter
 const routes = (
-	<Router history={ history }>
+	<Router history={ history } render={ applyRouterMiddleware( useScroll() ) }>
 		<Route path={ blogURL } component={ Index } />
 		<Route path={ `${ blogURL }p/:paged` } component={ Index } />
 		{ frontPageRoute }
