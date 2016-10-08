@@ -9,8 +9,15 @@ import { submitComment } from 'data/state/comments';
 
 const CommentForm = React.createClass( {
 
-	onSubmit: function( event ) {
+	getInitialState() {
+		return {
+			errorMessage: false,
+		};
+	},
+
+	onSubmit( event ) {
 		event.preventDefault();
+		event.persist(); // We need this for the callback after a comment is posted.
 		let keys = [ 'author', 'author_id', 'email', 'url', 'comment', 'comment_post_ID', 'comment_parent' ];
 		let rawValues = {};
 		keys.map( function( key ) {
@@ -27,7 +34,22 @@ const CommentForm = React.createClass( {
 		values.content = rawValues.comment;
 		values.post = rawValues.comment_post_ID;
 
-		this.props.submitComment( values );
+		const submission = this.props.submitComment( values );
+		submission.then( ( repsonse ) => {
+			// No idea what happened.
+			if ( ! repsonse ) {
+				return;
+			}
+			// Clear the comment form
+			event.target.comment.value = '';
+			if ( repsonse.message && repsonse.message === 'Conflict' ) {
+				// clear form, show duplicate message
+				this.setState( { errorMessage: 'Duplicate comment detected; it looks as though you’ve already said that!' } );
+				setTimeout( () => {
+					this.setState( { errorMessage: false } );
+				}, 5000 );
+			}
+		} );
 	},
 
 	renderAnonFields() {
@@ -71,10 +93,13 @@ const CommentForm = React.createClass( {
 	},
 
 	render() {
+		const errorMessage = this.state.errorMessage ? <p className='error'>{ this.state.errorMessage }</p> : null;
+
 		return (
 			<form onSubmit={ this.onSubmit }>
 				{ FoxhoundSettings.user === '0' ? this.renderAnonFields() : this.renderLoggedInNotice() }
 
+				{ errorMessage }
 				<div className="comment-form-field comment-form-comment">
 					<label htmlFor="comment">Comment</label>
 					<textarea ref="content" id="comment" name="comment" aria-required="true" required="required" />
