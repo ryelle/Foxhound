@@ -58,7 +58,7 @@ const Comments = React.createClass( {
 					}
 				</ol>
 
-				{ this.props.commentsOpen && this.renderForm() }
+				{ ! this.props.loading && this.props.commentsOpen && this.renderForm() }
 			</div>
 		);
 	}
