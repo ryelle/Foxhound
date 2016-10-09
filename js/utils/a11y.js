@@ -30,7 +30,7 @@ export const keyboardFocusReset = {
 	),
 };
 
-export function skipLinks( element ) {
+export function skipLink( element ) {
 	const id = element.href.substring( 1 );
 
 	if ( ! ( /^[A-z0-9_-]+$/.test( id ) ) ) {
