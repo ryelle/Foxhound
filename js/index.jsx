@@ -29,8 +29,7 @@ import { POSTS_RECEIVE, POSTS_REQUEST_SUCCESS, POST_REQUEST_SUCCESS } from 'data
 import { PAGE_REQUEST_SUCCESS } from 'data/state/pages';
 
 // Accessibility!
-import A11Y from 'utils/a11y';
-A11Y.skipLinks();
+import { keyboardFocusReset, skipLink } from 'utils/a11y';
 
 // Now the work starts.
 const store = createReduxStore();
@@ -48,7 +47,7 @@ if ( FoxhoundSettings.frontPage.page ) {
 
 // Route onEnter
 const routes = (
-	<Router history={ history } render={ applyRouterMiddleware( useScroll() ) }>
+	<Router history={ history } render={ applyRouterMiddleware( useScroll(), keyboardFocusReset ) }>
 		<Route path={ blogURL } component={ Index } />
 		<Route path={ `${ blogURL }p/:paged` } component={ Index } />
 		{ frontPageRoute }
@@ -77,6 +76,10 @@ jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => 
 	history.push( url );
 } );
 
+jQuery( '#page' ).on( 'click', 'a[href^=#]', ( event ) => {
+	skipLink( event.target );
+} );
+
 render(
 	(
 		<Provider store={ store }>
@@ -92,7 +95,7 @@ render(
 );
 
 store.subscribe( () => {
-	console.log( '## Store updated:', store.getState() );
+	// console.log( '## Store updated:', store.getState() );
 } );
 
 // If we have pre-loaded data, we know we're viewing the list of posts, and should pre-load it.

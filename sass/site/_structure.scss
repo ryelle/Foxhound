@@ -10,3 +10,8 @@
 		padding: 0 25px;
 	}
 }
+
+// For this element (only!), we hide the focus state.
+.site-main:focus {
+	outline: none;
+}
