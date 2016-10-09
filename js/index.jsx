@@ -76,7 +76,7 @@ jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => 
 	history.push( url );
 } );
 
-jQuery( '#page' ).on( 'click', 'a[href^=#]', ( event ) => {
+jQuery( '#page' ).on( 'click', 'a[href^="#"]', ( event ) => {
 	skipLink( event.target );
 } );
 
@@ -90,13 +90,13 @@ render(
 );
 
 render(
-	<Navigation />,
+	(
+		<Provider store={ store }>
+			<Navigation />
+		</Provider>
+	),
 	document.getElementById( 'site-navigation' )
 );
-
-store.subscribe( () => {
-	// console.log( '## Store updated:', store.getState() );
-} );
 
 // If we have pre-loaded data, we know we're viewing the list of posts, and should pre-load it.
 if ( FoxhoundData.data.length > 1 ) {

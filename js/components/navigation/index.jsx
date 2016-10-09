@@ -1,6 +1,7 @@
-/*global FoxhoundMenu */
+/*global FoxhoundMenu, FoxhoundSettings */
 // External dependencies
 import React from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 const isItemSelected = function( item ) {
@@ -71,7 +72,7 @@ const Navigation = React.createClass( {
 	getInitialState() {
 		return {
 			isMenuOpen: false,
-			selected: location.pathname,
+			selected: this.props.currentPage,
 		}
 	},
 
@@ -107,4 +108,9 @@ const Navigation = React.createClass( {
 	}
 } );
 
-export default Navigation;
+export default connect( ( state ) => {
+	const path = FoxhoundSettings.URL.path || '/';
+	return {
+		currentPage: state.routing.locationBeforeTransitions.pathname || path,
+	};
+} )( Navigation );
