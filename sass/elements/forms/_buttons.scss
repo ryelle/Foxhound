@@ -2,7 +2,6 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-
 	padding: .6em 1.5em .4em;
 	background: $color__background-button;
 	color: $color__text-button;
@@ -24,4 +23,18 @@ input[type="submit"] {
 
 	&:focus,
 	&:active {}
+}
+
+// Jetpack Contact Form
+.contact-submit {
+	text-align: right;
+	padding-right: 1px;
+
+	input[type="submit"] {
+		background-color: $color__background-button-primary;
+	}
+
+	input[type="submit"][disabled] {
+		opacity: 0.5;
+	}
 }

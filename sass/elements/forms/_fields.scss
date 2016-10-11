@@ -4,9 +4,13 @@ input[type="url"],
 input[type="password"],
 input[type="search"],
 textarea {
-	color: $color__text-input;
-	@include font-size( 15 );
+	flex: 1;
+	padding: 13px 20px 14px 0;
+	width: 100%;
 	border: none;
+	color: $color__text-input;
+	background-color: $color__background-body;
+	@include font-size( 15 );
 
 	&:focus {
 		outline: none;
@@ -43,4 +47,38 @@ select {
 }
 :-moz-placeholder { /* Firefox 18- */
 	line-height: normal;
+}
+
+// Jetpack Contact Form
+.contact-form > div {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+
+	margin-bottom: 20px;
+	border: 1px solid $color__border-input;
+	color: $color__text-label;
+
+	label {
+		flex: 0 auto;
+		padding: 15px;
+
+		span {
+			margin-left: 5px;
+		}
+	}
+
+	input {
+		padding-left: 0;
+	}
+
+	label.textarea,
+	textarea {
+		flex: 1 100%;
+	}
+
+	textarea {
+		min-height: 140px;
+		padding: 0 15px 15px;
+	}
 }

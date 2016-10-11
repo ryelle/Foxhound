@@ -86,16 +86,8 @@
 		padding: 15px;
 	}
 
-	input, textarea {
-		flex: 1;
-		padding: 13px 20px 14px 0;
-		width: 100%;
-		color: $color__text-input;
-		background-color: $color__background-body;
-
-		&:focus {
-			color: $color__text-input-focus;
-		}
+	input {
+		padding-left: 0;
 	}
 
 	&.comment-form-comment {
