@@ -15,3 +15,16 @@
 .site-main:focus {
 	outline: none;
 }
+
+// Hide Jetpack's sharing/like buttons on the blog
+.sharedaddy {
+	display: none !important;
+
+	body.single & {
+		display: block !important;
+	}
+
+	.sd-sharing {
+		padding-left: 2px;
+	}
+}
