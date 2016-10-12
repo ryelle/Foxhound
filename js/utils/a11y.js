@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const ExampleComponent = React.createClass( {
+const FocusHandler = React.createClass( {
 	componentDidUpdate( prevProps ) {
 		const { routerProps } = this.props;
 		const prevRouterProps = prevProps.routerProps;
@@ -22,11 +22,11 @@ const ExampleComponent = React.createClass( {
 
 export const keyboardFocusReset = {
 	renderRouterContext: ( child, props ) => (
-		<ExampleComponent
+		<FocusHandler
 			routerProps={ props }
 		>
 			{ child }
-		</ExampleComponent>
+		</FocusHandler>
 	),
 };
 
