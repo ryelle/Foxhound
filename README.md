@@ -26,7 +26,18 @@ Since this is a more "experimental" theme, you'll need to have a few things set 
 Display & Features
 ------------------
 
-A list of posts will display on the homepage - the theme will not respect the "Front page displays" setting*.
+This theme supports your average blogging site. It looks best with "Front page displays" set to latest posts (in Settings > Reading), however it does support a static page & blog posts on another page. This theme works best for very text-focused sites. It will display featured images on single posts & pages, but not on archive/list views. There is currently no special handling for post formats.
+
+Thanks to…
+----------
+
+These are a few of the packages/plugins that made this theme possible.
+
+- [WP-API Plugin](http://v2.wp-api.org/) ([Core Proposal](https://make.wordpress.org/core/2016/10/08/rest-api-merge-proposal-part-2-content-api/))
+- [WP API Menus Plugin](https://wordpress.org/plugins/wp-api-menus/)
+- [node-wpapi](https://www.npmjs.com/package/wpapi)
+- [react-document-meta](https://www.npmjs.com/package/react-document-meta)
+- [react-router-scroll](https://www.npmjs.com/package/react-router-scroll)
 
 Development
 -----------
