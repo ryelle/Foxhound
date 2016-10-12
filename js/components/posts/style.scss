@@ -27,6 +27,7 @@
 
 	@include breakpoint( '>660px' ) {
 		flex: 1 $size__site-sidebar;
+		-ms-flex: 1 $size__site-sidebar-fallback;
 		order: 2;
 		width: $size__site-sidebar;
 		margin-top: 8px;
@@ -46,5 +47,6 @@
 
 	@include breakpoint( '>660px' ) {
 		order: 3;
+		max-width: $size__site-content;
 	}
 }

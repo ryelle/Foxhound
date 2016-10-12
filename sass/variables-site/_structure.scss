@@ -4,6 +4,7 @@
 
 $calc-sidebar-width: ( 275 / 935 ) * 100%;
 $size__site-gutter: 75px;
+$size__site-sidebar-fallback: $calc-sidebar-width - 10%;
 $size__site-sidebar: calc( #{$calc-sidebar-width} - #{$size__site-gutter} );
 $size__site-content: ( 660 / 935 ) * 100%;
 $size__site-container: 935px;

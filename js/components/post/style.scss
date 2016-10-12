@@ -13,6 +13,7 @@ body.page {
 	.entry-meta,
 	.entry-content,
 	footer.entry-meta {
+		order: 0;
 		order: unset;
 	}
 
