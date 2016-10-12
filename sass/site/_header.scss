@@ -20,8 +20,9 @@
 	@include breakpoint( '>660px' ) {
 		flex: 1 $size__site-sidebar;
 		-ms-flex: 1 $size__site-sidebar-fallback;
-		width: $size__site-sidebar;
+		max-width: $size__site-sidebar;
 		margin-right: $size__site-gutter;
+		margin-left: -1px; // Safari hack
 		text-align: right;
 	}
 }
