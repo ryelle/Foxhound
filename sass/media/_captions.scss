@@ -1,4 +1,5 @@
 .wp-caption {
+	margin-top: 0;
 	margin-bottom: 1.5em;
 	max-width: 100%;
 
@@ -9,6 +10,15 @@
 	.wp-caption-text {
 		margin: 0.8075em 0;
 	}
+
+	a {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+p + .wp-caption {
+	margin-top: 1.5em;
 }
 
 .wp-caption-text {
