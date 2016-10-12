@@ -1,5 +1,8 @@
 /* eslint-disable no-multi-spaces */
 /*global FoxhoundSettings, FoxhoundData, jQuery */
+// Load in the babel (es6) polyfill
+import 'babel-polyfill';
+
 // React
 import React from 'react';
 import { render } from 'react-dom';
@@ -7,9 +10,6 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
-
-// Load in the babel (es6) polyfill
-// require( 'babel-polyfill' );
 
 // Load the CSS
 require( '../sass/style.scss' );
