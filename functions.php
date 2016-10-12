@@ -110,21 +110,8 @@ function foxhound_scripts() {
 	wp_enqueue_style( 'foxhound-style', get_template_directory_uri() . '/build/style.css' );
 	wp_enqueue_script( FOXHOUND_APP, get_template_directory_uri() . '/build/app.js', array( 'jquery' ), FOXHOUND_VERSION, true );
 
-	if ( class_exists( 'Jetpack' ) ) {
-		// Fire the post_gallery action early so Carousel scripts are present.
-		if ( Jetpack::is_module_active( 'carousel' ) ) {
-			/** This filter is already documented in core/wp-includes/media.php */
-			do_action( 'post_gallery', '', '' );
-		}
-
-		// VideoPress Jetpack module
-		if ( Jetpack::is_module_active( 'videopress' ) ) {
-			wp_enqueue_script( 'videopress' );
-		}
-
-		if ( class_exists( 'Jetpack_Tiled_Gallery' ) ) {
-			Jetpack_Tiled_Gallery::default_scripts_and_styles();
-		}
+	if ( class_exists( 'Jetpack_Tiled_Gallery' ) ) {
+		Jetpack_Tiled_Gallery::default_scripts_and_styles();
 	}
 
 	$url = trailingslashit( home_url() );
