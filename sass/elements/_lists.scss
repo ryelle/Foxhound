@@ -1,5 +1,13 @@
 ul, ol {
-	margin: 0 0 1.5em 3em;
+	margin: 0 0 1.5em 0;
+
+	@include breakpoint( '>480px' ) {
+		margin: 0 0 1.5em 1em;
+	}
+
+	@include breakpoint( '>960px' ) {
+		margin: 0 0 1.5em 2em;
+	}
 }
 
 ul {
@@ -13,7 +21,7 @@ ol {
 li > ul,
 li > ol {
 	margin-bottom: 0;
-	margin-left: 1.5em;
+	margin-left: 1em;
 }
 
 dt {
@@ -21,5 +29,5 @@ dt {
 }
 
 dd {
-	margin: 0 1.5em 1.5em;
+	margin: 0 1em 1.5em;
 }
