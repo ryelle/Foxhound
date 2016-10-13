@@ -32,6 +32,10 @@ h3, h4, h5, h6 {
 	@include font-size( $font__size-header );
 	line-height: 1.1;
 	color: $red;
+
+	@include breakpoint( '<480px' ) {
+		@include font-size( $font__size-header - 4 );
+	}
 }
 
 .comments-title,

@@ -5,7 +5,11 @@
 .single,
 body.page {
 	.entry-content > p:first-of-type {
-		@include font-size( 24 );
+		@include font-size( 22 );
+
+		@include breakpoint( '>480px' ) {
+			@include font-size( 24 );
+		}
 	}
 
 	.entry-title,
