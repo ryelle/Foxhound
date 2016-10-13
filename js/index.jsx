@@ -1,4 +1,3 @@
-/* eslint-disable no-multi-spaces */
 /*global FoxhoundSettings, FoxhoundData, jQuery */
 // Load in the babel (es6) polyfill
 import 'babel-polyfill';

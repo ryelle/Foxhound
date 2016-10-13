@@ -1,14 +1,13 @@
-/* eslint-disable key-spacing */
 // External dependencies
 import React from 'react';
 const noop = () => {};
 
 let Pagination = React.createClass( {
 	propTypes: {
-		start:          React.PropTypes.number,
-		current:        React.PropTypes.number,
-		end:            React.PropTypes.number,
-		onNextPage:     React.PropTypes.func,
+		start: React.PropTypes.number,
+		current: React.PropTypes.number,
+		end: React.PropTypes.number,
+		onNextPage: React.PropTypes.func,
 		onPreviousPage: React.PropTypes.func,
 	},
 
