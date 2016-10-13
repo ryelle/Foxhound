@@ -4,14 +4,14 @@ import React from 'react';
 
 const FocusHandler = React.createClass( {
 	componentDidUpdate( prevProps ) {
-		const { routerProps } = this.props;
+		const { routerProps, elementId } = this.props;
 		const prevRouterProps = prevProps.routerProps;
 
 		if ( routerProps.location === prevRouterProps.location ) {
 			return;
 		}
 
-		const element = document.getElementById( 'main' );
+		const element = document.getElementById( elementId );
 		element.focus();
 	},
 
@@ -20,14 +20,17 @@ const FocusHandler = React.createClass( {
 	}
 } );
 
-export const keyboardFocusReset = {
-	renderRouterContext: ( child, props ) => (
-		<FocusHandler
-			routerProps={ props }
-		>
-			{ child }
-		</FocusHandler>
-	),
+export function keyboardFocusReset( elementId ) {
+	return {
+		renderRouterContext: ( child, props ) => (
+			<FocusHandler
+				routerProps={ props }
+				elementId={ elementId }
+			>
+				{ child }
+			</FocusHandler>
+		),
+	};
 };
 
 export function skipLink( element ) {

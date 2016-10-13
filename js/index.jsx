@@ -47,7 +47,7 @@ if ( FoxhoundSettings.frontPage.page ) {
 
 // Route onEnter
 const routes = (
-	<Router history={ history } render={ applyRouterMiddleware( useScroll(), keyboardFocusReset ) }>
+	<Router history={ history } render={ applyRouterMiddleware( useScroll(), keyboardFocusReset( 'main' ) ) }>
 		<Route path={ blogURL } component={ Index } />
 		<Route path={ `${ blogURL }p/:paged` } component={ Index } />
 		{ frontPageRoute }
