@@ -38,7 +38,7 @@ These are a few of the packages/plugins that made this theme possible.
 - [node-wpapi](https://www.npmjs.com/package/wpapi)
 - [react-document-meta](https://www.npmjs.com/package/react-document-meta)
 - [react-router-scroll](https://www.npmjs.com/package/react-router-scroll)
-- [Mel Choyce](https://choycedesign.com) for designing all the things.
+- & of course, [Mel Choyce](https://choycedesign.com) for designing all the things.
 
 Development
 -----------
