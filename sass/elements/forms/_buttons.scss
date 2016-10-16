@@ -22,7 +22,10 @@ input[type="submit"] {
 	&:hover {}
 
 	&:focus,
-	&:active {}
+	&:active {
+		outline: none;
+		border-color: $color__background-button-focus;
+	}
 }
 
 // Jetpack Contact Form
