@@ -10,6 +10,9 @@ class Foxhound_SetPermalinks {
 		add_action( 'init', array( $this, 'change_paged' ) );
 		add_action( 'init', array( $this, 'change_page' ) );
 		add_action( 'template_redirect', array( $this, 'redirect_search' ) );
+
+		// Flush permalinks after the theme is activated
+		add_action( 'after_switch_theme', 'flush_rewrite_rules' );
 	}
 
 	public function admin_permalinks_warning() {
