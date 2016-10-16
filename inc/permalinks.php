@@ -17,6 +17,7 @@ class Foxhound_SetPermalinks {
 		add_action( 'init', array( $this, 'change_date' ) );
 		add_action( 'init', array( $this, 'change_paged' ) );
 		add_action( 'init', array( $this, 'change_page' ) );
+		add_action( 'after_switch_theme', array( $this, 'update_permalinks' ), 11 );
 		add_action( 'template_redirect', array( $this, 'redirect_search' ) );
 
 		// Flush permalinks after the theme is activated
@@ -36,6 +37,14 @@ class Foxhound_SetPermalinks {
 			<p><?php esc_html_e( '<b>Warning:</b> The theme you\'re using does not support customized permalinks.', 'foxhound' ); ?></p>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Set the permalink structure to year/month/postname
+	 */
+	public function update_permalinks() {
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/%year%/%monthnum%/%postname%/' );
 	}
 
 	/**
