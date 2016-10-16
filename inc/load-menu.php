@@ -1,10 +1,17 @@
 <?php
 /**
  * Pre-load the navigation menu as a JSON object
+ *
+ * @package Foxhound
  */
 
+/**
+ * Class wrapper for menu loading
+ */
 class Foxhound_LoadMenu {
-
+	/**
+	 * Set up actions
+	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_json_data' ), 25 );
 	}
@@ -14,18 +21,16 @@ class Foxhound_LoadMenu {
 	 */
 	public function add_json_data() {
 		wp_localize_script( FOXHOUND_APP, 'FoxhoundMenu', array(
-			'data' => $this->get_menu_data()
+			'data' => $this->get_menu_data(),
 		) );
 	}
 
 	/**
 	 * Gets menu data from the JSON API server
 	 *
-	 * @param null $posts
-	 *
 	 * @return array
 	 */
-	public function get_menu_data( $posts = null ) {
+	public function get_menu_data() {
 		$menu = array();
 
 		$request = new \WP_REST_Request();

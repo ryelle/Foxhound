@@ -115,7 +115,7 @@ function foxhound_scripts() {
 	}
 
 	$url = trailingslashit( home_url() );
-	$path = trailingslashit( parse_url( $url, PHP_URL_PATH ) );
+	$path = trailingslashit( wp_parse_url( $url, PHP_URL_PATH ) );
 
 	$front_page_slug = false;
 	$blog_page_slug = false;
@@ -155,7 +155,7 @@ function foxhound_scripts() {
 		'meta' => array(
 			'title' => get_bloginfo( 'name', 'display' ),
 			'description' => get_bloginfo( 'description', 'display' ),
-		)
+		),
 	) );
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_scripts' );
@@ -172,19 +172,22 @@ add_action( 'wp_enqueue_scripts', 'foxhound_scripts' );
 function foxhound_fonts_url() {
 	$fonts_url = '';
 
-	/* Translators: If there are characters in your language that are not
+	/*
+	 * Translators: If there are characters in your language that are not
 	 * supported by Alegreya, translate this to 'off'. Do not translate
 	 * into your own language.
 	 */
 	$alegreya = _x( 'on', 'Alegreya font: on or off', 'foxhound' );
 
-	/* Translators: If there are characters in your language that are not
+	/*
+	 * Translators: If there are characters in your language that are not
 	 * supported by Alegreya Sans, translate this to 'off'. Do not translate into
 	 * your own language.
 	 */
 	$alegreya_sans = _x( 'on', 'Alegreya Sans font: on or off', 'foxhound' );
 
-	/* Translators: If there are characters in your language that are not
+	/*
+	 * Translators: If there are characters in your language that are not
 	 * supported by Alegreya SC, translate this to 'off'. Do not translate into
 	 * your own language.
 	 */
@@ -193,19 +196,22 @@ function foxhound_fonts_url() {
 	if ( 'off' !== $alegreya || 'off' !== $alegreya_sans || 'off' !== $alegreya_sc ) {
 		$font_families = array();
 
-		if ( 'off' !== $alegreya )
-			$font_families[] = urlencode( 'Alegreya:400,400italic,700,700italic,900italic' );
+		if ( 'off' !== $alegreya ) {
+			$font_families[] = rawurlencode( 'Alegreya:400,400italic,700,700italic,900italic' );
+		}
 
-		if ( 'off' !== $alegreya_sans )
-			$font_families[] = urlencode( 'Alegreya Sans:700' );
+		if ( 'off' !== $alegreya_sans ) {
+			$font_families[] = rawurlencode( 'Alegreya Sans:700' );
+		}
 
-		if ( 'off' !== $alegreya_sc )
-			$font_families[] = urlencode( 'Alegreya SC:700' );
+		if ( 'off' !== $alegreya_sc ) {
+			$font_families[] = rawurlencode( 'Alegreya SC:700' );
+		}
 
 		$protocol = is_ssl() ? 'https' : 'http';
 		$query_args = array(
 			'family' => implode( '|', $font_families ),
-			'subset' => urlencode( 'latin,latin-ext' ),
+			'subset' => rawurlencode( 'latin,latin-ext' ),
 		);
 		$fonts_url = add_query_arg( $query_args, "$protocol://fonts.googleapis.com/css" );
 	}
@@ -226,7 +232,7 @@ function foxhound_fonts_url() {
  */
 function foxhound_fonts() {
 	$fonts_url = foxhound_fonts_url();
-	if ( ! empty( $fonts_url ) ){
+	if ( ! empty( $fonts_url ) ) {
 		wp_enqueue_style( 'foxhound-fonts', esc_url_raw( $fonts_url ), array(), null );
 	}
 }

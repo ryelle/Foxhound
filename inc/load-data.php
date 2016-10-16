@@ -2,10 +2,17 @@
 /**
  * Pre-load the first page's query response as a JSON object
  * Skips the need for an API query on the initial load of a page
+ *
+ * @package Foxhound
  */
 
+/**
+ * Class wrapper for data loading
+ */
 class Foxhound_LoadData {
-
+	/**
+	 * Set up actions
+	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'dump_query' ), 25 );
 		add_action( 'pre_get_posts', array( $this, 'unstick_stickies' ) );
@@ -13,6 +20,8 @@ class Foxhound_LoadData {
 
 	/**
 	 * Unstick sticky posts to mirror the behavior of the REST API
+	 *
+	 * @param WP_Query $query The WP_Query object.
 	 */
 	public function unstick_stickies( $query ) {
 		$query->set( 'ignore_sticky_posts', true );
@@ -32,18 +41,14 @@ class Foxhound_LoadData {
 	/**
 	 * Gets current posts data from the JSON API server
 	 *
-	 * @param null $posts
-	 *
 	 * @return array
 	 */
-	public function get_post_data( $posts = null ) {
+	public function get_post_data() {
 		if ( ! ( ( is_home() && ! is_paged() ) || is_page() || is_singular() ) ) {
 			return array();
 		}
 
-		if ( $posts === null ) {
-			$posts = $GLOBALS['wp_query']->posts;
-		}
+		$posts = $GLOBALS['wp_query']->posts;
 
 		global $wp_rest_server;
 
@@ -68,9 +73,7 @@ class Foxhound_LoadData {
 	/**
 	 * Gets current posts data from the JSON API server
 	 *
-	 * @param null $posts
-	 *
-	 * @return array
+	 * @return int
 	 */
 	public function get_total_pages() {
 		if ( is_404() ) {
