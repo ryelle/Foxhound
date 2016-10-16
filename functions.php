@@ -115,7 +115,7 @@ function foxhound_scripts() {
 	}
 
 	$url = trailingslashit( home_url() );
-	$path = trailingslashit( wp_parse_url( $url, PHP_URL_PATH ) );
+	$path = trailingslashit( wp_parse_url( $url )['path'] );
 
 	$front_page_slug = false;
 	$blog_page_slug = false;
