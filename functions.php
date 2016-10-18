@@ -15,7 +15,6 @@ if ( ! defined( 'FOXHOUND_APP' ) ) {
 	define( 'FOXHOUND_APP', 'foxhound-react' );
 }
 
-if ( ! function_exists( 'foxhound_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -70,7 +69,6 @@ function foxhound_setup() {
 	add_post_type_support( 'post', 'comments' );
 	add_post_type_support( 'page', 'comments' );
 }
-endif; // foxhound_setup
 add_action( 'after_setup_theme', 'foxhound_setup' );
 
 /**
@@ -238,7 +236,7 @@ function foxhound_fonts() {
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_fonts' );
 
-// Include extra functionality
+// Include extra functionality.
 require get_template_directory() . '/inc/load-menu.php';
 require get_template_directory() . '/inc/load-data.php';
 require get_template_directory() . '/inc/permalinks.php';

@@ -20,7 +20,7 @@ class Foxhound_SetPermalinks {
 		add_action( 'after_switch_theme', array( $this, 'update_permalinks' ), 11 );
 		add_action( 'template_redirect', array( $this, 'redirect_search' ) );
 
-		// Flush permalinks after the theme is activated
+		// Flush permalinks after the theme is activated.
 		add_action( 'after_switch_theme', 'flush_rewrite_rules' );
 	}
 
