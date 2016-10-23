@@ -1,4 +1,0 @@
-[submodule "js/data"]
-	path = js/data
-	url = https://github.com/ryelle/wordpress-query-components.git
-	branch = master
