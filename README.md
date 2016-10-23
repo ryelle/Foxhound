@@ -5,7 +5,7 @@ A react-based theme for WordPress.
 
 Want to try out the theme? Download or clone this repo into your `/themes` folder, then run npm to install and build the javascript & CSS files. The process will look like this
 
-	git clone --recursive https://github.com/ryelle/Foxhound foxhound
+	git clone https://github.com/ryelle/Foxhound foxhound
 	cd foxhound
 	npm install
 	npm run build
