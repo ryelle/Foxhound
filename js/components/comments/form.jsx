@@ -4,8 +4,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { isSubmittingCommentOnPost } from 'data/state/selectors/comments';
-import { submitComment } from 'data/state/comments';
+import { isSubmittingCommentOnPost } from 'wordpress-query-comments/selectors';
+import { submitComment } from 'wordpress-query-comments/state';
 
 const CommentForm = React.createClass( {
 

@@ -6,8 +6,8 @@ import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 
 // Internal dependencies
-import QueryPage from 'data/query-page';
-import { getPageIdFromPath, isRequestingPage, getPage } from 'data/state/selectors';
+import QueryPage from 'wordpress-query-page';
+import { getPageIdFromPath, isRequestingPage, getPage } from 'wordpress-query-page/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components

@@ -46,6 +46,10 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "shallowequal": "^0.2.2",
+    "wordpress-query-comments": "git+https://github.com/ryelle/wordpress-query-comments.git",
+    "wordpress-query-page": "git+https://github.com/ryelle/wordpress-query-page.git",
+    "wordpress-query-posts": "git+https://github.com/ryelle/wordpress-query-posts.git",
+    "wordpress-query-term": "git+https://github.com/ryelle/wordpress-query-term.git",
     "wpapi": "^0.11.0"
   },
   "engines": {

@@ -6,8 +6,8 @@ import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 
 // Internal dependencies
-import QueryPosts from 'data/query-posts';
-import { getPostIdFromSlug, isRequestingPost, getPost } from 'data/state/selectors';
+import QueryPosts from 'wordpress-query-posts';
+import { getPostIdFromSlug, isRequestingPost, getPost } from 'wordpress-query-posts/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components

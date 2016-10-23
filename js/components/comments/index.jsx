@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import BodyClass from 'react-body-class';
 
 // Internal dependencies
-import QueryComments from 'data/query-comments';
-import { isRequestingCommentsForPost, getCommentsForPost, getTotalCommentsForPost } from 'data/state/selectors';
+import QueryComments from 'wordpress-query-comments';
+import { isRequestingCommentsForPost, getCommentsForPost, getTotalCommentsForPost } from 'wordpress-query-comments/selectors';
 
 // Components
 // import CommentPagination from '../pagination/comments';

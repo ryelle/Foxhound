@@ -1,9 +1,12 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { routerReducer } from 'react-router-redux';
-import wordpressReducer from 'data/state';
+import posts from 'wordpress-query-posts/state';
+import pages from 'wordpress-query-page/state';
+import terms from 'wordpress-query-term/state';
+import comments from 'wordpress-query-comments/state';
 
-let reducer = combineReducers( Object.assign( {}, wordpressReducer, { routing: routerReducer } ) );
+let reducer = combineReducers( { posts, pages, terms, comments, routing: routerReducer } );
 
 let middleware = [ thunkMiddleware ];
 
