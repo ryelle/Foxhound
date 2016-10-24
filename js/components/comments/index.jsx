@@ -5,7 +5,7 @@ import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryComments from 'wordpress-query-comments';
-import { isRequestingCommentsForPost, getCommentsForPost, getTotalCommentsForPost } from 'wordpress-query-comments/selectors';
+import { isRequestingCommentsForPost, getCommentsForPost, getTotalCommentsForPost } from 'wordpress-query-comments/lib/selectors';
 
 // Components
 // import CommentPagination from '../pagination/comments';

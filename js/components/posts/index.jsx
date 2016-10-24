@@ -7,7 +7,7 @@ import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryPosts from 'wordpress-query-posts';
-import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'wordpress-query-posts/selectors';
+import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'wordpress-query-posts/lib/selectors';
 
 // Components
 import PostList from './list';

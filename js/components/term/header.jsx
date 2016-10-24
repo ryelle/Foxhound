@@ -6,7 +6,7 @@ import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryTerm from 'wordpress-query-term';
-import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'wordpress-query-term/selectors';
+import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'wordpress-query-term/lib/selectors';
 
 const TermHeader = ( { term, taxonomy, loading, termData = {} } ) => {
 	const meta = {

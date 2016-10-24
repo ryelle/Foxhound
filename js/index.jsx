@@ -24,8 +24,8 @@ import DateArchive from 'components/date';
 import NotFound from 'components/not-found';
 import { createReduxStore } from './state';
 
-import { POSTS_RECEIVE, POSTS_REQUEST_SUCCESS, POST_REQUEST_SUCCESS } from 'wordpress-query-posts/state';
-import { PAGE_REQUEST_SUCCESS } from 'wordpress-query-page/state';
+import { POSTS_RECEIVE, POSTS_REQUEST_SUCCESS, POST_REQUEST_SUCCESS } from 'wordpress-query-posts/lib/state';
+import { PAGE_REQUEST_SUCCESS } from 'wordpress-query-page/lib/state';
 
 // Accessibility!
 import { keyboardFocusReset, skipLink } from 'utils/a11y';

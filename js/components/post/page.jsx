@@ -7,7 +7,7 @@ import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryPage from 'wordpress-query-page';
-import { getPageIdFromPath, isRequestingPage, getPage } from 'wordpress-query-page/selectors';
+import { getPageIdFromPath, isRequestingPage, getPage } from 'wordpress-query-page/lib/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components

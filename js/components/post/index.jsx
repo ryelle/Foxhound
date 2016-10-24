@@ -7,7 +7,7 @@ import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import QueryPosts from 'wordpress-query-posts';
-import { getPostIdFromSlug, isRequestingPost, getPost } from 'wordpress-query-posts/selectors';
+import { getPostIdFromSlug, isRequestingPost, getPost } from 'wordpress-query-posts/lib/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components
