@@ -46,10 +46,10 @@
     "react-router-scroll": "^0.3.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "wordpress-query-comments": "git+https://github.com/ryelle/wordpress-query-comments.git",
-    "wordpress-query-page": "git+https://github.com/ryelle/wordpress-query-page.git",
-    "wordpress-query-posts": "git+https://github.com/ryelle/wordpress-query-posts.git",
-    "wordpress-query-term": "git+https://github.com/ryelle/wordpress-query-term.git"
+    "wordpress-query-comments": "^1.0.0",
+    "wordpress-query-page": "^1.0.0",
+    "wordpress-query-posts": "^1.0.2",
+    "wordpress-query-term": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10"
