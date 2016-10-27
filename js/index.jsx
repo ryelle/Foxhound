@@ -68,6 +68,14 @@ const routes = (
 );
 
 jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
+	// Don't capture clicks in post content.
+	if ( jQuery( event.currentTarget ).closest( '.entry-content' ).length ) {
+		return;
+	}
+	// Don't capture clicks to wp-admin, or the RSS feed
+	if ( /wp-(admin|login)/.test( event.currentTarget.href ) || /\/feed\/$/.test( event.currentTarget.href ) ) {
+		return;
+	}
 	event.preventDefault();
 	let url = event.currentTarget.href;
 
