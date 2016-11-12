@@ -1,7 +1,8 @@
 {
   "name": "Foxhound",
   "version": "1.0.0",
-  "description": "Kelly Dwan & Mel Choyce",
+  "description": "A new kind of WordPress theme",
+  "author": "Kelly Dwan & Mel Choyce",
   "private": true,
   "repository": {
     "type": "git",
