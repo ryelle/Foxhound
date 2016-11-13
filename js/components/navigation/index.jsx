@@ -1,8 +1,9 @@
-/*global FoxhoundMenu, FoxhoundSettings */
+/*global FoxhoundSettings */
 // External dependencies
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { getMenu } from 'wordpress-query-menu/lib/selectors';
 
 const isItemSelected = function( item ) {
 	let re;
@@ -82,7 +83,7 @@ const Navigation = React.createClass( {
 	},
 
 	render() {
-		let menu = FoxhoundMenu.data.map( ( item, i ) => {
+		let menu = this.props.menu.map( ( item, i ) => {
 			const onClick = ( event ) => {
 				blur( event );
 				this.setState( { selected: item.url } );
@@ -110,7 +111,9 @@ const Navigation = React.createClass( {
 
 export default connect( ( state ) => {
 	const path = FoxhoundSettings.URL.path || '/';
+	const menu = getMenu( state, 'primary' );
 	return {
 		currentPage: state.routing.locationBeforeTransitions.pathname || path,
+		menu: menu || [],
 	};
 } )( Navigation );
