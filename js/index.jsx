@@ -1,4 +1,4 @@
-/*global FoxhoundSettings, FoxhoundData, jQuery */
+/*global FoxhoundSettings, FoxhoundData, FoxhoundMenu, jQuery */
 // Load in the babel (es6) polyfill
 import 'babel-polyfill';
 
@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
+import { bindActionCreators } from 'redux';
 
 // Load the CSS
 require( '../sass/style.scss' );
@@ -23,9 +24,8 @@ import Search from 'components/search';
 import DateArchive from 'components/date';
 import NotFound from 'components/not-found';
 import { createReduxStore } from './state';
-
-import { POSTS_RECEIVE, POSTS_REQUEST_SUCCESS, POST_REQUEST_SUCCESS } from 'wordpress-query-posts/lib/state';
-import { PAGE_REQUEST_SUCCESS } from 'wordpress-query-page/lib/state';
+import { setMenu } from 'wordpress-query-menu/lib/state';
+import { setPost, setPosts } from './utils/initial-actions';
 
 // Accessibility!
 import { keyboardFocusReset, skipLink } from 'utils/a11y';
@@ -112,39 +112,14 @@ function handleLinkClick() {
 
 // If we have pre-loaded data, we know we're viewing the list of posts, and should pre-load it.
 function renderPreloadData() {
-	if ( FoxhoundData.data.length > 1 ) {
-		store.dispatch( {
-			type: POSTS_RECEIVE,
-			posts: FoxhoundData.data
-		} );
+	const actions = bindActionCreators( { setMenu, setPost, setPosts }, store.dispatch );
+	actions.setMenu( 'primary', FoxhoundMenu.data );
 
-		store.dispatch( {
-			type: POSTS_REQUEST_SUCCESS,
-			query: { paged: 1 },
-			totalPages: FoxhoundData.paging,
-			posts: FoxhoundData.data
-		} );
+	if ( FoxhoundData.data.length > 1 ) {
+		actions.setPosts( FoxhoundData.data, FoxhoundData.paging );
 	} else if ( FoxhoundData.data.length ) {
 		const post = FoxhoundData.data[ 0 ];
-		if ( 'page' === post.type ) {
-			store.dispatch( {
-				type: PAGE_REQUEST_SUCCESS,
-				postId: post.id,
-				pagePath: post.slug,
-				page: post,
-			} );
-		} else {
-			store.dispatch( {
-				type: POSTS_RECEIVE,
-				posts: [ post ]
-			} );
-
-			store.dispatch( {
-				type: POST_REQUEST_SUCCESS,
-				postId: post.id,
-				postSlug: post.slug,
-			} );
-		}
+		actions.setPost( post );
 	}
 }
 
