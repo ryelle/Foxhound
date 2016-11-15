@@ -14,8 +14,8 @@ class Foxhound_LoadData {
 	 * Set up actions
 	 */
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'dump_query' ), 25 );
 		add_action( 'pre_get_posts', array( $this, 'unstick_stickies' ) );
+		add_filter( 'script_loader_tag', array( $this, 'print_data' ), 10, 2 );
 	}
 
 	/**
@@ -29,10 +29,24 @@ class Foxhound_LoadData {
 	}
 
 	/**
-	 * Dumps the current query response as a JSON Object on the react script
+	 * Adds the json-string data to the react app script
 	 */
-	public function dump_query() {
-		wp_localize_script( FOXHOUND_APP, 'FoxhoundData', array(
+	public function print_data( $tag, $handle ) {
+		if ( FOXHOUND_APP === $handle ) {
+			printf(
+				'<script type="text/javascript">var FoxhoundData = %s;</script>',
+				$this->add_json_data()
+			);
+			return $tag;
+		}
+		return $tag;
+	}
+
+	/**
+	 * Dumps the current query response as a JSON-encoded string
+	 */
+	public function add_json_data() {
+		return wp_json_encode( array(
 			'data' => $this->get_post_data(),
 			'paging' => $this->get_total_pages(),
 		) );
