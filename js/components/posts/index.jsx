@@ -44,7 +44,7 @@ const Index = React.createClass( {
 
 export default connect( ( state, ownProps ) => {
 	let query = {};
-	query.paged = ownProps.params.paged || 1;
+	query.page = ownProps.params.paged || 1;
 
 	let path = FoxhoundSettings.URL.path || '/';
 	if ( FoxhoundSettings.frontPage.page ) {
@@ -56,7 +56,7 @@ export default connect( ( state, ownProps ) => {
 
 	return {
 		path,
-		page: parseInt( query.paged ),
+		page: parseInt( query.page ),
 		query,
 		posts,
 		requesting,
