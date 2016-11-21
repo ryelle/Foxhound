@@ -145,7 +145,7 @@ function foxhound_scripts() {
 	wp_scripts()->add_data( FOXHOUND_APP, 'data', sprintf(
 		'var SiteSettings = %s; var FoxhoundSettings = %s;',
 		wp_json_encode( array(
-			'endpoint' => esc_url_raw( get_rest_url() ),
+			'endpoint' => esc_url_raw( $url ),
 			'nonce' => wp_create_nonce( 'wp_rest' ),
 		) ),
 		wp_json_encode( array(
