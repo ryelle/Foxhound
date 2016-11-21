@@ -246,6 +246,14 @@ function foxhound_fonts() {
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_fonts' );
 
+function foxhound_add_path_to_page_query( $args, $request ) {
+	if ( isset( $request['pagename'] ) ) {
+		$args['pagename'] = $request['pagename'];
+	}
+	return $args;
+}
+add_filter( 'rest_page_query', 'foxhound_add_path_to_page_query', 10, 2 );
+
 // Include extra functionality.
 require get_template_directory() . '/inc/load-menu.php';
 require get_template_directory() . '/inc/load-data.php';
