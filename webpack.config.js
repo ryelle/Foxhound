@@ -33,13 +33,13 @@ webpackConfig = {
 		loaders: [
 			{
 				test: /\.jsx?$/,
-				exclude: /node_modules/,
+				exclude: [ /node_modules/, /query-components/ ],
 				loader: 'babel',
 			},
 			{
 				test: /\.jsx?$/,
 				loader: 'eslint',
-				exclude: [ /node_modules/ ],
+				exclude: [ /node_modules/, /query-components/ ],
 			},
 			{
 				test: /\.json$/,
