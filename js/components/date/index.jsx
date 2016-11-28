@@ -16,21 +16,7 @@ import Placeholder from 'components/placeholder';
 
 const DateArchive = React.createClass( {
 	render() {
-		const posts = this.props.posts || [];
-		const dateObj = this.props.params;
-
-		let date, dateString;
-		if ( dateObj.day ) {
-			date = moment( `${ dateObj.year } ${ dateObj.month } ${ dateObj.day }`, 'YYYY MM DD' );
-			dateString = date.format( 'MMMM Do YYYY' );
-		} else if ( dateObj.month ) {
-			date = moment( `${ dateObj.year } ${ dateObj.month }`, 'YYYY MM' );
-			dateString = date.format( 'MMMM YYYY' );
-		} else {
-			date = moment( `${ dateObj.year }`, 'YYYY' );
-			dateString = date.format( 'YYYY' );
-		}
-
+		const { query, loading, path, page, totalPages, dateString, posts } = this.props;
 		const meta = {
 			title: dateString + ' – ' + FoxhoundSettings.meta.title,
 		};
@@ -42,43 +28,52 @@ const DateArchive = React.createClass( {
 				<header className="page-header">
 					<h1 className="page-title">Archive for { dateString }</h1>
 				</header>
-				<QueryPosts query={ this.props.query } />
-				{ this.props.loading ?
+				<QueryPosts query={ query } />
+				{ loading ?
 					<Placeholder type="date" /> :
 					<PostList posts={ posts } />
 				}
 
 				<Pagination
-					path={ this.props.path }
-					current={ this.props.page }
-					isFirstPage={ 1 === this.props.page }
-					isLastPage={ this.props.totalPages === this.props.page } />
+					path={ path }
+					current={ page }
+					isFirstPage={ 1 === page }
+					isLastPage={ totalPages === page } />
 			</div>
 		);
 	}
 } );
 
 export default connect( ( state, ownProps ) => {
-	let query = {};
-	query.paged = ownProps.params.paged || 1;
-	if ( ownProps.params.year ) {
-		query.year = parseInt( ownProps.params.year );
-	}
-	if ( ownProps.params.month ) {
-		query.monthnum = parseInt( ownProps.params.month );
-	}
-	if ( ownProps.params.day ) {
-		query.day = parseInt( ownProps.params.day );
-	}
 	let path = FoxhoundSettings.URL.path || '/';
 	path += 'date/';
-	[ 'year', 'monthnum', 'day' ].map( ( key ) => {
-		if ( query.hasOwnProperty( key ) ) {
-			path += query[ key ] + '/';
+	[ 'year', 'month', 'day' ].map( ( key ) => {
+		if ( ownProps.params.hasOwnProperty( key ) ) {
+			path += ownProps.params[ key ] + '/';
 		}
 	} );
 
-	const posts = getPostsForQuery( state, query );
+	const { day, month, year } = ownProps.params;
+	let date, dateString, query = {};
+	query.paged = ownProps.params.paged || 1;
+	if ( day ) {
+		date = moment( `${ year } ${ month } ${ day }`, 'YYYY MM DD' );
+		dateString = date.format( 'MMMM Do YYYY' );
+		query.after = date.format();
+		query.before = date.add( 1, 'day' ).format();
+	} else if ( month ) {
+		date = moment( `${ year } ${ month }`, 'YYYY MM' );
+		dateString = date.format( 'MMMM YYYY' );
+		query.after = date.format();
+		query.before = date.add( 1, 'month' ).format();
+	} else {
+		date = moment( `${ year }`, 'YYYY' );
+		dateString = date.format( 'YYYY' );
+		query.after = date.format();
+		query.before = date.add( 1, 'year' ).format();
+	}
+
+	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
 
 	return {
@@ -86,6 +81,7 @@ export default connect( ( state, ownProps ) => {
 		query,
 		posts,
 		requesting,
+		dateString,
 		loading: requesting && ! posts,
 		page: parseInt( query.paged ),
 		totalPages: getTotalPagesForQuery( state, query ),
