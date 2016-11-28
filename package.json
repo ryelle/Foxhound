@@ -47,11 +47,11 @@
     "react-router-scroll": "^0.3.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "wordpress-query-comments": "^1.0.0",
-    "wordpress-query-menu": "^1.0.0",
-    "wordpress-query-page": "^1.0.0",
-    "wordpress-query-posts": "^1.0.2",
-    "wordpress-query-term": "^1.0.0"
+    "wordpress-query-comments": "^1.1.0",
+    "wordpress-query-menu": "^1.1.0",
+    "wordpress-query-page": "^1.1.0",
+    "wordpress-query-posts": "^1.1.0",
+    "wordpress-query-term": "^1.1.0"
   },
   "engines": {
     "node": ">=0.10"
