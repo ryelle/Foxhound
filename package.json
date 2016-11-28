@@ -47,6 +47,7 @@
     "react-router-scroll": "^0.3.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
+    "whatwg-fetch": "^2.0.1",
     "wordpress-query-comments": "^1.1.0",
     "wordpress-query-menu": "^1.1.0",
     "wordpress-query-page": "^1.1.0",
