@@ -246,6 +246,9 @@ function foxhound_fonts() {
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_fonts' );
 
+/**
+ * Add "pagename" to the accepted parameters in the query for page requests via API.
+ */
 function foxhound_add_path_to_page_query( $args, $request ) {
 	if ( isset( $request['pagename'] ) ) {
 		$args['pagename'] = $request['pagename'];
