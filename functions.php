@@ -145,7 +145,7 @@ function foxhound_scripts() {
 	wp_scripts()->add_data( FOXHOUND_APP, 'data', sprintf(
 		'var SiteSettings = %s; var FoxhoundSettings = %s;',
 		wp_json_encode( array(
-			'endpoint' => esc_url_raw( get_rest_url() ),
+			'endpoint' => esc_url_raw( $url ),
 			'nonce' => wp_create_nonce( 'wp_rest' ),
 		) ),
 		wp_json_encode( array(
@@ -245,6 +245,20 @@ function foxhound_fonts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_fonts' );
+
+/**
+ * Add "pagename" to the accepted parameters in the query for page requests via API.
+ */
+function foxhound_add_path_to_page_query( $args, $request ) {
+	if ( isset( $request['pagename'] ) ) {
+		$args['pagename'] = $request['pagename'];
+	}
+	return $args;
+}
+add_filter( 'rest_page_query', 'foxhound_add_path_to_page_query', 10, 2 );
+
+// Allow anon comments via API when using this theme.
+add_filter( 'rest_allow_anonymous_comments', '__return_true' );
 
 // Include extra functionality.
 require get_template_directory() . '/inc/load-menu.php';

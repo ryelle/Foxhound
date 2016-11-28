@@ -34,6 +34,11 @@ const CommentForm = React.createClass( {
 		values.content = rawValues.comment;
 		values.post = rawValues.comment_post_ID;
 
+		// Remove the `author` param if the user is not logged in
+		if ( ! parseInt( rawValues.author_id, 10 ) ) {
+			delete values.author;
+		}
+
 		const submission = this.props.submitComment( values );
 		submission.then( ( repsonse ) => {
 			// No idea what happened.
@@ -97,7 +102,7 @@ const CommentForm = React.createClass( {
 
 		return (
 			<form onSubmit={ this.onSubmit }>
-				{ FoxhoundSettings.user === '0' ? this.renderAnonFields() : this.renderLoggedInNotice() }
+				{ FoxhoundSettings.user === 0 ? this.renderAnonFields() : this.renderLoggedInNotice() }
 
 				{ errorMessage }
 				<div className="comment-form-field comment-form-comment">
