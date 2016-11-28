@@ -254,6 +254,9 @@ function foxhound_add_path_to_page_query( $args, $request ) {
 }
 add_filter( 'rest_page_query', 'foxhound_add_path_to_page_query', 10, 2 );
 
+// Allow anon comments via API when using this theme.
+add_filter( 'rest_allow_anonymous_comments', '__return_true' );
+
 // Include extra functionality.
 require get_template_directory() . '/inc/load-menu.php';
 require get_template_directory() . '/inc/load-data.php';
