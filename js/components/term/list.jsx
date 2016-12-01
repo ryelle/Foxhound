@@ -20,10 +20,10 @@ class Term extends Component {
 	}
 
 	render() {
-		const { posts = [], query = {}, loading, path, page, totalPages } = this.props;
+		const { query, posts, loading, path, page, totalPages } = this.props;
 		return (
 			<div>
-				<QueryPosts query={ query } />
+				<QueryPosts query={ query || {} } />
 				{ loading ?
 					<Placeholder type="term" /> :
 					<PostList posts={ posts } />
@@ -46,7 +46,7 @@ export default connect( ( state, ownProps ) => {
 
 	// Needs to be below query setup
 	const requesting = isRequestingPostsForQuery( state, query );
-	const posts = getPostsForQuery( state, query );
+	const posts = getPostsForQuery( state, query ) || [];
 
 	return {
 		path,

@@ -29,7 +29,7 @@ const Search = React.createClass( {
 	},
 
 	render() {
-		const posts = this.props.posts || [];
+		const posts = this.props.posts;
 		const term = this.getSearchValue();
 		const meta = {
 			title: 'Search Results for "' + term + '" – ' + FoxhoundSettings.meta.title,
@@ -58,7 +58,7 @@ export default withRouter( connect( ( state, ownProps ) => {
 	let query = {};
 	query.paged = ownProps.params.paged || 1;
 	query.search = ownProps.params.search || '';
-	const posts = getPostsForQuery( state, query );
+	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
 
 	return {

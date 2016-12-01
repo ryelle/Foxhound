@@ -16,7 +16,7 @@ import Placeholder from 'components/placeholder';
 
 const Index = React.createClass( {
 	render() {
-		const posts = this.props.posts || [];
+		const posts = this.props.posts;
 		const meta = {
 			title: FoxhoundSettings.meta.title,
 			description: FoxhoundSettings.meta.description,
@@ -51,7 +51,7 @@ export default connect( ( state, ownProps ) => {
 		path += 'page/' + FoxhoundSettings.frontPage.blog + '/';
 	}
 
-	const posts = getPostsForQuery( state, query );
+	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
 
 	return {
