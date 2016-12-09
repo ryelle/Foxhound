@@ -60,7 +60,7 @@ export default connect( ( state, ownProps ) => {
 
 	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
-	const previewId = ownProps.location.query.p;
+	const previewId = ownProps.location.query.p || ownProps.location.query.page_id;
 
 	return {
 		previewId,

@@ -7,6 +7,7 @@ import BodyClass from 'react-body-class';
 
 // Internal dependencies
 import { getPost } from 'wordpress-query-posts/lib/selectors';
+import { getPage } from 'wordpress-query-page/lib/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components
@@ -45,7 +46,7 @@ const SinglePost = React.createClass( {
 				<div className="entry-meta"></div>
 				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
 
-				<PostMeta post={ post } humanDate={ this.getDate( post ) } />
+				{ 'post' === post.type && <PostMeta post={ post } humanDate={ this.getDate( post ) } /> }
 			</article>
 		);
 	},
@@ -61,7 +62,7 @@ const SinglePost = React.createClass( {
 
 export default connect( ( state, ownProps ) => {
 	const postId = parseInt( ownProps.id, 10 );
-	const post = getPost( state, postId );
+	const post = getPost( state, postId ) || getPage( state, postId );
 
 	return {
 		postId,
