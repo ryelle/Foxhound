@@ -6,16 +6,12 @@ import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 
 // Internal dependencies
-import QueryPosts from 'wordpress-query-posts';
-import { getPostIdFromSlug, isRequestingPost, getPost } from 'wordpress-query-posts/lib/selectors';
+import { getPost } from 'wordpress-query-posts/lib/selectors';
 import ContentMixin from 'utils/content-mixin';
 
 // Components
 import PostMeta from './meta';
 import Media from './image';
-import Comments from 'components/comments';
-import Placeholder from 'components/placeholder';
-import PostPreview from './preview';
 
 const SinglePost = React.createClass( {
 	mixins: [ ContentMixin ],
@@ -54,56 +50,21 @@ const SinglePost = React.createClass( {
 		);
 	},
 
-	renderComments() {
-		const post = this.props.post;
-		if ( ! post ) {
-			return null;
-		}
-
-		return (
-			<Comments
-				protected={ post.content.protected }
-				postId={ this.props.postId }
-				title={ <span dangerouslySetInnerHTML={ this.getTitle( post ) } /> }
-				commentsOpen={ 'open' === post.comment_status } />
-		)
-	},
-
 	render() {
-		if ( !! this.props.previewId ) {
-			return (
-				<PostPreview id={ this.props.previewId } />
-			);
-		}
-
 		return (
 			<div className="card">
-				<QueryPosts postSlug={ this.props.slug } />
-				{ this.props.loading ?
-					<Placeholder type="post" /> :
-					this.renderArticle()
-				}
-
-				{ ! this.props.loading && this.renderComments() }
+				{ this.renderArticle() }
 			</div>
 		);
 	}
 } );
 
 export default connect( ( state, ownProps ) => {
-	const slug = ownProps.params.slug || false;
-	const postId = getPostIdFromSlug( state, slug );
-	const requesting = isRequestingPost( state, slug );
-	const post = getPost( state, parseInt( postId ) );
-
-	const previewId = ownProps.location.query.preview_id;
+	const postId = parseInt( ownProps.id, 10 );
+	const post = getPost( state, postId );
 
 	return {
-		previewId,
-		slug,
 		postId,
-		post,
-		requesting,
-		loading: requesting && ! post
+		post
 	};
 } )( SinglePost );
