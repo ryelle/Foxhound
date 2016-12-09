@@ -14,6 +14,7 @@ import ContentMixin from 'utils/content-mixin';
 import Media from './image';
 import Comments from 'components/comments';
 import Placeholder from 'components/placeholder';
+import PostPreview from './preview';
 
 const SinglePage = React.createClass( {
 	mixins: [ ContentMixin ],
@@ -65,6 +66,12 @@ const SinglePage = React.createClass( {
 	},
 
 	render() {
+		if ( !! this.props.previewId ) {
+			return (
+				<PostPreview id={ this.props.previewId } />
+			);
+		}
+
 		return (
 			<div className="card">
 				<QueryPage pagePath={ this.props.path } />
@@ -90,7 +97,10 @@ export default connect( ( state, ownProps ) => {
 	const requesting = isRequestingPage( state, path );
 	const post = getPage( state, parseInt( postId ) );
 
+	const previewId = ownProps.location.query.preview_id;
+
 	return {
+		previewId,
 		path,
 		postId,
 		post,
