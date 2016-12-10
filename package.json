@@ -28,7 +28,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "json-loader": "^0.5.4",
     "lodash-webpack-plugin": "^0.10.6",
-    "node-sass": "^3.13.0",
+    "node-sass": "^4.0.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3"
