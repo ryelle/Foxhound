@@ -11,11 +11,18 @@ import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } fr
 
 // Components
 import PostList from './list';
+import PostPreview from 'components/post/preview';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
 
 const Index = React.createClass( {
 	render() {
+		if ( !! this.props.previewId ) {
+			return (
+				<PostPreview id={ this.props.previewId } />
+			);
+		}
+
 		const posts = this.props.posts;
 		const meta = {
 			title: FoxhoundSettings.meta.title,
@@ -53,8 +60,10 @@ export default connect( ( state, ownProps ) => {
 
 	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
+	const previewId = ownProps.location.query.p || ownProps.location.query.page_id;
 
 	return {
+		previewId,
 		path,
 		page: parseInt( query.page ),
 		query,
