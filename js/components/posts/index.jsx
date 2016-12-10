@@ -11,7 +11,7 @@ import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } fr
 
 // Components
 import PostList from './list';
-import PostPreview from '../post/preview';
+import PostPreview from 'components/post/preview';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
 
