@@ -7,7 +7,8 @@ import BodyClass from 'react-body-class';
 const NotFound = React.createClass( {
 	render() {
 		const classes = classNames( {
-			entry: true
+			'entry': true,
+			'entry-404': true
 		} );
 
 		const meta = {
