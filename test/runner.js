@@ -79,6 +79,27 @@ files.forEach( function( file ) {
 	mocha.addFile( path.resolve( __dirname, '../' + file ) );
 } );
 
+global.SiteSettings = {
+	endpoint: 'http://trunk.wordpress.dev/',
+	nonce: 'nonce'
+};
+global.FoxhoundSettings = {
+	user: 1,
+	userDisplay: 'admin',
+	frontPage: {
+		page: false,
+		blog: false
+	},
+	URL: {
+		base: 'http://trunk.wordpress.dev/',
+		path: '/'
+	},
+	meta: {
+		title: 'Foxhound',
+		description: 'Just another WordPress site'
+	}
+};
+
 mocha.run( function( failures ) {
 	process.on( 'exit', function() {
 		process.exit( failures ); //eslint-disable-line no-process-exit
