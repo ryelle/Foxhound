@@ -20,9 +20,9 @@ webpackConfig = {
 	resolve: {
 		extensions: [ '', '.js', '.jsx' ],
 		alias: {
-			data: path.join( __dirname, 'js/data' ),
 			components: path.join( __dirname, 'js/components' ),
 			utils: path.resolve( __dirname, 'js/utils' ),
+			test: path.resolve( __dirname, 'test' ),
 		},
 		modulesDirectories: [ 'node_modules', 'src' ]
 	},

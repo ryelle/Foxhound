@@ -11,5 +11,12 @@
 		"transform-react-jsx",
 		"transform-react-display-name",
 		"lodash"
-	]
+	],
+	"env": {
+		"test": {
+			"plugins": [
+				[ "babel-plugin-webpack-alias", { "config": "./webpack.config.js" } ]
+			]
+		}
+	}
 }
