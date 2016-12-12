@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict'; // eslint-disable-line strict
 var files;
+var exposedProperties = ['window', 'navigator', 'document'];
 
 require( 'babel-register' );
 
@@ -9,6 +10,7 @@ require( 'babel-register' );
  */
 const debug = require( 'debug' )( 'test-runner' ),
 	glob = require( 'glob' ),
+	jsdom = require( 'jsdom' ).jsdom,
 	Mocha = require( 'mocha' ),
 	path = require( 'path' ),
 	program = require( 'commander' ),
@@ -79,6 +81,20 @@ files.forEach( function( file ) {
 	mocha.addFile( path.resolve( __dirname, '../' + file ) );
 } );
 
+// Fake web environment
+global.document = jsdom( '' );
+global.window = document.defaultView;
+Object.keys( document.defaultView ).forEach( ( property ) => {
+	if ( typeof global[ property ] === 'undefined' ) {
+		exposedProperties.push( property );
+		global[ property ] = document.defaultView[ property ];
+	}
+} );
+global.navigator = {
+	userAgent: 'node.js'
+};
+
+// App globals
 global.SiteSettings = {
 	endpoint: 'http://trunk.wordpress.dev/',
 	nonce: 'nonce'

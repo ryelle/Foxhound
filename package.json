@@ -32,6 +32,7 @@
     "eslint-loader": "^1.6.1",
     "eslint-plugin-react": "^6.7.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "jsdom": "^9.8.3",
     "json-loader": "^0.5.4",
     "lodash-webpack-plugin": "^0.10.6",
     "mocha": "^3.2.0",
