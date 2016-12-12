@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/ryelle/Foxhound.svg?style=svg)](https://circleci.com/gh/ryelle/Foxhound)
+
 Foxhound
 ========
 
