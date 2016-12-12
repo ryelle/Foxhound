@@ -1,6 +1,4 @@
-[![CircleCI](https://circleci.com/gh/ryelle/Foxhound.svg?style=svg)](https://circleci.com/gh/ryelle/Foxhound)
-
-Foxhound
+Foxhound [![CircleCI](https://circleci.com/gh/ryelle/Foxhound.svg?style=svg)](https://circleci.com/gh/ryelle/Foxhound)
 ========
 
 A react-based theme for WordPress.
