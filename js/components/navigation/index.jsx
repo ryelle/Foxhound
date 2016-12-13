@@ -37,9 +37,9 @@ const toggleFocus = function( event ) {
 	}
 };
 
-const SubMenu = ( { items } ) => {
+const SubMenu = ( { items, onClick } ) => {
 	let menu = items.map( function( item, i ) {
-		return <MenuItem item={ item } isSelected={ isItemSelected( item ) } key={ i } />
+		return <MenuItem item={ item } isSelected={ isItemSelected( item ) } key={ i } onClick={ onClick } />
 	} );
 
 	return (
@@ -62,7 +62,7 @@ const MenuItem = ( { item, onClick, isSelected = false } ) => {
 		<li className={ classes } aria-haspopup={ item.children.length > 0 }>
 			<a href={ item.url } onClick={ onClick } onFocus={ toggleFocus } onBlur={ toggleFocus }>{ item.title }</a>
 			{ item.children.length ?
-				<SubMenu items={ item.children } /> :
+				<SubMenu items={ item.children } onClick={ onClick } /> :
 				null
 			}
 		</li>
@@ -87,6 +87,7 @@ const Navigation = React.createClass( {
 			const onClick = ( event ) => {
 				blur( event );
 				this.setState( { selected: item.url } );
+				this.setState( { isMenuOpen: ! this.state.isMenuOpen } );
 			};
 			return <MenuItem item={ item } isSelected={ isItemSelected( item ) } onClick={ onClick } key={ i } />
 		} );
