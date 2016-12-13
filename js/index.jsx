@@ -46,9 +46,16 @@ function renderApp() {
 		frontPageRoute = null;
 	}
 
-	// Route onEnter
+	const routerMiddleware = applyRouterMiddleware( useScroll(), keyboardFocusReset( 'main' ) );
+
+	// Add the event Jetpack listens for to initialize various JS features on posts.
+	const emitJetpackEvent = () => {
+		jQuery( document.body ).trigger( 'post-load' );
+	}
+
+	// Routes
 	const routes = (
-		<Router history={ history } render={ applyRouterMiddleware( useScroll(), keyboardFocusReset( 'main' ) ) }>
+		<Router history={ history } render={ routerMiddleware } onUpdate={ emitJetpackEvent }>
 			<Route path={ blogURL } component={ Index } />
 			<Route path={ `${ blogURL }p/:paged` } component={ Index } />
 			{ frontPageRoute }
