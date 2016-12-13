@@ -113,6 +113,10 @@ add_action( 'after_setup_theme', 'foxhound_content_width', 0 );
  * Enqueue scripts and styles.
  */
 function foxhound_scripts() {
+	if ( is_customize_preview() ) {
+		wp_enqueue_script( 'foxhound-customize-preview', get_template_directory_uri() . '/build/customize-preview.js', array( 'jquery', 'customize-preview', 'customize-preview-nav-menus', FOXHOUND_APP ), FOXHOUND_VERSION, true );
+	}
+
 	wp_enqueue_style( 'foxhound-style', get_template_directory_uri() . '/build/style.css' );
 	wp_enqueue_script( FOXHOUND_APP, get_template_directory_uri() . '/build/app.js', array( 'jquery' ), FOXHOUND_VERSION, true );
 
@@ -264,3 +268,4 @@ add_filter( 'rest_allow_anonymous_comments', '__return_true' );
 require get_template_directory() . '/inc/load-menu.php';
 require get_template_directory() . '/inc/load-data.php';
 require get_template_directory() . '/inc/permalinks.php';
+require get_template_directory() . '/inc/customizer.php';
