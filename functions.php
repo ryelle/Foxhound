@@ -16,7 +16,7 @@ if ( version_compare( $GLOBALS['wp_version'], '4.7-alpha', '<' ) ) {
 }
 
 if ( ! defined( 'FOXHOUND_VERSION' ) ) {
-	define( 'FOXHOUND_VERSION', time() );
+	define( 'FOXHOUND_VERSION', '1.0.0' );
 }
 
 if ( ! defined( 'FOXHOUND_APP' ) ) {
