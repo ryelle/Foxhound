@@ -28,6 +28,11 @@ const files = [
 	'./style.css',
 ];
 
+const directories = [
+	'./js/',
+	'./sass/',
+];
+
 // listen for all archive data to be written
 output.on( 'close', () => {
 	console.log( archive.pointer() + ' total bytes' );
@@ -48,6 +53,12 @@ files.map( file => {
 	const filepath = path.resolve( __dirname, file );
 	archive.file( filepath, { name: file } );
 } );
+
+directories.map( directory => {
+	console.log( `Adding ${directory}` );
+	const dirpath = path.resolve( __dirname, directory );
+	archive.directory( dirpath, directory );
+} )
 
 console.log( 'Saving the zip to build/foxhound.zip' );
 // finalize the archive (ie we are done appending files but streams have to finish yet)
