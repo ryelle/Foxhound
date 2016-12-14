@@ -73,9 +73,6 @@ function foxhound_setup() {
 		'gallery',
 		'caption',
 	) );
-
-	add_post_type_support( 'post', 'comments' );
-	add_post_type_support( 'page', 'comments' );
 }
 add_action( 'after_setup_theme', 'foxhound_setup' );
 
