@@ -85,14 +85,16 @@ function renderApp() {
 		document.getElementById( 'main' )
 	);
 
-	render(
-		(
-			<Provider store={ store }>
-				<Navigation />
-			</Provider>
-		),
-		document.getElementById( 'site-navigation' )
-	);
+	if ( FoxhoundMenu.enabled ) {
+		render(
+			(
+				<Provider store={ store }>
+					<Navigation />
+				</Provider>
+			),
+			document.getElementById( 'site-navigation' )
+		);
+	}
 }
 
 // Set up link capture on all links in the app context.

@@ -35,6 +35,7 @@ class Foxhound_LoadMenu {
 	 */
 	public function add_json_data() {
 		return wp_json_encode( array(
+			'enabled' => class_exists( 'WP_REST_Menus' ),
 			'data' => $this->get_menu_data(),
 		) );
 	}
