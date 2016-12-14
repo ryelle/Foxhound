@@ -44,10 +44,12 @@ export default connect( ( state, ownProps ) => {
 
 	const query = {};
 	query.paged = ownProps.params.paged || 1;
-	if ( 'category' === taxonomy ) {
-		query.categories = [ termId ];
-	} else {
-		query.tags = [ termId ];
+	if ( termId ) {
+		if ( 'category' === taxonomy ) {
+			query.categories = [ termId ];
+		} else {
+			query.tags = [ termId ];
+		}
 	}
 
 	return {
