@@ -34,7 +34,7 @@ class Foxhound_SetPermalinks {
 		}
 		?>
 		<div class="notice notice-warning">
-			<p><?php esc_html_e( '<b>Warning:</b> The theme you\'re using does not support customized permalinks.', 'foxhound' ); ?></p>
+			<p><?php _e( '<b>Warning:</b> The theme you\'re using does not support customized permalinks.', 'foxhound' ); ?></p>
 		</div>
 		<?php
 	}
