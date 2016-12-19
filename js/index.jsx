@@ -21,6 +21,7 @@ import Index from 'components/posts';
 import SinglePost from 'components/post';
 import SinglePage from 'components/post/page';
 import Term from 'components/term';
+import Attachment from 'components/attachment';
 import Search from 'components/search';
 import DateArchive from 'components/date';
 import NotFound from 'components/not-found';
@@ -60,6 +61,7 @@ function renderApp() {
 			<Route path={ `${ blogURL }p/:paged` } component={ Index } />
 			{ frontPageRoute }
 			<Route path={ `${ path }search/:search` } component={ Search } />
+			<Route path={ `${ path }attachment/:id` } component={ Attachment } />
 			<Route path={ `${ path }category/:slug` } taxonomy="category" component={ Term } />
 			<Route path={ `${ path }category/:slug/p/:paged` } taxonomy="category" component={ Term } />
 			<Route path={ `${ path }tag/:slug` } taxonomy="post_tag" component={ Term } />
