@@ -103,7 +103,8 @@ function renderApp() {
 function handleLinkClick() {
 	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
 		// Custom functionality for attachment pages
-		if ( jQuery( event.currentTarget ).attr( 'rel' ).search( /attachment/ ) !== -1 ) {
+		const linkRel = jQuery( event.currentTarget ).attr( 'rel' );
+		if ( linkRel && linkRel.search( /attachment/ ) !== -1 ) {
 			event.preventDefault();
 			const result = jQuery( event.currentTarget ).attr( 'rel' ).match( /wp-att-(\d*)/ );
 			const attachId = result[ 1 ];
