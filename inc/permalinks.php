@@ -17,8 +17,9 @@ class Foxhound_SetPermalinks {
 		add_action( 'init', array( $this, 'change_date' ) );
 		add_action( 'init', array( $this, 'change_paged' ) );
 		add_action( 'init', array( $this, 'change_page' ) );
+		add_action( 'init', array( $this, 'add_new_attachment' ) );
 		add_action( 'after_switch_theme', array( $this, 'update_permalinks' ), 11 );
-		add_action( 'template_redirect', array( $this, 'redirect_search' ) );
+		add_action( 'template_redirect', array( $this, 'do_redirects' ) );
 		add_action( 'admin_head-options-permalink.php', array( $this, 'add_contextual_permalink_help' ) );
 
 		// Flush permalinks after the theme is activated.
@@ -105,13 +106,25 @@ class Foxhound_SetPermalinks {
 	}
 
 	/**
+	 * Create an `attachment/ID` rule so that our custom route isn't automatically 404'd
+	 */
+	public function add_new_attachment() {
+		// It doesn't actually matter where the rule goes.
+		add_rewrite_rule( '^attachment/([0-9]+)/?', 'index.php', 'top' );
+	}
+
+	/**
 	 * Redirect the search form results `?s=<term>` to `/search/<term>`
 	 */
-	public function redirect_search() {
+	public function do_redirects() {
 		$search = get_search_query();
 		global $wp;
 		if ( $search && ( 'search' !== substr( $wp->request, 0, 6 ) ) ) {
 			wp_safe_redirect( home_url( sprintf( '/search/%s', $search ) ) );
+			exit();
+		} elseif ( is_attachment() ) {
+			$attachment = get_queried_object_id();
+			wp_safe_redirect( home_url( sprintf( '/attachment/%s', $attachment ) ) );
 			exit();
 		}
 	}

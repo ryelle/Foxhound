@@ -49,4 +49,11 @@ export default {
 		return media;
 	},
 
+	getMediaContent: function( data ) {
+		if ( ! data.description.protected ) {
+			return { __html: data.description.rendered };
+		}
+
+		return { __html: '<p>This content is password-protected.</p>' };
+	}
 };
