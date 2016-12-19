@@ -5,37 +5,64 @@ import classNames from 'classnames';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 
+// Internal dependencies
+import Placeholder from 'components/placeholder';
+import PostMeta from 'components/post/meta';
+import QueryMedia from 'wordpress-query-media';
+import { getMedia, isRequestingMedia } from 'wordpress-query-media/lib/selectors';
+import ContentMixin from 'utils/content-mixin';
+
 const Attachment = React.createClass( {
-	render() {
-		const classes = classNames( {
-			'entry': true,
-			'attachment': true,
-			'type-attachment': true
-		} );
+	mixins: [ ContentMixin ],
+
+	renderMedia() {
+		const media = this.props.media;
+		if ( ! media ) {
+			return null;
+		}
 
 		const meta = {
-			title: 'Attachment – ' + FoxhoundSettings.meta.title,
+			title: media.title.rendered + ' – ' + FoxhoundSettings.meta.title,
+			description: media.caption.rendered,
+			canonical: media.link,
 		};
 
 		return (
-			<article className={ classes }>
+			<article className={ classNames( [ 'entry' ] ) }>
 				<DocumentMeta { ...meta } />
-				<BodyClass classes={ [ 'attachment', 'single', 'single-attachment' ] } />
-				<h2 className="entry-title">Attachment</h2>
+				<BodyClass classes={ [ 'attachment', `attachment-${ media.media_type }`, 'single', 'single-attachment' ] } />
+				<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( media ) } />
 
 				<div className="entry-meta"></div>
-				<div className="entry-content">
-					<p>Attachment here.</p>
-				</div>
+				<div className="entry-content" dangerouslySetInnerHTML={ this.getMediaContent( media ) } />
+
+				<PostMeta post={ media } humanDate={ this.getDate( media ) } />
 			</article>
+		);
+	},
+
+	render() {
+		return (
+			<div className="card">
+				<QueryMedia attachmentId={ this.props.id } />
+				{ this.props.loading ?
+					<Placeholder type="post" /> :
+					this.renderMedia()
+				}
+			</div>
 		);
 	}
 } );
 
 export default connect( ( state, ownProps ) => {
-	const id = ownProps.params.id || false;
+	const id = parseInt( ownProps.params.id || 0 );
+	const requesting = isRequestingMedia( state, id );
+	const media = getMedia( state, id );
 
-	console.log( id );
-
-	return {};
+	return {
+		id,
+		media,
+		requesting,
+		loading: requesting && ! media
+	};
 } )( Attachment );
