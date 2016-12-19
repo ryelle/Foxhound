@@ -100,6 +100,14 @@ function renderApp() {
 // Set up link capture on all links in the app context.
 function handleLinkClick() {
 	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
+		// Custom functionality for attachment pages
+		if ( jQuery( event.currentTarget ).attr( 'rel' ).search( /attachment/ ) !== -1 ) {
+			event.preventDefault();
+			const result = jQuery( event.currentTarget ).attr( 'rel' ).match( /wp-att-(\d*)/ );
+			const attachId = result[ 1 ];
+			history.push( path + 'attachment/' + attachId );
+			return;
+		}
 		// Don't capture clicks in post content.
 		if ( jQuery( event.currentTarget ).closest( '.entry-content' ).length ) {
 			return;
