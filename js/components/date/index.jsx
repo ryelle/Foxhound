@@ -73,6 +73,9 @@ export default connect( ( state, ownProps ) => {
 		query.before = date.add( 1, 'year' ).format();
 	}
 
+	query.after = encodeURIComponent( query.after );
+	query.before = encodeURIComponent( query.before );
+
 	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
 
