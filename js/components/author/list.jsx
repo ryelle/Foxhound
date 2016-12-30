@@ -47,7 +47,6 @@ export default connect( ( state, ownProps ) => {
 	// Needs to be below query setup
 	const requesting = isRequestingPostsForQuery( state, query );
 	const posts = getPostsForQuery( state, query ) || [];
-	console.log( query );
 
 	return {
 		path,
