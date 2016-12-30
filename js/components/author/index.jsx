@@ -5,8 +5,8 @@ import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 
 // Internal dependencies
-import QueryUser from 'wordpress-query-users';
-import { isRequestingUser, getUserIdFromName, getUser } from 'wordpress-query-users/lib/selectors';
+import QueryUser from 'wordpress-query-user';
+import { isRequestingUser, getUserIdFromName, getUser } from 'wordpress-query-user/lib/selectors';
 import Placeholder from 'components/placeholder';
 import List from './list';
 
