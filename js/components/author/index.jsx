@@ -41,7 +41,7 @@ export default connect( ( state, ownProps ) => {
 	const requesting = isRequestingUser( state, userName );
 
 	const query = {};
-	query.paged = ownProps.params.paged || 1;
+	query.page = ownProps.params.paged || 1;
 	if ( userId ) {
 		query.author = [ userId ];
 	}

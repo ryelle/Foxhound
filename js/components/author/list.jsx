@@ -47,8 +47,7 @@ export default connect( ( state, ownProps ) => {
 	// Needs to be below query setup
 	const requesting = isRequestingPostsForQuery( state, query );
 	const posts = getPostsForQuery( state, query ) || [];
-	const pageCount = getTotalPagesForQuery( state, query );
-	console.log( query.paged, pageCount );
+	console.log( query );
 
 	return {
 		path,
@@ -56,7 +55,7 @@ export default connect( ( state, ownProps ) => {
 		posts,
 		requesting,
 		loading: requesting && ! posts,
-		page: parseInt( query.paged ),
-		totalPages: pageCount,
+		page: parseInt( query.page ),
+		totalPages: getTotalPagesForQuery( state, query ),
 	};
 } )( AuthorArchive );
