@@ -24,6 +24,7 @@ import Term from 'components/term';
 import Attachment from 'components/attachment';
 import Search from 'components/search';
 import DateArchive from 'components/date';
+import Author from 'components/author';
 import NotFound from 'components/not-found';
 import { createReduxStore } from './state';
 import { setMenu } from 'wordpress-query-menu/lib/state';
@@ -72,6 +73,8 @@ function renderApp() {
 			<Route path={ `${ path }date/:year/:month/p/:paged` } component={ DateArchive } />
 			<Route path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
 			<Route path={ `${ path }date/:year/:month/:day/p/:paged` } component={ DateArchive } />
+			<Route path={ `${ path }author/:slug` } component={ Author } />
+			<Route path={ `${ path }author/:slug/p/:paged` } component={ Author } />
 			<Route path={ `${ path }page/**` } component={ SinglePage } />
 			<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
 			<Route path="*" component={ NotFound } />

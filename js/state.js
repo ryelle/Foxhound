@@ -7,8 +7,9 @@ import terms from 'wordpress-query-term/lib/state';
 import comments from 'wordpress-query-comments/lib/state';
 import menu from 'wordpress-query-menu/lib/state';
 import media from 'wordpress-query-media/lib/state';
+import users from 'wordpress-query-users/lib/state';
 
-let reducer = combineReducers( { posts, pages, terms, comments, menu, media, routing: routerReducer } );
+let reducer = combineReducers( { posts, pages, terms, comments, menu, media, users, routing: routerReducer } );
 
 let middleware = [ thunkMiddleware ];
 
