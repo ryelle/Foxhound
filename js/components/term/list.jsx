@@ -54,7 +54,7 @@ export default connect( ( state, ownProps ) => {
 		posts,
 		requesting,
 		loading: requesting && ! posts,
-		page: parseInt( query.paged ),
+		page: parseInt( query.page ),
 		totalPages: getTotalPagesForQuery( state, query ),
 	};
 } )( Term );

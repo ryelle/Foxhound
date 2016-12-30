@@ -55,7 +55,7 @@ export default connect( ( state, ownProps ) => {
 
 	const { day, month, year } = ownProps.params;
 	let date, dateString, query = {};
-	query.paged = ownProps.params.paged || 1;
+	query.page = ownProps.params.paged || 1;
 	if ( day ) {
 		date = moment( `${ year } ${ month } ${ day }`, 'YYYY MM DD' );
 		dateString = date.format( 'MMMM Do YYYY' );
@@ -86,7 +86,7 @@ export default connect( ( state, ownProps ) => {
 		requesting,
 		dateString,
 		loading: requesting && ! posts,
-		page: parseInt( query.paged ),
+		page: parseInt( query.page ),
 		totalPages: getTotalPagesForQuery( state, query ),
 	};
 } )( DateArchive );

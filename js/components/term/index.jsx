@@ -43,7 +43,7 @@ export default connect( ( state, ownProps ) => {
 	const requesting = isRequestingTerm( state, taxonomy, term );
 
 	const query = {};
-	query.paged = ownProps.params.paged || 1;
+	query.page = ownProps.params.paged || 1;
 	if ( termId ) {
 		if ( 'category' === taxonomy ) {
 			query.categories = [ termId ];

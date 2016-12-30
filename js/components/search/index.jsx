@@ -56,13 +56,13 @@ const Search = React.createClass( {
 
 export default withRouter( connect( ( state, ownProps ) => {
 	let query = {};
-	query.paged = ownProps.params.paged || 1;
+	query.page = ownProps.params.paged || 1;
 	query.search = ownProps.params.search || '';
 	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
 
 	return {
-		page: parseInt( query.paged ),
+		page: parseInt( query.page ),
 		query,
 		posts,
 		requesting,
