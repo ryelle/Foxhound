@@ -47,7 +47,7 @@ export function setPosts( posts, totalPages ) {
 
 		dispatch( {
 			type: POSTS_REQUEST_SUCCESS,
-			query: { page: 1 },
+			query: { page: 1, sticky: false },
 			totalPages,
 			posts
 		} );
