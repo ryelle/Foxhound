@@ -11,6 +11,7 @@ import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } fr
 
 // Components
 import PostList from './list';
+import StickyPostsList from './sticky';
 import PostPreview from 'components/post/preview';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
@@ -34,6 +35,7 @@ const Index = React.createClass( {
 			<div className="site-content">
 				<DocumentMeta { ...meta } />
 				<BodyClass classes={ [ 'home', 'blog' ] } />
+				<StickyPostsList />
 				<QueryPosts query={ this.props.query } />
 				{ this.props.loading ?
 					<Placeholder type="posts" /> :
@@ -51,6 +53,7 @@ const Index = React.createClass( {
 
 export default connect( ( state, ownProps ) => {
 	let query = {};
+	query.sticky = false;
 	query.page = ownProps.params.paged || 1;
 
 	let path = FoxhoundSettings.URL.path || '/';
