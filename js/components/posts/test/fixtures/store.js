@@ -27,13 +27,13 @@ export const data = {
 			}
 		},
 		totalPages: {
-			'{"page":1}': '2',
+			'{"sticky":false,"page":1}': '2',
 		},
 		queryRequests: {
-			'{"page":1}': false,
+			'{"sticky":false,"page":1}': false,
 		},
 		queries: {
-			'{"page":1}': [ 1, 2 ],
+			'{"sticky":false,"page":1}': [ 1, 2 ],
 		}
 	}
 }
