@@ -30,6 +30,8 @@ The API cannot be blocked by a security plugin. Some plugins recommend blocking 
 
 Permalinks for pages and archives _are changed_ by this theme. They'll be reset if/when you deactivate the theme. You might want to set up redirects using something like [Safe Redirect Manager](https://wordpress.org/plugins/safe-redirect-manager/).
 
+This theme does not support hierarchical category archives - only parent category archive pages can be displayed. This may be fixed in a later version of the theme (see [#30](https://github.com/ryelle/Foxhound/issues/30)).
+
 Plugins might not work as expected, especially if they add content to the front end of your site. Most Jetpack features _do_ still work.
 
 Thanks to…
