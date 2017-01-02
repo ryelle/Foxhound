@@ -1,7 +1,7 @@
 /*global FoxhoundSettings */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isequal';
+import isEqual from 'lodash/isEqual';
 
 // Internal dependencies
 import QueryPosts from 'wordpress-query-posts';

@@ -1,7 +1,7 @@
 // External dependencies
 import React from 'react';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isequal';
+import isEqual from 'lodash/isEqual';
 
 // Redux dependencies
 import QueryPosts from 'wordpress-query-posts';
