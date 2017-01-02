@@ -146,7 +146,7 @@ function foxhound_scripts() {
 	$user_id = get_current_user_id();
 	$user = get_userdata( $user_id );
 
-	wp_scripts()->add_data( FOXHOUND_APP, 'data', sprintf(
+	$foxhound_settings = sprintf(
 		'var SiteSettings = %s; var FoxhoundSettings = %s;',
 		wp_json_encode( array(
 			'endpoint' => esc_url_raw( $url ),
@@ -168,7 +168,8 @@ function foxhound_scripts() {
 				'description' => get_bloginfo( 'description', 'display' ),
 			),
 		) )
-	) );
+	);
+	wp_add_inline_script( FOXHOUND_APP, $foxhound_settings, 'before' );
 }
 add_action( 'wp_enqueue_scripts', 'foxhound_scripts' );
 

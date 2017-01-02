@@ -13,21 +13,18 @@ class Foxhound_LoadMenu {
 	 * Set up actions
 	 */
 	public function __construct() {
-		add_filter( 'script_loader_tag', array( $this, 'print_data' ), 10, 2 );
+		add_filter( 'wp_enqueue_scripts', array( $this, 'print_data' ) );
 	}
 
 	/**
 	 * Adds the json-string data to the react app script
 	 */
-	public function print_data( $tag, $handle ) {
-		if ( FOXHOUND_APP === $handle ) {
-			printf(
-				'<script type="text/javascript">var FoxhoundMenu = %s;</script>',
-				$this->add_json_data()
-			);
-			return $tag;
-		}
-		return $tag;
+	public function print_data() {
+		$menu_data = sprintf(
+			'var FoxhoundMenu = %s;',
+			$this->add_json_data()
+		);
+		wp_add_inline_script( FOXHOUND_APP, $menu_data, 'before' );
 	}
 
 	/**

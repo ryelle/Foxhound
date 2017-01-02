@@ -15,7 +15,7 @@ class Foxhound_LoadData {
 	 */
 	public function __construct() {
 		add_action( 'pre_get_posts', array( $this, 'unstick_stickies' ) );
-		add_filter( 'script_loader_tag', array( $this, 'print_data' ), 10, 2 );
+		add_filter( 'wp_enqueue_scripts', array( $this, 'print_data' ) );
 	}
 
 	/**
@@ -31,15 +31,12 @@ class Foxhound_LoadData {
 	/**
 	 * Adds the json-string data to the react app script
 	 */
-	public function print_data( $tag, $handle ) {
-		if ( FOXHOUND_APP === $handle ) {
-			printf(
-				'<script type="text/javascript">var FoxhoundData = %s;</script>',
-				$this->add_json_data()
-			);
-			return $tag;
-		}
-		return $tag;
+	public function print_data() {
+		$menu_data = sprintf(
+			'var FoxhoundData = %s;',
+			$this->add_json_data()
+		);
+		wp_add_inline_script( FOXHOUND_APP, $menu_data, 'before' );
 	}
 
 	/**
