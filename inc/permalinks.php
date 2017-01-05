@@ -30,7 +30,7 @@ class Foxhound_SetPermalinks {
 	 * Add a warning message to the permalinks screen.
 	 */
 	public function admin_permalinks_warning() {
-		global $current_screen;
+		$current_screen = get_current_screen();
 		if ( 'options-permalink' !== $current_screen->id ) {
 			return;
 		}
