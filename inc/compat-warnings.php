@@ -26,8 +26,6 @@ add_action( 'after_switch_theme', 'foxhound_switch_theme' );
  *
  * Prints an update nag after an unsuccessful attempt to switch to
  * Foxhound on WordPress versions prior to 4.7.
- *
- * @global string $wp_version WordPress version.
  */
 function foxhound_upgrade_notice() {
 	$message = __( 'Foxhound requires WordPress 4.7 or higher. Please update your site and try again.', 'foxhound' );
@@ -38,8 +36,6 @@ function foxhound_upgrade_notice() {
  * Prevents the Customizer from being loaded on WordPress versions prior to 4.7.
  *
  * @since Foxhound 1.0
- *
- * @global string $wp_version WordPress version.
  */
 function foxhound_customize() {
 	wp_die( __( 'Foxhound requires WordPress 4.7 or higher. Please update your site and try again.', 'foxhound' ), '', array(
@@ -52,8 +48,6 @@ add_action( 'load-customize.php', 'foxhound_customize' );
  * Prevents the Theme Preview from being loaded on WordPress versions prior to 4.7.
  *
  * @since Foxhound 1.0
- *
- * @global string $wp_version WordPress version.
  */
 function foxhound_preview() {
 	if ( isset( $_GET['preview'] ) ) {
