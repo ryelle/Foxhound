@@ -10,7 +10,7 @@
 /**
  * Foxhound only works if the REST API is available
  */
-if ( version_compare( $GLOBALS['wp_version'], '4.7-alpha', '<' ) ) {
+if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
 	require get_template_directory() . '/inc/compat-warnings.php';
 	return;
 }
