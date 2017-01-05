@@ -39,7 +39,7 @@ Thanks to…
 
 These are a few of the packages/plugins that made this theme possible.
 
-- [WP-API Plugin](http://v2.wp-api.org/) ([Core Proposal](https://make.wordpress.org/core/2016/10/08/rest-api-merge-proposal-part-2-content-api/))
+- [WP-API](http://v2.wp-api.org/)
 - [WP API Menus Plugin](https://wordpress.org/plugins/wp-api-menus/)
 - [node-wpapi](https://www.npmjs.com/package/wpapi)
 - [wordpress-rest-api-oauth-1](https://www.npmjs.com/package/wordpress-rest-api-oauth-1)
