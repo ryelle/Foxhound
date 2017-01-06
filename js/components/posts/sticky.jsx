@@ -1,5 +1,5 @@
 // External dependencies
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 
@@ -10,10 +10,10 @@ import { isRequestingPostsForQuery, getPostsForQuery } from 'wordpress-query-pos
 // Components
 import PostList from './list';
 
-const StickyPostsList = React.createClass( {
+class StickyPostsList extends Component {
 	shouldComponentUpdate( nextProps ) {
 		return ! isEqual( nextProps.posts, this.props.posts );
-	},
+	}
 
 	render() {
 		const posts = this.props.posts;
@@ -25,7 +25,7 @@ const StickyPostsList = React.createClass( {
 			</div>
 		);
 	}
-} );
+};
 
 export default connect( ( state ) => {
 	const query = {};
