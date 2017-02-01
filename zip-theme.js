@@ -23,6 +23,7 @@ const files = [
 	'./inc/load-menu.php',
 	'./inc/permalinks.php',
 	'./index.php',
+	'./README.md',
 	'./screenshot.png',
 	'./sidebar.php',
 	'./style.css',
