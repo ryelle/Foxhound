@@ -34,6 +34,8 @@ This theme does not support hierarchical category archives - only parent categor
 
 Plugins might not work as expected, especially if they add content to the front end of your site. Most Jetpack features _do_ still work.
 
+If you're logged in to your site, the admin bar will currently not update when you navigate pages, so the "Edit X" link will only reflect the page you initially loaded. You can force-reload the page to update the admin bar, as a work-around.
+
 Thanks to…
 ----------
 
