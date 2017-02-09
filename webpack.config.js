@@ -19,49 +19,47 @@ webpackConfig = {
 		filename: '[name].js'
 	},
 	resolve: {
-		extensions: [ '', '.js', '.jsx' ],
+		extensions: [ '.js', '.jsx' ],
 		alias: {
 			components: path.join( __dirname, 'js/components' ),
 			utils: path.resolve( __dirname, 'js/utils' ),
 			test: path.resolve( __dirname, 'test' ),
 		},
-		modulesDirectories: [ 'node_modules', 'src' ]
+		modules: [ 'node_modules', 'src' ]
 	},
 	devtool: ( 'production' === NODE_ENV ) ? false : '#source-map',
-	debug: ( 'production' === NODE_ENV ) ? false : true,
 	module: {
-		// Webpack loaders are applied when a resource is matches the test case
-		loaders: [
+		// Webpack rules are applied when a resource is matches the test case
+		rules: [
 			{
 				test: /\.jsx?$/,
 				exclude: [ /node_modules/, /query-components/ ],
-				loader: 'babel',
+				use: 'babel-loader',
 			},
 			{
 				test: /\.jsx?$/,
-				loader: 'eslint',
 				exclude: [ /node_modules/, /query-components/ ],
-			},
-			{
-				test: /\.json$/,
-				loader: 'json',
+				enforce: "pre",
+				loader: 'eslint-loader',
+				options: {
+					configFile: path.join( __dirname, '.eslintrc' ),
+					failOnError: true,
+					quiet: true,
+				},
 			},
 			{
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract( 'style-loader', 'css!sass' )
+				use: ExtractTextPlugin.extract( {
+					fallback: "style-loader",
+					use: [ "css-loader", "sass-loader" ]
+				} ),
 			}
 		]
-	},
-	eslint: {
-		configFile: path.join( __dirname, '.eslintrc' ),
-		failOnError: true,
-		quiet: true,
 	},
 	node: {
 		fs: 'empty',
 		process: true
 	},
-
 	plugins: [
 		new LodashModuleReplacementPlugin( {
 			shorthands: true,
@@ -80,13 +78,7 @@ webpackConfig = {
 
 if ( NODE_ENV === 'production' ) {
 	// When running in production, we want to use the minified script so that the file is smaller
-	webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
-		compress: {
-			warnings: false
-		}
-	} ) );
-
-	webpackConfig.plugins.push( new webpack.optimize.DedupePlugin() );
+	webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin() );
 }
 
 module.exports = webpackConfig;
