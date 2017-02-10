@@ -17,7 +17,7 @@ const Comments = React.createClass( {
 	renderForm() {
 		return (
 			<div className="comment-respond">
-				<h3 className="comment-reply-title">Leave a Reply</h3>
+				<h2 className="comment-reply-title">Leave a Reply</h2>
 
 				<CommentForm postId={ this.props.postId } />
 			</div>
