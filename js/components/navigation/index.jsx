@@ -83,6 +83,10 @@ const Navigation = React.createClass( {
 	},
 
 	render() {
+		if ( this.props.menu.length < 1 ) {
+			return null;
+		}
+
 		let menu = this.props.menu.map( ( item, i ) => {
 			const onClick = ( event ) => {
 				blur( event );
