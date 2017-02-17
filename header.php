@@ -30,8 +30,10 @@
 		</div><!-- .site-branding -->
 
 		<nav id="site-navigation" class="main-navigation" role="navigation" aria-live="assertive">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'foxhound' ); ?></button>
-			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+			<div class="menu-toggle">
+				<button aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Menu', 'foxhound' ); ?></button>
+			</div>
+			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu', 'fallback_cb' => '__return_false' ) ); ?>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
 
