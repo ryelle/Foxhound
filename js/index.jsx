@@ -31,7 +31,7 @@ import { setMenu } from 'wordpress-query-menu/lib/state';
 import { setPost, setPosts } from './utils/initial-actions';
 
 // Accessibility!
-import { keyboardFocusReset, skipLink } from 'utils/a11y';
+import { keyboardFocusReset, skipLink, toggleFocus } from 'utils/a11y';
 
 // Now the work starts.
 const store = createReduxStore();
@@ -99,7 +99,39 @@ function renderApp() {
 			),
 			document.getElementById( 'site-navigation' )
 		);
+	} else {
+		// Run this to initialize the focus JS for PHP-generated menus
+		initNoApiMenuFocus();
 	}
+}
+
+function initNoApiMenuFocus() {
+	const container = document.getElementById( 'site-navigation' );
+	if ( ! container ) {
+		return;
+	}
+
+	const menu = container.getElementsByTagName( 'div' )[1];
+	const links = menu.getElementsByTagName( 'a' );
+	// Each time a menu link is focused or blurred, toggle focus.
+	let i, len;
+	for ( i = 0, len = links.length; i < len; i++ ) {
+		links[i].addEventListener( 'focus', toggleFocus, true );
+		links[i].addEventListener( 'blur', toggleFocus, true );
+	}
+
+	const button = container.getElementsByTagName( 'button' )[0];
+	button.onclick = function() {
+		if ( -1 !== menu.className.indexOf( 'menu-open' ) ) {
+			menu.className = menu.className.replace( ' menu-open', '' );
+			menu.setAttribute( 'aria-expanded', 'false' );
+			button.setAttribute( 'aria-expanded', 'false' );
+		} else {
+			menu.className += ' menu-open';
+			menu.setAttribute( 'aria-expanded', 'true' );
+			button.setAttribute( 'aria-expanded', 'true' );
+		}
+	};
 }
 
 // Set up link capture on all links in the app context.
