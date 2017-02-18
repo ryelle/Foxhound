@@ -1,4 +1,6 @@
 .search-form {
+	position: relative;
+
 	.page-header & {
 		margin: 0 auto 75px;
 	}
@@ -18,4 +20,14 @@
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
+
+	&:focus {
+		top: 0;
+		right: 0;
+		clip: auto !important;
+		height: 100%;
+		width: auto;
+		border: none;
+		box-shadow: none;
+	}
 }
