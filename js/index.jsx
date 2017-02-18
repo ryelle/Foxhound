@@ -48,7 +48,7 @@ function renderApp() {
 		frontPageRoute = null;
 	}
 
-	const routerMiddleware = applyRouterMiddleware( useScroll(), keyboardFocusReset( 'main' ) );
+	const routerMiddleware = applyRouterMiddleware( useScroll( shouldUpdateScroll ), keyboardFocusReset( 'main' ) );
 
 	// Add the event Jetpack listens for to initialize various JS features on posts.
 	const emitJetpackEvent = () => {
@@ -105,6 +105,15 @@ function renderApp() {
 	}
 }
 
+// Callback for `useScroll`, which skips the auto-scrolling on skiplinks
+function shouldUpdateScroll( prevRouterProps, { location } ) {
+	if ( location.hash ) {
+		return false;
+	}
+	return true;
+}
+
+// Initialize keyboard functionality with JS for non-react-build Menus (if the API doesn't exist)
 function initNoApiMenuFocus() {
 	const container = document.getElementById( 'site-navigation' );
 	if ( ! container ) {
