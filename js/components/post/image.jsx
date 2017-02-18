@@ -8,14 +8,13 @@ let Media = React.createClass( {
 	},
 
 	render: function() {
-		let media, mediaElement;
+		const media = this.props.media;
 
-		media = this.props.media;
-
+		let mediaElement;
 		switch ( media.media_type ) {
 			case 'image':
 				mediaElement = (
-					<img src={ media.source_url } />
+					<img src={ media.source_url } alt={ media.alt_text } />
 				);
 				break;
 		}
