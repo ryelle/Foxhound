@@ -11,7 +11,8 @@ const CommentForm = React.createClass( {
 
 	getInitialState() {
 		return {
-			errorMessage: false,
+			message: false,
+			error: false,
 		};
 	},
 
@@ -40,21 +41,41 @@ const CommentForm = React.createClass( {
 		}
 
 		const submission = this.props.submitComment( values );
-		submission.then( ( repsonse ) => {
+		submission.then( ( response ) => {
 			// No idea what happened.
-			if ( ! repsonse ) {
+			if ( ! response ) {
 				return;
 			}
-			// Clear the comment form
-			event.target.comment.value = '';
-			if ( repsonse.message && repsonse.message === 'Conflict' ) {
-				// clear form, show duplicate message
-				this.setState( { errorMessage: 'Duplicate comment detected; it looks as though you’ve already said that!' } );
-				setTimeout( () => {
-					this.setState( { errorMessage: false } );
-				}, 5000 );
+
+			if ( response.code ) {
+				this.setState( {
+					message: this.getErrorMessage( response.code ),
+					error: true
+				} );
+			} else {
+				// Clear the comment form on successful posts
+				event.target.comment.value = '';
+				this.setState( {
+					message: 'Comment posted.',
+					error: false,
+				} );
 			}
+
+			setTimeout( () => {
+				this.setState( { message: false, error: false } );
+			}, 5000 );
 		} );
+	},
+
+	getErrorMessage( code ) {
+		switch ( code ) {
+			case 'comment_duplicate':
+				return 'Duplicate comment detected; it looks as though you’ve already said that!';
+			case 'comment_flood':
+				return 'You\'re commenting too often, please wait before posting again.';
+			default:
+				return 'Something went wrong when posting your comment, please try again.';
+		}
 	},
 
 	renderAnonFields() {
@@ -97,14 +118,27 @@ const CommentForm = React.createClass( {
 		);
 	},
 
-	render() {
-		const errorMessage = this.state.errorMessage ? <p className='error'>{ this.state.errorMessage }</p> : null;
+	renderResponseMessage() {
+		if ( ! this.state.message ) {
+			return null;
+		}
 
+		// Display a message on succcess (screen readers only), or failure (everyone).
+		return (
+			<p className={ this.state.error ? 'error' : 'success screen-reader-text' }>
+				{ this.state.message }
+			</p>
+		);
+	},
+
+	render() {
 		return (
 			<form onSubmit={ this.onSubmit }>
 				{ FoxhoundSettings.user === 0 ? this.renderAnonFields() : this.renderLoggedInNotice() }
 
-				{ errorMessage }
+				<div aria-live="assertive">
+					{ this.renderResponseMessage() }
+				</div>
 				<div className="comment-form-field comment-form-comment">
 					<label htmlFor="comment">Comment</label>
 					<textarea ref="content" id="comment" name="comment" aria-required="true" required="required" />
