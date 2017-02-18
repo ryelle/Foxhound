@@ -33,13 +33,14 @@ export function keyboardFocusReset( elementId ) {
 	};
 };
 
-export function skipLink( element ) {
-	const id = element.href.substring( 1 );
-
+export function skipLink( clickedEl ) {
+	const attributes = clickedEl.attributes;
+	const id = attributes.getNamedItem( 'href' ).value.substring( 1 );
 	if ( ! ( /^[A-z0-9_-]+$/.test( id ) ) ) {
 		return;
 	}
 
+	const element = document.getElementById( id );
 	if ( ! ( /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) ) {
 		element.tabIndex = -1;
 	}
