@@ -47,7 +47,7 @@ const Search = React.createClass( {
 				<QueryPosts query={ this.props.query } />
 				{ this.props.loading ?
 					<Placeholder type="search" /> :
-					<PostList posts={ posts } />
+					<PostList posts={ posts } error={ 'Sorry, but nothing matched your search terms. Please try again with some different keywords.' } />
 				}
 			</div>
 		);

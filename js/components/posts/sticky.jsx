@@ -21,7 +21,7 @@ class StickyPostsList extends Component {
 		return (
 			<div className="sticky-container">
 				<QueryPosts query={ this.props.query } />
-				<PostList posts={ posts } />
+				<PostList posts={ posts } shouldShowEmpty={ false } />
 			</div>
 		);
 	}

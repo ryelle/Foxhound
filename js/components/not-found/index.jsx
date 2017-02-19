@@ -19,10 +19,10 @@ const NotFound = React.createClass( {
 			<article className={ classes }>
 				<DocumentMeta { ...meta } />
 				<BodyClass classes={ [ 'not-found' ] } />
-				<h2 className="entry-title">Not Found</h2>
+				<h2 className="entry-title">Nothing Found</h2>
 
 				<div className="entry-content">
-					<p>Something about no posts found.</p>
+					<p>It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.</p>
 				</div>
 
 				<div className="entry-meta"></div>
