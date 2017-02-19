@@ -120,7 +120,10 @@ class Foxhound_SetPermalinks {
 		$search = get_search_query();
 		global $wp;
 		if ( $search && ( 'search' !== substr( $wp->request, 0, 6 ) ) ) {
-			wp_safe_redirect( home_url( sprintf( '/search/%s', $search ) ) );
+			// Decode the quotes before re-encoding in the redirect
+			$search = html_entity_decode( $search, ENT_QUOTES );
+			$url = home_url( sprintf( '/search/%s', urlencode( $search ) ) );
+			wp_safe_redirect( $url );
 			exit();
 		} elseif ( is_attachment() ) {
 			$attachment = get_queried_object_id();

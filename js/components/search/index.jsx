@@ -25,7 +25,7 @@ const Search = React.createClass( {
 		if ( 'undefined' !== typeof this.refs.searchForm ) {
 			return this.refs.searchForm.getValue();
 		}
-		return this.props.params.search;
+		return this.props.params.search.replace( /\+/g, ' ' );
 	},
 
 	render() {
@@ -57,7 +57,7 @@ const Search = React.createClass( {
 export default withRouter( connect( ( state, ownProps ) => {
 	let query = {};
 	query.page = ownProps.params.paged || 1;
-	query.search = ownProps.params.search || '';
+	query.search = ownProps.params.search.replace( /\+/g, ' ' ) || '';
 	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
 
