@@ -85,7 +85,7 @@ export default connect( ( state, ownProps ) => {
 		posts,
 		requesting,
 		dateString,
-		loading: requesting && ! posts,
+		loading: requesting && ! posts.length,
 		page: parseInt( query.page ),
 		totalPages: getTotalPagesForQuery( state, query ),
 	};

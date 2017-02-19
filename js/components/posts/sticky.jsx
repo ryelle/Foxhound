@@ -40,6 +40,6 @@ export default connect( ( state ) => {
 		query,
 		posts,
 		requesting,
-		loading: requesting && ! posts,
+		loading: requesting && ! posts.length,
 	};
 } )( StickyPostsList );

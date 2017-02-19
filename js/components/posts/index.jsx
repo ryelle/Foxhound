@@ -72,7 +72,7 @@ export default connect( ( state, ownProps ) => {
 		query,
 		posts,
 		requesting,
-		loading: requesting && ! posts,
+		loading: requesting && ! posts.length,
 		totalPages: getTotalPagesForQuery( state, query ),
 	};
 } )( Index );
