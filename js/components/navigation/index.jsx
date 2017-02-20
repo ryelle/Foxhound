@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { getMenu } from 'wordpress-query-menu/lib/selectors';
 
+// Internal dependencies
+import { toggleFocus } from 'utils/a11y';
+
 const isItemSelected = function( item ) {
 	let re;
 	if ( location.pathname !== '/' ) {
@@ -17,24 +20,6 @@ const isItemSelected = function( item ) {
 
 const blur = function( event ) {
 	event.target.blur();
-};
-
-const toggleFocus = function( event ) {
-	var self = event.target;
-
-	// Move up through the ancestors of the current link until we hit .nav-menu.
-	while ( -1 === self.className.indexOf( 'nav-menu' ) ) {
-		// On li elements toggle the class .focus.
-		if ( 'li' === self.tagName.toLowerCase() ) {
-			if ( -1 !== self.className.indexOf( 'focus' ) ) {
-				self.className = self.className.replace( ' focus', '' );
-			} else {
-				self.className += ' focus';
-			}
-		}
-
-		self = self.parentElement;
-	}
 };
 
 const SubMenu = ( { items, onClick } ) => {
