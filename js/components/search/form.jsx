@@ -9,11 +9,11 @@ const SearchForm = React.createClass( {
 	render() {
 		return (
 			<form role="search" className="search-form" onSubmit={ this.props.onSubmit }>
-				<label>
-					<span className="screen-reader-text">Search for:</span>
-					<input ref='input' type="search" className="search-field" placeholder="Search …" name="s" title="Search for:" defaultValue={ this.props.initialSearch } />
-				</label>
-				<input type="submit" className="search-submit" value="Search" />
+				<div className="search-form-field">
+					<label htmlFor="searchform">Search</label>
+					<input id="searchform" ref="input" type="search" className="search-field" name="s" title="Search" defaultValue={ this.props.initialSearch } />
+					<input type="submit" className="search-submit" value="Go" />
+				</div>
 			</form>
 		);
 	}

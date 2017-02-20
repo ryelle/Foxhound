@@ -5,12 +5,29 @@
 		margin: 0 auto 75px;
 	}
 
-	.search-field {
-		box-sizing: border-box;
-		padding: 13px 20px 14px;
-		width: 100%;
-		background-color: transparent;
+	.search-form-field {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: flex-start;
+
+		margin-bottom: 20px;
 		border: 1px solid $color__border-input;
+		color: $color__text-label;
+
+		label {
+			flex: 0 auto;
+			padding: 15px;
+		}
+
+		input[type="search"] {
+			padding: 13px 0 12px;
+		}
+
+		.search-submit {
+			padding: 8px 24px 5px;
+			box-shadow: none;
+			border-radius: 0;
+		}
 	}
 }
 
@@ -22,12 +39,10 @@
 	overflow: hidden;
 
 	&:focus {
-		top: 0;
-		right: 0;
 		clip: auto !important;
-		height: 100%;
+		top: 1px;
+		right: 1px;
+		height: calc( 100% - 2px );
 		width: auto;
-		border: none;
-		box-shadow: none;
 	}
 }
