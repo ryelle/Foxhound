@@ -25,6 +25,7 @@ const files = [
 	'./index.php',
 	'./README.md',
 	'./screenshot.png',
+	'./searchform.php',
 	'./sidebar.php',
 	'./style.css',
 ];
