@@ -1,4 +1,4 @@
-/* global FoxhoundSettings */
+/* global FoxhoundSettings, wp */
 // External dependencies
 import React from 'react';
 import { connect } from 'react-redux';
@@ -14,6 +14,16 @@ const CommentForm = React.createClass( {
 			message: false,
 			error: false,
 		};
+	},
+
+	componentDidUpdate() {
+		if ( ! this.state.message ) {
+			return null;
+		}
+
+		// Speak the message status for screen readers
+		const messagePrefix = this.state.error ? 'Error: ' : 'Success: '
+		wp.a11y.speak( messagePrefix + this.state.message, 'assertive' );
 	},
 
 	onSubmit( event ) {
@@ -56,7 +66,7 @@ const CommentForm = React.createClass( {
 				// Clear the comment form on successful posts
 				event.target.comment.value = '';
 				this.setState( {
-					message: 'Comment posted.',
+					message: ( 'hold' === response.status ) ? 'Comment submitted, pending approval.' : 'Comment posted.',
 					error: false,
 				} );
 			}
@@ -119,13 +129,12 @@ const CommentForm = React.createClass( {
 	},
 
 	renderResponseMessage() {
-		if ( ! this.state.message ) {
+		if ( ! this.state.message || ! this.state.error ) {
 			return null;
 		}
 
-		// Display a message on succcess (screen readers only), or failure (everyone).
 		return (
-			<p className={ this.state.error ? 'error' : 'success screen-reader-text' }>
+			<p className='error'>
 				{ this.state.message }
 			</p>
 		);
@@ -136,7 +145,7 @@ const CommentForm = React.createClass( {
 			<form onSubmit={ this.onSubmit }>
 				{ FoxhoundSettings.user === 0 ? this.renderAnonFields() : this.renderLoggedInNotice() }
 
-				<div aria-live="assertive">
+				<div aria-hidden="true">
 					{ this.renderResponseMessage() }
 				</div>
 				<div className="comment-form-field comment-form-comment">

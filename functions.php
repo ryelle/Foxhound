@@ -115,7 +115,7 @@ function foxhound_scripts() {
 	}
 
 	wp_enqueue_style( 'foxhound-style', get_template_directory_uri() . '/build/style.css', array(), FOXHOUND_VERSION );
-	wp_enqueue_script( FOXHOUND_APP, get_template_directory_uri() . '/build/app.js', array( 'jquery' ), FOXHOUND_VERSION, true );
+	wp_enqueue_script( FOXHOUND_APP, get_template_directory_uri() . '/build/app.js', array( 'jquery', 'wp-a11y' ), FOXHOUND_VERSION, true );
 	if ( is_child_theme() ) {
 		wp_enqueue_style( 'foxhound-child-style', get_stylesheet_uri() );
 	}
