@@ -37,6 +37,13 @@ const Comments = React.createClass( {
 			} );
 		}
 
+		// Let screen readers know there are no comments
+		if ( ! commentsList ) {
+			commentsList = (
+				<h2 className="screen-reader-text comments-title">No comments on &ldquo;{ this.props.title }&rdquo;</h2>
+			);
+		}
+
 		let titleString = 'One comment on ';
 		if ( this.props.total > 1 ) {
 			titleString = `${ this.props.total } comments on `;
