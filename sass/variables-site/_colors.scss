@@ -4,6 +4,7 @@ $red: #9c0e0e;
 $white: #fcfbf8;
 $black: #2b2424;
 $grey: #dddfde;
+$dark-grey: #829494;
 
 // In-context colors
 
@@ -29,7 +30,7 @@ $color__text-input-focus: mix( $blue, $black, 60% );
 
 $color__link: inherit;
 $color__link-nav: $blue;
-$color__link-border: $grey;
+$color__link-border: $dark-grey;
 $color__link-visited: inherit;
 $color__link-hover: inherit;
 $color__link-hover-background: mix( $grey, $white, 35% );
