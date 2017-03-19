@@ -81,5 +81,26 @@
     "watch": "webpack --watch",
     "lint": "eslint js --ext=js,jsx",
     "zip": "node zip-theme.js"
-  }
+  },
+  "files": [
+    "build/app.js",
+    "build/customize-preview.js",
+    "build/style.css",
+    "footer.php",
+    "functions.php",
+    "header.php",
+    "inc/compat-warnings.php",
+    "inc/customizer.php",
+    "inc/load-data.php",
+    "inc/load-menu.php",
+    "inc/permalinks.php",
+    "index.php",
+    "js/**",
+    "README.md",
+    "sass/**",
+    "screenshot.png",
+    "searchform.php",
+    "sidebar.php",
+    "style.css"
+  ]
 }

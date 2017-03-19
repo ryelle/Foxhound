@@ -2,38 +2,23 @@
 const fs = require( 'fs' );
 const path = require( 'path' );
 const archiver = require( 'archiver' );
+const pkg = require( './package.json' );
+
+// Pull the theme name from pacakage.json, falling back to pathname if not found.
+const themeName = pkg.name.toLowerCase() || path.basename( __dirname );
+
+// Our theme files are pulled from package.json
+const files = pkg.files;
+if ( ! files || files.length < 1 ) {
+	console.log( 'ERROR: Please add the files you want to publish to an array called `files` in package.json.' );
+	return;
+}
 
 // create a file to stream archive data to.
-const output = fs.createWriteStream( path.resolve( __dirname, './build/foxhound.zip' ) );
+const output = fs.createWriteStream( path.resolve( __dirname, `./build/${ themeName }.zip` ) );
 const archive = archiver( 'zip', {
 	store: true // Sets the compression method to STORE.
 } );
-
-// Our theme files
-const files = [
-	'./build/app.js',
-	'./build/customize-preview.js',
-	'./build/style.css',
-	'./footer.php',
-	'./functions.php',
-	'./header.php',
-	'./inc/compat-warnings.php',
-	'./inc/customizer.php',
-	'./inc/load-data.php',
-	'./inc/load-menu.php',
-	'./inc/permalinks.php',
-	'./index.php',
-	'./README.md',
-	'./screenshot.png',
-	'./searchform.php',
-	'./sidebar.php',
-	'./style.css',
-];
-
-const directories = [
-	'./js/',
-	'./sass/',
-];
 
 // listen for all archive data to be written
 output.on( 'close', () => {
@@ -52,16 +37,9 @@ archive.pipe( output );
 // add each file to the zip
 files.map( file => {
 	console.log( `Adding ${file}` );
-	const filepath = path.resolve( __dirname, file );
-	archive.file( filepath, { name: file } );
+	archive.glob( file );
 } );
 
-directories.map( directory => {
-	console.log( `Adding ${directory}` );
-	const dirpath = path.resolve( __dirname, directory );
-	archive.directory( dirpath, directory );
-} )
-
-console.log( 'Saving the zip to build/foxhound.zip' );
+console.log( `Saving the zip to ./build/${ themeName }.zip` );
 // finalize the archive (ie we are done appending files but streams have to finish yet)
 archive.finalize();
