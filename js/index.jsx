@@ -121,6 +121,11 @@ function initNoApiMenuFocus() {
 	}
 
 	const menu = container.getElementsByTagName( 'div' )[1];
+	// No menu, no need to run the rest.
+	if ( ! menu ) {
+		return;
+	}
+
 	const links = menu.getElementsByTagName( 'a' );
 	// Each time a menu link is focused or blurred, toggle focus.
 	let i, len;
