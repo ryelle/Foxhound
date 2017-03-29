@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import he from 'he';
 
 // Internal dependencies
 import Placeholder from 'components/placeholder';
@@ -26,6 +27,7 @@ const Attachment = React.createClass( {
 			description: media.caption.rendered,
 			canonical: media.link,
 		};
+		meta.title = he.decode( meta.title );
 
 		return (
 			<article className={ classNames( [ 'entry' ] ) }>

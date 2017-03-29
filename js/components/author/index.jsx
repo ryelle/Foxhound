@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import he from 'he';
 
 // Internal dependencies
 import QueryUser from 'wordpress-query-user';
@@ -14,6 +15,7 @@ const AuthorHeader = ( { userName, loading, user = {}, query = {} } ) => {
 	const meta = {
 		title: user.name + ' – ' + FoxhoundSettings.meta.title,
 	};
+	meta.title = he.decode( meta.title );
 
 	return (
 		<div className="card">

@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import he from 'he';
 
 // Internal dependencies
 import QueryTerm from 'wordpress-query-term';
@@ -15,6 +16,7 @@ const TermHeader = ( { term, taxonomy, loading, termData = {}, query = {} } ) =>
 		title: termData.name + ' – ' + FoxhoundSettings.meta.title,
 		description: termData.description,
 	};
+	meta.title = he.decode( meta.title );
 
 	return (
 		<div className="card">

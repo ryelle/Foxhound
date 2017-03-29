@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import he from 'he';
 
 // Internal dependencies
 import { getPost } from 'wordpress-query-posts/lib/selectors';
@@ -28,6 +29,7 @@ const SinglePost = React.createClass( {
 			description: post.excerpt.rendered,
 			canonical: post.link,
 		};
+		meta.title = he.decode( meta.title );
 
 		const classes = classNames( {
 			entry: true

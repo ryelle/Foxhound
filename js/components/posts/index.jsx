@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import he from 'he';
 
 // Internal dependencies
 import QueryPosts from 'wordpress-query-posts';
@@ -26,7 +27,7 @@ const Index = React.createClass( {
 
 		const posts = this.props.posts;
 		const meta = {
-			title: FoxhoundSettings.meta.title,
+			title: he.decode( FoxhoundSettings.meta.title ),
 			description: FoxhoundSettings.meta.description,
 			canonical: FoxhoundSettings.URL.base,
 		};
