@@ -3,6 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import he from 'he';
 
 const NotFound = React.createClass( {
 	render() {
@@ -12,7 +13,7 @@ const NotFound = React.createClass( {
 		} );
 
 		const meta = {
-			title: 'Page not found – ' + FoxhoundSettings.meta.title,
+			title: 'Page not found – ' + he.decode( FoxhoundSettings.meta.title ),
 		};
 
 		return (

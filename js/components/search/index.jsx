@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import he from 'he';
 
 // Internal dependencies
 import QueryPosts from 'wordpress-query-posts';
@@ -34,6 +35,7 @@ const Search = React.createClass( {
 		const meta = {
 			title: 'Search Results for "' + term + '" – ' + FoxhoundSettings.meta.title,
 		};
+		meta.title = he.decode( meta.title );
 
 		return (
 			<div className='site-content'>

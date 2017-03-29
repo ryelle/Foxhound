@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 import moment from 'moment';
+import he from 'he';
 
 // Internal dependencies
 import QueryPosts from 'wordpress-query-posts';
@@ -18,7 +19,7 @@ const DateArchive = React.createClass( {
 	render() {
 		const { query, loading, path, page, totalPages, dateString, posts } = this.props;
 		const meta = {
-			title: dateString + ' – ' + FoxhoundSettings.meta.title,
+			title: dateString + ' – ' + he.decode( FoxhoundSettings.meta.title ),
 		};
 
 		return (
