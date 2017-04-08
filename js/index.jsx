@@ -11,8 +11,6 @@ import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-rout
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import { bindActionCreators } from 'redux';
-
-// lodash for simple regex escaping
 import { escapeRegExp } from 'lodash';
 
 // Load the CSS
@@ -153,10 +151,15 @@ function initNoApiMenuFocus() {
 
 // Set up link capture on all links in the app context.
 function handleLinkClick() {
-	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
+	// This regex matches any string with the wp site's URL in it, but we want to trim the trailing slash
+	let regexBaseUrl = FoxhoundSettings.URL.base;
+	if ( '/' === regexBaseUrl[ regexBaseUrl.length - 1 ] ) {
+		regexBaseUrl = regexBaseUrl.slice( 0, regexBaseUrl.length - 1 );
+	}
+	const escapedSiteURL = new RegExp( escapeRegExp( regexBaseUrl ).replace( /\//g, '\\\/' ) );
 
+	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
 		// Don't capture clicks offsite
-		const escapedSiteURL = new RegExp( escapeRegExp( FoxhoundSettings.URL.base ).replace( /\//g, '\\\/' ), 'g' );
 		if ( ! escapedSiteURL.test( event.currentTarget.href ) ) {
 			return;
 		}
