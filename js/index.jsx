@@ -12,6 +12,9 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import { bindActionCreators } from 'redux';
 
+// lodash for simple regex escaping
+import { escapeRegExp } from 'lodash';
+
 // Load the CSS
 require( '../sass/style.scss' );
 
@@ -151,6 +154,13 @@ function initNoApiMenuFocus() {
 // Set up link capture on all links in the app context.
 function handleLinkClick() {
 	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
+
+		// Don't capture clicks offsite
+		const escapedSiteURL = new RegExp( escapeRegExp( FoxhoundSettings.URL.base ).replace( /\//g, '\\\/' ), 'g' );
+		if ( ! escapedSiteURL.test( event.currentTarget.href ) ) {
+			return;
+		}
+
 		// Custom functionality for attachment pages
 		const linkRel = jQuery( event.currentTarget ).attr( 'rel' );
 		if ( linkRel && linkRel.search( /attachment/ ) !== -1 ) {
