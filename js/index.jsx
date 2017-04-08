@@ -173,10 +173,7 @@ function handleLinkClick() {
 			history.push( path + 'attachment/' + attachId );
 			return;
 		}
-		// Don't capture clicks in post content.
-		if ( jQuery( event.currentTarget ).closest( '.entry-content' ).length ) {
-			return;
-		}
+
 		// Don't capture clicks to wp-admin, or the RSS feed
 		if ( /wp-(admin|login)/.test( event.currentTarget.href ) || /\/feed\/$/.test( event.currentTarget.href ) ) {
 			return;
