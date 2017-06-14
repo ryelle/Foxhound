@@ -34,12 +34,12 @@ webpackConfig = {
 			{
 				test: /\.jsx?$/,
 				exclude: [ /node_modules/, /query-components/ ],
-				use: 'babel-loader',
+				use: 'babel-loader'
 			},
 			{
 				test: /\.jsx?$/,
 				exclude: [ /node_modules/, /query-components/ ],
-				enforce: "pre",
+				enforce: 'pre',
 				loader: 'eslint-loader',
 				options: {
 					configFile: path.join( __dirname, '.eslintrc' ),
@@ -50,8 +50,8 @@ webpackConfig = {
 			{
 				test: /\.scss$/,
 				use: ExtractTextPlugin.extract( {
-					fallback: "style-loader",
-					use: [ "css-loader", "sass-loader" ]
+					fallback: 'style-loader',
+					use: [ 'css-loader', 'sass-loader' ]
 				} ),
 			}
 		]
@@ -62,7 +62,6 @@ webpackConfig = {
 	},
 	plugins: [
 		new LodashModuleReplacementPlugin( {
-			shorthands: true,
 			collections: true
 		} ),
 		new webpack.DefinePlugin( {
