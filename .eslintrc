@@ -6,10 +6,6 @@
         "mocha": true,
         "node": true
     },
-    "ecmaFeatures": {
-        "jsx": true,
-        "modules": true
-    },
     "plugins": [
         "eslint-plugin-react"
     ],
