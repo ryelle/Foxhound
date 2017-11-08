@@ -68,7 +68,7 @@ const SinglePage = React.createClass( {
 	},
 
 	render() {
-		if ( !! this.props.previewId ) {
+		if ( this.props.previewId ) {
 			return (
 				<PostPreview id={ this.props.previewId } />
 			);
@@ -97,7 +97,7 @@ export default connect( ( state, ownProps ) => {
 
 	const postId = getPageIdFromPath( state, path );
 	const requesting = isRequestingPage( state, path );
-	const post = getPage( state, parseInt( postId ) );
+	const post = getPage( state, parseInt( postId, 10 ) );
 
 	const previewId = ownProps.location.query.preview_id;
 

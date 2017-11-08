@@ -17,6 +17,8 @@ let Media = React.createClass( {
 					<img src={ media.source_url } alt={ media.alt_text } />
 				);
 				break;
+			default:
+				break;
 		}
 
 		return (

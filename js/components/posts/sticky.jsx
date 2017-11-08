@@ -25,7 +25,7 @@ class StickyPostsList extends Component {
 			</div>
 		);
 	}
-};
+}
 
 export default connect( ( state ) => {
 	const query = {};

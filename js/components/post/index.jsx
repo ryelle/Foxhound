@@ -72,7 +72,7 @@ const SinglePost = React.createClass( {
 	},
 
 	render() {
-		if ( !! this.props.previewId ) {
+		if ( this.props.previewId ) {
 			return (
 				<PostPreview id={ this.props.previewId } />
 			);
@@ -96,7 +96,7 @@ export default connect( ( state, ownProps ) => {
 	const slug = ownProps.params.slug || false;
 	const postId = getPostIdFromSlug( state, slug );
 	const requesting = isRequestingPost( state, slug );
-	const post = getPost( state, parseInt( postId ) );
+	const post = getPost( state, parseInt( postId, 10 ) );
 
 	const previewId = ownProps.location.query.preview_id;
 

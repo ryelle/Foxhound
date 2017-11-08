@@ -73,7 +73,7 @@ const CommentForm = React.createClass( {
 
 			setTimeout( () => {
 				this.setState( { message: false, error: false } );
-			}, 5000 );
+			}, 5000 ); // eslint-disable-line no-magic-numbers
 		} );
 	},
 

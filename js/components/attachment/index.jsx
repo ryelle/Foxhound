@@ -57,7 +57,7 @@ const Attachment = React.createClass( {
 } );
 
 export default connect( ( state, ownProps ) => {
-	const id = parseInt( ownProps.params.id || 0 );
+	const id = parseInt( ownProps.params.id || 0, 10 );
 	const requesting = isRequestingMedia( state, id );
 	const media = getMedia( state, id );
 

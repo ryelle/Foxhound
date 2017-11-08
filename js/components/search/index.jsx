@@ -64,7 +64,7 @@ export default withRouter( connect( ( state, ownProps ) => {
 	const requesting = isRequestingPostsForQuery( state, query );
 
 	return {
-		page: parseInt( query.page ),
+		page: parseInt( query.page, 10 ),
 		query,
 		posts,
 		requesting,

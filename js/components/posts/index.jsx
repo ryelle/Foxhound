@@ -19,7 +19,7 @@ import Placeholder from 'components/placeholder';
 
 const Index = React.createClass( {
 	render() {
-		if ( !! this.props.previewId ) {
+		if ( this.props.previewId ) {
 			return (
 				<PostPreview id={ this.props.previewId } />
 			);
@@ -69,7 +69,7 @@ export default connect( ( state, ownProps ) => {
 	return {
 		previewId,
 		path,
-		page: parseInt( query.page ),
+		page: parseInt( query.page, 10 ),
 		query,
 		posts,
 		requesting,
