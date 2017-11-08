@@ -40,7 +40,7 @@ export function keyboardFocusReset( elementId ) {
 			</FocusHandler>
 		),
 	};
-};
+}
 
 /**
  * Set the focus to an element, based on a clicked link.
@@ -69,7 +69,7 @@ export function skipLink( clickedEl ) {
  * @param  {FocusEvent}  event  The blur or focus event on each link item.
  */
 export function toggleFocus( event ) {
-	var self = event.target;
+	var self = event.target; // eslint-disable-line consistent-this
 
 	// Move up through the ancestors of the current link until we hit .main-navigation.
 	while ( -1 === self.className.indexOf( 'main-navigation' ) ) {
@@ -82,6 +82,6 @@ export function toggleFocus( event ) {
 			}
 		}
 
-		self = self.parentElement;
+		self = self.parentElement; // eslint-disable-line consistent-this
 	}
 }

@@ -89,9 +89,9 @@ const Navigation = React.createClass( {
 		return (
 			<div className={ menuClasses }>
 				<div className="menu-toggle" onClick={ this.toggleMenu }>
-					<button onClick={ this.toggleMenu } aria-expanded={ !! this.state.isMenuOpen }>Menu</button>
+					<button onClick={ this.toggleMenu } aria-expanded={ Boolean( this.state.isMenuOpen ) }>Menu</button>
 				</div>
-				<ul className="menu nav-menu" aria-expanded={ !! this.state.isMenuOpen }>
+				<ul className="menu nav-menu" aria-expanded={ Boolean( this.state.isMenuOpen ) }>
 					{ menu }
 				</ul>
 			</div>

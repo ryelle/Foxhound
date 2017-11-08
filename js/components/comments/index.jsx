@@ -52,7 +52,7 @@ const Comments = React.createClass( {
 		return (
 			<div className="comments-area" ref="comments" aria-live="polite">
 				<QueryComments postId={ this.props.postId } />
-				<BodyClass classes={ { 'has-comments': !! this.props.total } } />
+				<BodyClass classes={ { 'has-comments': Boolean( this.props.total ) } } />
 				{ ( 0 === this.props.total ) ?
 					null :
 					<h2 className="comments-title">{ titleString }&ldquo;{ this.props.title }&rdquo;</h2>

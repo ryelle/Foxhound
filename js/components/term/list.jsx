@@ -37,7 +37,7 @@ class Term extends Component {
 			</div>
 		);
 	}
-};
+}
 
 export default connect( ( state, ownProps ) => {
 	const { query, taxonomy, term } = ownProps;
@@ -54,7 +54,7 @@ export default connect( ( state, ownProps ) => {
 		posts,
 		requesting,
 		loading: requesting && ! posts.length,
-		page: parseInt( query.page ),
+		page: parseInt( query.page, 10 ),
 		totalPages: getTotalPagesForQuery( state, query ),
 	};
 } )( Term );

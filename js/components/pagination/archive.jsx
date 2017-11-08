@@ -9,8 +9,8 @@ let Pagination = React.createClass( {
 		}
 
 		let next, prev;
-		next = parseInt( this.props.current ) + 1;
-		prev = parseInt( this.props.current ) - 1;
+		next = parseInt( this.props.current, 10 ) + 1;
+		prev = parseInt( this.props.current, 10 ) - 1;
 
 		return (
 			<nav className="navigation posts-navigation clear" role="navigation">

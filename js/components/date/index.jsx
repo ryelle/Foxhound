@@ -87,7 +87,7 @@ export default connect( ( state, ownProps ) => {
 		requesting,
 		dateString,
 		loading: requesting && ! posts.length,
-		page: parseInt( query.page ),
+		page: parseInt( query.page, 10 ),
 		totalPages: getTotalPagesForQuery( state, query ),
 	};
 } )( DateArchive );
