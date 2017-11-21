@@ -5,8 +5,8 @@ import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 import he from 'he';
 
-const NotFound = React.createClass( {
-	render() {
+class NotFound extends React.Component {
+    render() {
 		const classes = classNames( {
 			'entry': true,
 			'entry-404': true
@@ -30,6 +30,6 @@ const NotFound = React.createClass( {
 			</article>
 		);
 	}
-} );
+}
 
 export default NotFound;

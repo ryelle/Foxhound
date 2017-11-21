@@ -13,8 +13,8 @@ import Comment from './single';
 import CommentForm from './form';
 import Placeholder from 'components/placeholder';
 
-const Comments = React.createClass( {
-	renderForm() {
+class Comments extends React.Component {
+    renderForm = () => {
 		return (
 			<div className="comment-respond">
 				<h2 className="comment-reply-title">Leave a Reply</h2>
@@ -22,9 +22,9 @@ const Comments = React.createClass( {
 				<CommentForm postId={ this.props.postId } />
 			</div>
 		);
-	},
+	};
 
-	render() {
+    render() {
 		// If this is a protected post, we don't want to display comments.
 		if ( this.props.protected ) {
 			return null;
@@ -69,7 +69,7 @@ const Comments = React.createClass( {
 			</div>
 		);
 	}
-} );
+}
 
 export default connect( ( state, ownProps ) => {
 	const postId = ownProps.postId;

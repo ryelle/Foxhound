@@ -2,8 +2,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-let Pagination = React.createClass( {
-	render() {
+class Pagination extends React.Component {
+    render() {
 		if ( this.props.isFirstPage && this.props.isLastPage ) {
 			return null;
 		}
@@ -31,6 +31,6 @@ let Pagination = React.createClass( {
 			</nav>
 		);
 	}
-} );
+}
 
 export default Pagination;

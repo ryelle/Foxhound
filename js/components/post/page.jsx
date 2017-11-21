@@ -9,7 +9,7 @@ import he from 'he';
 // Internal dependencies
 import QueryPage from 'wordpress-query-page';
 import { getPageIdFromPath, isRequestingPage, getPage } from 'wordpress-query-page/lib/selectors';
-import ContentMixin from 'utils/content-mixin';
+import { getTitle, getContent, getFeaturedMedia } from 'utils/content';
 
 // Components
 import Media from './image';
@@ -17,10 +17,8 @@ import Comments from 'components/comments';
 import Placeholder from 'components/placeholder';
 import PostPreview from './preview';
 
-const SinglePage = React.createClass( {
-	mixins: [ ContentMixin ],
-
-	renderArticle() {
+class SinglePage extends React.Component {
+    renderArticle = () => {
 		const post = this.props.post;
 		if ( ! post ) {
 			return null;
@@ -36,24 +34,24 @@ const SinglePage = React.createClass( {
 		const classes = classNames( {
 			entry: true
 		} );
-		const featuredMedia = this.getFeaturedMedia( post );
+		const featuredMedia = getFeaturedMedia( post );
 
 		return (
 			<article id={ `post-${ post.id }` } className={ classes }>
 				<DocumentMeta { ...meta } />
 				<BodyClass classes={ [ 'page', 'single', 'single-page' ] } />
-				<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
+				<h1 className="entry-title" dangerouslySetInnerHTML={ getTitle( post ) } />
 				{ featuredMedia ?
 					<Media media={ featuredMedia } parentClass='entry-image' /> :
 					null
 				}
 				<div className="entry-meta"></div>
-				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
+				<div className="entry-content" dangerouslySetInnerHTML={ getContent( post ) } />
 			</article>
 		);
-	},
+	};
 
-	renderComments() {
+    renderComments = () => {
 		const post = this.props.post;
 		if ( ! post ) {
 			return null;
@@ -62,12 +60,12 @@ const SinglePage = React.createClass( {
 		return (
 			<Comments
 				postId={ this.props.postId }
-				title={ <span dangerouslySetInnerHTML={ this.getTitle( post ) } /> }
+				title={ <span dangerouslySetInnerHTML={ getTitle( post ) } /> }
 				commentsOpen={ 'open' === post.comment_status } />
 		)
-	},
+	};
 
-	render() {
+    render() {
 		if ( !! this.props.previewId ) {
 			return (
 				<PostPreview id={ this.props.previewId } />
@@ -87,7 +85,7 @@ const SinglePage = React.createClass( {
 			</div>
 		);
 	}
-} );
+}
 
 export default connect( ( state, ownProps ) => {
 	let path = ownProps.params.splat || ownProps.route.slug;

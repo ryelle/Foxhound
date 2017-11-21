@@ -13,8 +13,8 @@ function getTaxonomy( post, taxonomy ) {
 	return terms;
 }
 
-let PostMeta = React.createClass( {
-	render: function() {
+class PostMeta extends React.Component {
+    render() {
 		let categories = getTaxonomy( this.props.post, 'category' );
 		let tags = getTaxonomy( this.props.post, 'post_tag' );
 
@@ -68,6 +68,6 @@ let PostMeta = React.createClass( {
 			</footer>
 		);
 	}
-} );
+}
 
 export default PostMeta;

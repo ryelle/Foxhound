@@ -2,13 +2,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-let Media = React.createClass( {
-	propTypes: {
+class Media extends React.Component {
+    static propTypes = {
 		media: PropTypes.object.isRequired,
 		parentClass: PropTypes.string,
-	},
+	};
 
-	render: function() {
+    render() {
 		const media = this.props.media;
 
 		let mediaElement;
@@ -26,6 +26,6 @@ let Media = React.createClass( {
 			</div>
 		);
 	}
-} );
+}
 
 export default Media;

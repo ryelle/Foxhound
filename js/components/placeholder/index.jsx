@@ -1,8 +1,8 @@
 // External dependencies
 import React from 'react';
 
-let Placeholder = React.createClass( {
-	render() {
+class Placeholder extends React.Component {
+    render() {
 		let placeholderContent;
 		if ( 'comments' === this.props.type ) {
 			placeholderContent = (
@@ -24,6 +24,6 @@ let Placeholder = React.createClass( {
 			</div>
 		);
 	}
-} );
+}
 
 export default Placeholder;

@@ -4,8 +4,8 @@ import React from 'react';
 
 // FocusHandler is a component which adds focus to a given element each time the page renders. This ensures
 // the keyboard focus is in a predictable location after page load.
-const FocusHandler = React.createClass( {
-	componentDidUpdate( prevProps ) {
+class FocusHandler extends React.Component {
+    componentDidUpdate(prevProps) {
 		const { routerProps, elementId } = this.props;
 		const prevRouterProps = prevProps.routerProps;
 
@@ -15,12 +15,12 @@ const FocusHandler = React.createClass( {
 
 		const element = document.getElementById( elementId );
 		element.focus();
-	},
+	}
 
-	render() {
+    render() {
 		return this.props.children;
 	}
-} );
+}
 
 /**
  * Create a router middleware, which wraps the `RouterContext` with the FocusHandler. FocusHandler in turn
@@ -40,7 +40,7 @@ export function keyboardFocusReset( elementId ) {
 			</FocusHandler>
 		),
 	};
-};
+}
 
 /**
  * Set the focus to an element, based on a clicked link.

@@ -9,16 +9,14 @@ import he from 'he';
 // Internal dependencies
 import { getPost } from 'wordpress-query-posts/lib/selectors';
 import { getPage } from 'wordpress-query-page/lib/selectors';
-import ContentMixin from 'utils/content-mixin';
+import { getTitle, getContent, getDate, getFeaturedMedia } from 'utils/content';
 
 // Components
 import PostMeta from './meta';
 import Media from './image';
 
-const SinglePost = React.createClass( {
-	mixins: [ ContentMixin ],
-
-	renderArticle() {
+class SinglePost extends React.Component {
+    renderArticle = () => {
 		const post = this.props.post;
 		if ( ! post ) {
 			return null;
@@ -34,33 +32,33 @@ const SinglePost = React.createClass( {
 		const classes = classNames( {
 			entry: true
 		} );
-		const featuredMedia = this.getFeaturedMedia( post );
+		const featuredMedia = getFeaturedMedia( post );
 
 		return (
 			<article id={ `post-${ post.id }` } className={ classes }>
 				<DocumentMeta { ...meta } />
 				<BodyClass classes={ [ 'single', 'single-post' ] } />
-				<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
+				<h1 className="entry-title" dangerouslySetInnerHTML={ getTitle( post ) } />
 				{ featuredMedia ?
 					<Media media={ featuredMedia } parentClass='entry-image' /> :
 					null
 				}
 				<div className="entry-meta"></div>
-				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
+				<div className="entry-content" dangerouslySetInnerHTML={ getContent( post ) } />
 
-				{ 'post' === post.type && <PostMeta post={ post } humanDate={ this.getDate( post ) } /> }
+				{ 'post' === post.type && <PostMeta post={ post } humanDate={ getDate( post ) } /> }
 			</article>
 		);
-	},
+	};
 
-	render() {
+    render() {
 		return (
 			<div className="card">
 				{ this.renderArticle() }
 			</div>
 		);
 	}
-} );
+}
 
 export default connect( ( state, ownProps ) => {
 	const postId = parseInt( ownProps.id, 10 );

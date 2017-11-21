@@ -15,21 +15,21 @@ import PostList from 'components/posts/list';
 import SearchForm from './form';
 import Placeholder from 'components/placeholder';
 
-const Search = React.createClass( {
-	search( event ) {
+class Search extends React.Component {
+    search = (event) => {
 		event.preventDefault();
 		const url = `${ FoxhoundSettings.URL.path }search/${ this.getSearchValue() }`;
 		this.props.router.push( url );
-	},
+	};
 
-	getSearchValue() {
+    getSearchValue = () => {
 		if ( 'undefined' !== typeof this.refs.searchForm ) {
 			return this.refs.searchForm.getValue();
 		}
 		return this.props.params.search.replace( /\+/g, ' ' );
-	},
+	};
 
-	render() {
+    render() {
 		const posts = this.props.posts;
 		const term = this.getSearchValue();
 		const meta = {
@@ -54,7 +54,7 @@ const Search = React.createClass( {
 			</div>
 		);
 	}
-} );
+}
 
 export default withRouter( connect( ( state, ownProps ) => {
 	let query = {};

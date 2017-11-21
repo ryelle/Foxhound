@@ -54,20 +54,18 @@ const MenuItem = ( { item, onClick, isSelected = false } ) => {
 	);
 }
 
-const Navigation = React.createClass( {
-	getInitialState() {
-		return {
-			isMenuOpen: false,
-			selected: this.props.currentPage,
-		}
-	},
+class Navigation extends React.Component {
+    state = {
+        isMenuOpen: false,
+        selected: this.props.currentPage,
+    };
 
-	toggleMenu( event ) {
+    toggleMenu = (event) => {
 		event.preventDefault();
 		this.setState( { isMenuOpen: ! this.state.isMenuOpen } );
-	},
+	};
 
-	render() {
+    render() {
 		if ( this.props.menu.length < 1 ) {
 			return null;
 		}
@@ -97,7 +95,7 @@ const Navigation = React.createClass( {
 			</div>
 		);
 	}
-} );
+}
 
 export default connect( ( state ) => {
 	const path = FoxhoundSettings.URL.path || '/';

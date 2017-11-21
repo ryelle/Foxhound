@@ -9,7 +9,7 @@ import he from 'he';
 // Internal dependencies
 import QueryPosts from 'wordpress-query-posts';
 import { getPostIdFromSlug, isRequestingPost, getPost } from 'wordpress-query-posts/lib/selectors';
-import ContentMixin from 'utils/content-mixin';
+import { getTitle, getContent, getDate, getFeaturedMedia } from 'utils/content';
 
 // Components
 import PostMeta from './meta';
@@ -18,10 +18,8 @@ import Comments from 'components/comments';
 import Placeholder from 'components/placeholder';
 import PostPreview from './preview';
 
-const SinglePost = React.createClass( {
-	mixins: [ ContentMixin ],
-
-	renderArticle() {
+class SinglePost extends React.Component {
+    renderArticle = () => {
 		const post = this.props.post;
 		if ( ! post ) {
 			return null;
@@ -37,26 +35,26 @@ const SinglePost = React.createClass( {
 		const classes = classNames( {
 			entry: true
 		} );
-		const featuredMedia = this.getFeaturedMedia( post );
+		const featuredMedia = getFeaturedMedia( post );
 
 		return (
 			<article id={ `post-${ post.id }` } className={ classes }>
 				<DocumentMeta { ...meta } />
 				<BodyClass classes={ [ 'single', 'single-post' ] } />
-				<h1 className="entry-title" dangerouslySetInnerHTML={ this.getTitle( post ) } />
+				<h1 className="entry-title" dangerouslySetInnerHTML={ getTitle( post ) } />
 				{ featuredMedia ?
 					<Media media={ featuredMedia } parentClass='entry-image' /> :
 					null
 				}
 				<div className="entry-meta"></div>
-				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent( post ) } />
+				<div className="entry-content" dangerouslySetInnerHTML={ getContent( post ) } />
 
-				<PostMeta post={ post } humanDate={ this.getDate( post ) } />
+				<PostMeta post={ post } humanDate={ getDate( post ) } />
 			</article>
 		);
-	},
+	};
 
-	renderComments() {
+    renderComments = () => {
 		const post = this.props.post;
 		if ( ! post ) {
 			return null;
@@ -66,12 +64,12 @@ const SinglePost = React.createClass( {
 			<Comments
 				protected={ post.content.protected }
 				postId={ this.props.postId }
-				title={ <span dangerouslySetInnerHTML={ this.getTitle( post ) } /> }
+				title={ <span dangerouslySetInnerHTML={ getTitle( post ) } /> }
 				commentsOpen={ 'open' === post.comment_status } />
 		)
-	},
+	};
 
-	render() {
+    render() {
 		if ( !! this.props.previewId ) {
 			return (
 				<PostPreview id={ this.props.previewId } />
@@ -90,7 +88,7 @@ const SinglePost = React.createClass( {
 			</div>
 		);
 	}
-} );
+}
 
 export default connect( ( state, ownProps ) => {
 	const slug = ownProps.params.slug || false;

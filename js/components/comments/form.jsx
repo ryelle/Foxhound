@@ -7,16 +7,13 @@ import { bindActionCreators } from 'redux';
 import { isSubmittingCommentOnPost } from 'wordpress-query-comments/lib/selectors';
 import { submitComment } from 'wordpress-query-comments/lib/state';
 
-const CommentForm = React.createClass( {
+class CommentForm extends React.Component {
+    state = {
+        message: false,
+        error: false,
+    };
 
-	getInitialState() {
-		return {
-			message: false,
-			error: false,
-		};
-	},
-
-	componentDidUpdate() {
+    componentDidUpdate() {
 		if ( ! this.state.message ) {
 			return null;
 		}
@@ -24,9 +21,9 @@ const CommentForm = React.createClass( {
 		// Speak the message status for screen readers
 		const messagePrefix = this.state.error ? 'Error: ' : 'Success: '
 		wp.a11y.speak( messagePrefix + this.state.message, 'assertive' );
-	},
+	}
 
-	onSubmit( event ) {
+    onSubmit = (event) => {
 		event.preventDefault();
 		event.persist(); // We need this for the callback after a comment is posted.
 		let keys = [ 'author', 'author_id', 'email', 'url', 'comment', 'comment_post_ID', 'comment_parent' ];
@@ -75,9 +72,9 @@ const CommentForm = React.createClass( {
 				this.setState( { message: false, error: false } );
 			}, 5000 );
 		} );
-	},
+	};
 
-	getErrorMessage( code ) {
+    getErrorMessage = (code) => {
 		switch ( code ) {
 			case 'comment_duplicate':
 				return 'Duplicate comment detected; it looks as though you’ve already said that!';
@@ -86,9 +83,9 @@ const CommentForm = React.createClass( {
 			default:
 				return 'Something went wrong when posting your comment, please try again.';
 		}
-	},
+	};
 
-	renderAnonFields() {
+    renderAnonFields = () => {
 		const fields = [];
 		fields.push(
 			<p className="comment-form-notes" key="0">
@@ -118,17 +115,17 @@ const CommentForm = React.createClass( {
 		);
 
 		return fields;
-	},
+	};
 
-	renderLoggedInNotice() {
+    renderLoggedInNotice = () => {
 		return (
 			<p className="comment-form-notes">
 				<span id="email-notes">Logged in as { FoxhoundSettings.userDisplay }.</span>
 			</p>
 		);
-	},
+	};
 
-	renderResponseMessage() {
+    renderResponseMessage = () => {
 		if ( ! this.state.message || ! this.state.error ) {
 			return null;
 		}
@@ -138,9 +135,9 @@ const CommentForm = React.createClass( {
 				{ this.state.message }
 			</p>
 		);
-	},
+	};
 
-	render() {
+    render() {
 		return (
 			<form onSubmit={ this.onSubmit }>
 				{ FoxhoundSettings.user === 0 ? this.renderAnonFields() : this.renderLoggedInNotice() }
@@ -161,7 +158,7 @@ const CommentForm = React.createClass( {
 			</form>
 		);
 	}
-} );
+}
 
 export default connect(
 	( state, ownProps ) => ( {

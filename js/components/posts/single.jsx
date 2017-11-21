@@ -5,12 +5,10 @@ import classNames from 'classnames';
 import { Link } from 'react-router';
 
 // Internal dependencies
-import ContentMixin from 'utils/content-mixin';
+import { getTitle, getExcerpt, getDate } from 'utils/content';
 
-let Post = React.createClass( {
-	mixins: [ ContentMixin ],
-
-	render: function() {
+class Post extends React.Component {
+    render() {
 		let post = this.props;
 
 		if ( 'attachment' === post.type ) {
@@ -26,22 +24,22 @@ let Post = React.createClass( {
 		return (
 			<article id={ `post-${post.id}` } className={ classes }>
 				<h2 className="entry-title">
-					<Link to={ path } rel="bookmark" dangerouslySetInnerHTML={ this.getTitle( post ) } />
+					<Link to={ path } rel="bookmark" dangerouslySetInnerHTML={ getTitle( post ) } />
 				</h2>
 
-				<div className="entry-content" dangerouslySetInnerHTML={ this.getExcerpt( post ) } />
+				<div className="entry-content" dangerouslySetInnerHTML={ getExcerpt( post ) } />
 
 				<div className="entry-meta">
 					<div className="entry-meta-label">published</div>
 					<div className="entry-meta-value">
 						<a href={ post.link } rel="bookmark">
-							<time className="entry-date published updated" dateTime={ post.date }>{ this.getDate( post ) }</time>
+							<time className="entry-date published updated" dateTime={ post.date }>{ getDate( post ) }</time>
 						</a>
 					</div>
 				</div>
 			</article>
 		);
 	}
-} );
+}
 
 export default Post;

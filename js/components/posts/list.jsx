@@ -5,27 +5,25 @@ import PropTypes from 'prop-types';
 // Internal dependencies
 import Post from './single';
 
-const PostList = React.createClass( {
-	propTypes: {
+class PostList extends React.Component {
+    static propTypes = {
 		posts: PropTypes.array.isRequired,
 		shouldShowEmpty: PropTypes.bool,
 		error: PropTypes.string,
-	},
+	};
 
-	getDefaultProps() {
-		return {
-			shouldShowEmpty: true,
-			error: 'It seems we can’t find what you’re looking for. Perhaps searching can help.',
-		};
-	},
+    static defaultProps = {
+        shouldShowEmpty: true,
+        error: 'It seems we can’t find what you’re looking for. Perhaps searching can help.',
+    };
 
-	renderPosts() {
+    renderPosts = () => {
 		return this.props.posts.map( ( post, i ) => {
 			return <Post key={ 'post-' + i } { ...post } />
 		} );
-	},
+	};
 
-	renderEmpty() {
+    renderEmpty = () => {
 		if ( ! this.props.shouldShowEmpty ) {
 			return null;
 		}
@@ -41,9 +39,9 @@ const PostList = React.createClass( {
 				<div className="entry-meta"></div>
 			</article>
 		)
-	},
+	};
 
-	render() {
+    render() {
 		if ( ! this.props.posts ) {
 			return null;
 		}
@@ -57,6 +55,6 @@ const PostList = React.createClass( {
 			</div>
 		);
 	}
-} );
+}
 
 export default PostList;

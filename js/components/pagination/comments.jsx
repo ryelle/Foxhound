@@ -3,25 +3,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 
-let Pagination = React.createClass( {
-	propTypes: {
+class Pagination extends React.Component {
+    static propTypes = {
 		start: React.PropTypes.number,
 		current: React.PropTypes.number,
 		end: React.PropTypes.number,
 		onNextPage: React.PropTypes.func,
 		onPreviousPage: React.PropTypes.func,
-	},
+	};
 
-	getDefaultProps: function() {
-		return {
-			start: 1,
-			current: 1,
-			onNextPage: noop,
-			onPreviousPage: noop
-		};
-	},
+    static defaultProps = {
+        start: 1,
+        current: 1,
+        onNextPage: noop,
+        onPreviousPage: noop
+    };
 
-	render: function() {
+    render() {
 		let next = this.props.current + 1;
 		let prev = this.props.current - 1;
 
@@ -44,6 +42,6 @@ let Pagination = React.createClass( {
 			</nav>
 		);
 	}
-} );
+}
 
 export default Pagination;

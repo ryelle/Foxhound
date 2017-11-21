@@ -3,13 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Internal dependencies
-import ContentMixin from 'utils/content-mixin';
+import { getContent, getDate, getTime } from 'utils/content';
 import { getComment } from 'wordpress-query-comments/lib/selectors';
 
-const Comment = React.createClass( {
-	mixins: [ ContentMixin ],
-
-	render() {
+class Comment extends React.Component {
+    render() {
 		const comment = this.props.comment;
 		const classes = 'comment'; // byuser comment-author-melchoyce even thread-even depth-1
 
@@ -37,11 +35,11 @@ const Comment = React.createClass( {
 
 						<div className="comment-metadata">
 							{ replyParentString }
-							<time dateTime={ comment.date }>{ this.getDate( comment ) } at { this.getTime( comment ) }</time>
+							<time dateTime={ comment.date }>{ getDate( comment ) } at { getTime( comment ) }</time>
 						</div>
 					</footer>
 
-					<div className="comment-content" dangerouslySetInnerHTML={ this.getContent( comment ) } />
+					<div className="comment-content" dangerouslySetInnerHTML={ getContent( comment ) } />
 
 					{ ( 'hold' === comment.status ) ?
 						<div className="comment-status">
@@ -54,7 +52,7 @@ const Comment = React.createClass( {
 			</li>
 		);
 	}
-} );
+}
 
 export default connect( ( state, ownProps ) => {
 	const commentParent = ownProps.comment.parent || false;
