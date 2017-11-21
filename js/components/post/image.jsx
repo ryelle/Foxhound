@@ -1,30 +1,27 @@
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 class Media extends React.Component {
-    static propTypes = {
+	static propTypes = {
 		media: PropTypes.object.isRequired,
 		parentClass: PropTypes.string,
 	};
 
-    render() {
+	render() {
 		const media = this.props.media;
 
 		let mediaElement;
 		switch ( media.media_type ) {
 			case 'image':
-				mediaElement = (
-					<img src={ media.source_url } alt={ media.alt_text } />
-				);
+				mediaElement = <img src={ media.source_url } alt={ media.alt_text } />;
 				break;
 		}
 
-		return (
-			<div className={ this.props.parentClass }>
-				{ mediaElement }
-			</div>
-		);
+		return <div className={ this.props.parentClass }>{ mediaElement }</div>;
 	}
 }
 

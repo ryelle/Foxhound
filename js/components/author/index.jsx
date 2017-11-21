@@ -1,13 +1,18 @@
-/*global FoxhoundSettings */
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 import he from 'he';
-
-// Internal dependencies
 import QueryUser from 'wordpress-query-user';
 import { isRequestingUser, getUserIdFromName, getUser } from 'wordpress-query-user/lib/selectors';
+
+/**
+ * Internal Dependencies
+ */
 import Placeholder from 'components/placeholder';
 import List from './list';
 
@@ -22,8 +27,9 @@ const AuthorHeader = ( { userName, loading, user = {}, query = {} } ) => {
 			<DocumentMeta { ...meta } />
 			<BodyClass classes={ [ 'archive', 'author' ] } />
 			<QueryUser userId={ userName } />
-			{ loading ?
-				<Placeholder type="author" /> :
+			{ loading ? (
+				<Placeholder type="author" />
+			) : (
 				<div>
 					<header className="page-header">
 						<h1 className="page-title">Archive for { user.name }</h1>
@@ -31,10 +37,10 @@ const AuthorHeader = ( { userName, loading, user = {}, query = {} } ) => {
 					</header>
 					<List query={ query } author={ user.slug } />
 				</div>
-			}
+			) }
 		</div>
 	);
-}
+};
 
 export default connect( ( state, ownProps ) => {
 	const userName = ownProps.params.slug;
@@ -53,6 +59,6 @@ export default connect( ( state, ownProps ) => {
 		userName,
 		user,
 		requesting,
-		loading: requesting && ! user
+		loading: requesting && ! user,
 	};
 } )( AuthorHeader );

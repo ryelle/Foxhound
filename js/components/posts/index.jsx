@@ -1,16 +1,22 @@
-/*global FoxhoundSettings */
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 import he from 'he';
-
-// Internal dependencies
 import QueryPosts from 'wordpress-query-posts';
-import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'wordpress-query-posts/lib/selectors';
+import {
+	isRequestingPostsForQuery,
+	getPostsForQuery,
+	getTotalPagesForQuery,
+} from 'wordpress-query-posts/lib/selectors';
 
-// Components
+/**
+ * Internal Dependencies
+ */
 import PostList from './list';
 import StickyPostsList from './sticky';
 import PostPreview from 'components/post/preview';
@@ -18,11 +24,9 @@ import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
 
 class Index extends React.Component {
-    render() {
+	render() {
 		if ( !! this.props.previewId ) {
-			return (
-				<PostPreview id={ this.props.previewId } />
-			);
+			return <PostPreview id={ this.props.previewId } />;
 		}
 
 		const posts = this.props.posts;
@@ -38,22 +42,20 @@ class Index extends React.Component {
 				<BodyClass classes={ [ 'home', 'blog' ] } />
 				<StickyPostsList />
 				<QueryPosts query={ this.props.query } />
-				{ this.props.loading ?
-					<Placeholder type="posts" /> :
-					<PostList posts={ posts } />
-				}
+				{ this.props.loading ? <Placeholder type="posts" /> : <PostList posts={ posts } /> }
 				<Pagination
 					path={ this.props.path }
 					current={ this.props.page }
 					isFirstPage={ 1 === this.props.page }
-					isLastPage={ this.props.totalPages === this.props.page } />
+					isLastPage={ this.props.totalPages === this.props.page }
+				/>
 			</div>
 		);
 	}
 }
 
 export default connect( ( state, ownProps ) => {
-	let query = {};
+	const query = {};
 	query.sticky = false;
 	query.page = ownProps.params.paged || 1;
 

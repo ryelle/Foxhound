@@ -1,13 +1,18 @@
-/*global FoxhoundSettings */
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 import he from 'he';
-
-// Internal dependencies
 import QueryTerm from 'wordpress-query-term';
 import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'wordpress-query-term/lib/selectors';
+
+/**
+ * Internal Dependencies
+ */
 import Placeholder from 'components/placeholder';
 import List from './list';
 
@@ -23,8 +28,9 @@ const TermHeader = ( { term, taxonomy, loading, termData = {}, query = {} } ) =>
 			<DocumentMeta { ...meta } />
 			<BodyClass classes={ [ 'archive', taxonomy ] } />
 			<QueryTerm taxonomy={ taxonomy } termSlug={ term } />
-			{ loading ?
-				<Placeholder type="term" /> :
+			{ loading ? (
+				<Placeholder type="term" />
+			) : (
 				<div>
 					<header className="page-header">
 						<h1 className="page-title">{ termData.name }</h1>
@@ -32,10 +38,10 @@ const TermHeader = ( { term, taxonomy, loading, termData = {}, query = {} } ) =>
 					</header>
 					<List query={ query } taxonomy={ taxonomy } term={ termData && termData.id } />
 				</div>
-			}
+			) }
 		</div>
 	);
-}
+};
 
 export default connect( ( state, ownProps ) => {
 	const term = ownProps.params.slug;
@@ -60,6 +66,6 @@ export default connect( ( state, ownProps ) => {
 		termData,
 		requesting,
 		query,
-		loading: requesting && ! termData
+		loading: requesting && ! termData,
 	};
 } )( TermHeader );

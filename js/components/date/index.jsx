@@ -1,22 +1,29 @@
-/*global FoxhoundSettings */
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 import moment from 'moment';
 import he from 'he';
-
-// Internal dependencies
 import QueryPosts from 'wordpress-query-posts';
-import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'wordpress-query-posts/lib/selectors';
+import {
+	isRequestingPostsForQuery,
+	getPostsForQuery,
+	getTotalPagesForQuery,
+} from 'wordpress-query-posts/lib/selectors';
 
-// Components
+/**
+ * Internal Dependencies
+ */
 import PostList from 'components/posts/list';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
 
 class DateArchive extends React.Component {
-    render() {
+	render() {
 		const { query, loading, path, page, totalPages, dateString, posts } = this.props;
 		const meta = {
 			title: dateString + ' – ' + he.decode( FoxhoundSettings.meta.title ),
@@ -30,16 +37,14 @@ class DateArchive extends React.Component {
 					<h1 className="page-title">Archive for { dateString }</h1>
 				</header>
 				<QueryPosts query={ query } />
-				{ loading ?
-					<Placeholder type="date" /> :
-					<PostList posts={ posts } />
-				}
+				{ loading ? <Placeholder type="date" /> : <PostList posts={ posts } /> }
 
 				<Pagination
 					path={ path }
 					current={ page }
 					isFirstPage={ 1 === page }
-					isLastPage={ totalPages === page } />
+					isLastPage={ totalPages === page }
+				/>
 			</div>
 		);
 	}
@@ -48,14 +53,15 @@ class DateArchive extends React.Component {
 export default connect( ( state, ownProps ) => {
 	let path = FoxhoundSettings.URL.path || '/';
 	path += 'date/';
-	[ 'year', 'month', 'day' ].map( ( key ) => {
+	[ 'year', 'month', 'day' ].map( key => {
 		if ( ownProps.params.hasOwnProperty( key ) ) {
 			path += ownProps.params[ key ] + '/';
 		}
 	} );
 
 	const { day, month, year } = ownProps.params;
-	let date, dateString, query = {};
+	let date, dateString;
+	const query = {};
 	query.page = ownProps.params.paged || 1;
 	if ( day ) {
 		date = moment( `${ year } ${ month } ${ day }`, 'YYYY MM DD' );

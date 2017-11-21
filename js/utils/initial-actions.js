@@ -1,4 +1,12 @@
-import { POSTS_RECEIVE, POSTS_REQUEST_SUCCESS, POST_REQUEST_SUCCESS } from 'wordpress-query-posts/lib/state';
+/** @format */
+/**
+ * External Dependencies
+ */
+import {
+	POSTS_RECEIVE,
+	POSTS_REQUEST_SUCCESS,
+	POST_REQUEST_SUCCESS,
+} from 'wordpress-query-posts/lib/state';
 import { PAGE_REQUEST_SUCCESS } from 'wordpress-query-page/lib/state';
 
 /**
@@ -8,7 +16,7 @@ import { PAGE_REQUEST_SUCCESS } from 'wordpress-query-page/lib/state';
  * @return {Function}           Action thunk
  */
 export function setPost( post ) {
-	return ( dispatch ) => {
+	return dispatch => {
 		if ( 'page' === post.type ) {
 			dispatch( {
 				type: PAGE_REQUEST_SUCCESS,
@@ -19,7 +27,7 @@ export function setPost( post ) {
 		} else {
 			dispatch( {
 				type: POSTS_RECEIVE,
-				posts: [ post ]
+				posts: [ post ],
 			} );
 
 			dispatch( {
@@ -39,7 +47,7 @@ export function setPost( post ) {
  * @return {Function}             Action thunk
  */
 export function setPosts( posts, totalPages ) {
-	return ( dispatch ) => {
+	return dispatch => {
 		dispatch( {
 			type: POSTS_RECEIVE,
 			posts,
@@ -49,7 +57,7 @@ export function setPosts( posts, totalPages ) {
 			type: POSTS_REQUEST_SUCCESS,
 			query: { sticky: false, page: 1 },
 			totalPages,
-			posts
+			posts,
 		} );
 	};
 }

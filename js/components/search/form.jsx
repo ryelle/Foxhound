@@ -1,17 +1,32 @@
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 
 class SearchForm extends React.Component {
-    getValue = () => {
-		return this.refs.input.value;
+	setInput = input => {
+		this.input = input;
 	};
 
-    render() {
+	getValue = () => {
+		return this.input.value;
+	};
+
+	render() {
 		return (
 			<form role="search" className="search-form" onSubmit={ this.props.onSubmit }>
 				<div className="search-form-field">
 					<label htmlFor="searchform">Search</label>
-					<input id="searchform" ref="input" type="search" className="search-field" name="s" title="Search" defaultValue={ this.props.initialSearch } />
+					<input
+						id="searchform"
+						ref={ this.setInput }
+						type="search"
+						className="search-field"
+						name="s"
+						title="Search"
+						defaultValue={ this.props.initialSearch }
+					/>
 					<input type="submit" className="search-submit" value="Go" />
 				</div>
 			</form>

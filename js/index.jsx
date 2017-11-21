@@ -1,9 +1,11 @@
-/*global FoxhoundSettings, FoxhoundData, FoxhoundMenu, jQuery */
+/** @format */
+/**
+ * External Dependencies
+ */
 // Load in the babel (es6) polyfill, and fetch polyfill
 import 'babel-polyfill';
 import 'whatwg-fetch';
 
-// React
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -43,16 +45,21 @@ function renderApp() {
 	let blogURL, frontPageRoute;
 	if ( FoxhoundSettings.frontPage.page ) {
 		blogURL = path + 'page/' + FoxhoundSettings.frontPage.blog + '/';
-		frontPageRoute = <Route path={ path } slug={ FoxhoundSettings.frontPage.page } component={ SinglePage } />;
+		frontPageRoute = (
+			<Route path={ path } slug={ FoxhoundSettings.frontPage.page } component={ SinglePage } />
+		);
 	} else {
 		blogURL = path;
 		frontPageRoute = null;
 	}
 
-	const routerMiddleware = applyRouterMiddleware( useScroll( shouldUpdateScroll ), keyboardFocusReset( 'main' ) );
+	const routerMiddleware = applyRouterMiddleware(
+		useScroll( shouldUpdateScroll ),
+		keyboardFocusReset( 'main' )
+	);
 
 	// Add the event Jetpack listens for to initialize various JS features on posts.
-	const emitJetpackEvent = () => {
+	function emitJetpackEvent() {
 		jQuery( document.body ).trigger( 'post-load' );
 	}
 
@@ -82,22 +89,13 @@ function renderApp() {
 		</Router>
 	);
 
-	render(
-		(
-			<Provider store={ store }>
-				{ routes }
-			</Provider>
-		),
-		document.getElementById( 'main' )
-	);
+	render( <Provider store={ store }>{ routes }</Provider>, document.getElementById( 'main' ) );
 
 	if ( FoxhoundMenu.enabled ) {
 		render(
-			(
-				<Provider store={ store }>
-					<Navigation />
-				</Provider>
-			),
+			<Provider store={ store }>
+				<Navigation />
+			</Provider>,
 			document.getElementById( 'site-navigation' )
 		);
 	} else {
@@ -121,7 +119,7 @@ function initNoApiMenuFocus() {
 		return;
 	}
 
-	const menu = container.getElementsByTagName( 'div' )[1];
+	const menu = container.getElementsByTagName( 'div' )[ 1 ];
 	// No menu, no need to run the rest.
 	if ( ! menu ) {
 		return;
@@ -131,11 +129,11 @@ function initNoApiMenuFocus() {
 	// Each time a menu link is focused or blurred, toggle focus.
 	let i, len;
 	for ( i = 0, len = links.length; i < len; i++ ) {
-		links[i].addEventListener( 'focus', toggleFocus, true );
-		links[i].addEventListener( 'blur', toggleFocus, true );
+		links[ i ].addEventListener( 'focus', toggleFocus, true );
+		links[ i ].addEventListener( 'blur', toggleFocus, true );
 	}
 
-	const button = container.getElementsByTagName( 'button' )[0];
+	const button = container.getElementsByTagName( 'button' )[ 0 ];
 	button.onclick = function() {
 		if ( -1 !== menu.className.indexOf( 'menu-open' ) ) {
 			menu.className = menu.className.replace( ' menu-open', '' );
@@ -156,9 +154,9 @@ function handleLinkClick() {
 	if ( '/' === regexBaseUrl[ regexBaseUrl.length - 1 ] ) {
 		regexBaseUrl = regexBaseUrl.slice( 0, regexBaseUrl.length - 1 );
 	}
-	const escapedSiteURL = new RegExp( escapeRegExp( regexBaseUrl ).replace( /\//g, '\\\/' ) );
+	const escapedSiteURL = new RegExp( escapeRegExp( regexBaseUrl ).replace( /\//g, '\\/' ) );
 
-	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
+	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', event => {
 		// Don't capture clicks offsite
 		if ( ! escapedSiteURL.test( event.currentTarget.href ) ) {
 			return;
@@ -168,14 +166,19 @@ function handleLinkClick() {
 		const linkRel = jQuery( event.currentTarget ).attr( 'rel' );
 		if ( linkRel && linkRel.search( /attachment/ ) !== -1 ) {
 			event.preventDefault();
-			const result = jQuery( event.currentTarget ).attr( 'rel' ).match( /wp-att-(\d*)/ );
+			const result = jQuery( event.currentTarget )
+				.attr( 'rel' )
+				.match( /wp-att-(\d*)/ );
 			const attachId = result[ 1 ];
 			history.push( path + 'attachment/' + attachId );
 			return;
 		}
 
 		// Don't capture clicks to wp-admin, or the RSS feed
-		if ( /wp-(admin|login)/.test( event.currentTarget.href ) || /\/feed\/$/.test( event.currentTarget.href ) ) {
+		if (
+			/wp-(admin|login)/.test( event.currentTarget.href ) ||
+			/\/feed\/$/.test( event.currentTarget.href )
+		) {
 			return;
 		}
 		event.preventDefault();
@@ -185,7 +188,7 @@ function handleLinkClick() {
 		history.push( url );
 	} );
 
-	jQuery( '#page' ).on( 'click', 'a[href^="#"]', ( event ) => {
+	jQuery( '#page' ).on( 'click', 'a[href^="#"]', event => {
 		skipLink( event.target );
 	} );
 }

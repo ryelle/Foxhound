@@ -1,39 +1,52 @@
-/* global FoxhoundSettings, wp */
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { isSubmittingCommentOnPost } from 'wordpress-query-comments/lib/selectors';
 import { submitComment } from 'wordpress-query-comments/lib/state';
 
 class CommentForm extends React.Component {
-    state = {
-        message: false,
-        error: false,
-    };
+	state = {
+		message: false,
+		error: false,
+	};
 
-    componentDidUpdate() {
+	componentDidUpdate() {
 		if ( ! this.state.message ) {
 			return null;
 		}
 
 		// Speak the message status for screen readers
-		const messagePrefix = this.state.error ? 'Error: ' : 'Success: '
+		const messagePrefix = this.state.error ? 'Error: ' : 'Success: ';
 		wp.a11y.speak( messagePrefix + this.state.message, 'assertive' );
 	}
 
-    onSubmit = (event) => {
+	setContent = content => {
+		this.content = content;
+	};
+
+	onSubmit = event => {
 		event.preventDefault();
 		event.persist(); // We need this for the callback after a comment is posted.
-		let keys = [ 'author', 'author_id', 'email', 'url', 'comment', 'comment_post_ID', 'comment_parent' ];
-		let rawValues = {};
+		const keys = [
+			'author',
+			'author_id',
+			'email',
+			'url',
+			'comment',
+			'comment_post_ID',
+			'comment_parent',
+		];
+		const rawValues = {};
 		keys.map( function( key ) {
 			if ( event.target[ key ] ) {
 				rawValues[ key ] = event.target[ key ].value;
 			}
 		} );
-		let values = {};
+		const values = {};
 
 		values.author = rawValues.author_id;
 		values.author_email = rawValues.email;
@@ -48,7 +61,7 @@ class CommentForm extends React.Component {
 		}
 
 		const submission = this.props.submitComment( values );
-		submission.then( ( response ) => {
+		submission.then( response => {
 			// No idea what happened.
 			if ( ! response ) {
 				return;
@@ -57,13 +70,14 @@ class CommentForm extends React.Component {
 			if ( response.code ) {
 				this.setState( {
 					message: this.getErrorMessage( response.code ),
-					error: true
+					error: true,
 				} );
 			} else {
 				// Clear the comment form on successful posts
 				event.target.comment.value = '';
 				this.setState( {
-					message: ( 'hold' === response.status ) ? 'Comment submitted, pending approval.' : 'Comment posted.',
+					message:
+						'hold' === response.status ? 'Comment submitted, pending approval.' : 'Comment posted.',
 					error: false,
 				} );
 			}
@@ -74,18 +88,18 @@ class CommentForm extends React.Component {
 		} );
 	};
 
-    getErrorMessage = (code) => {
+	getErrorMessage = code => {
 		switch ( code ) {
 			case 'comment_duplicate':
 				return 'Duplicate comment detected; it looks as though you’ve already said that!';
 			case 'comment_flood':
-				return 'You\'re commenting too often, please wait before posting again.';
+				return "You're commenting too often, please wait before posting again.";
 			default:
 				return 'Something went wrong when posting your comment, please try again.';
 		}
 	};
 
-    renderAnonFields = () => {
+	renderAnonFields = () => {
 		const fields = [];
 		fields.push(
 			<p className="comment-form-notes" key="0">
@@ -102,7 +116,14 @@ class CommentForm extends React.Component {
 				</div>
 				<div className="comment-form-field comment-form-email">
 					<label htmlFor="email">Email</label>
-					<input id="email" name="email" type="email" aria-describedby="email-notes" aria-required="true" required="required" />
+					<input
+						id="email"
+						name="email"
+						type="email"
+						aria-describedby="email-notes"
+						aria-required="true"
+						required="required"
+					/>
 				</div>
 			</div>
 		);
@@ -117,7 +138,7 @@ class CommentForm extends React.Component {
 		return fields;
 	};
 
-    renderLoggedInNotice = () => {
+	renderLoggedInNotice = () => {
 		return (
 			<p className="comment-form-notes">
 				<span id="email-notes">Logged in as { FoxhoundSettings.userDisplay }.</span>
@@ -125,34 +146,45 @@ class CommentForm extends React.Component {
 		);
 	};
 
-    renderResponseMessage = () => {
+	renderResponseMessage = () => {
 		if ( ! this.state.message || ! this.state.error ) {
 			return null;
 		}
 
-		return (
-			<p className='error'>
-				{ this.state.message }
-			</p>
-		);
+		return <p className="error">{ this.state.message }</p>;
 	};
 
-    render() {
+	render() {
 		return (
 			<form onSubmit={ this.onSubmit }>
 				{ FoxhoundSettings.user === 0 ? this.renderAnonFields() : this.renderLoggedInNotice() }
 
-				<div aria-hidden="true">
-					{ this.renderResponseMessage() }
-				</div>
+				<div aria-hidden="true">{ this.renderResponseMessage() }</div>
 				<div className="comment-form-field comment-form-comment">
 					<label htmlFor="comment">Comment</label>
-					<textarea ref="content" id="comment" name="comment" aria-required="true" required="required" />
+					<textarea
+						ref={ this.setContent }
+						id="comment"
+						name="comment"
+						aria-required="true"
+						required="required"
+					/>
 				</div>
 				<div className="comment-form-submit form-submit">
-					<input type="submit" name="submit" id="submit" className="submit"
-						value="Post Comment" disabled={ this.props.isSubmitting } />
-					<input type="hidden" name="comment_post_ID" id="comment_post_ID" value={ this.props.postId } />
+					<input
+						type="submit"
+						name="submit"
+						id="submit"
+						className="submit"
+						value="Post Comment"
+						disabled={ this.props.isSubmitting }
+					/>
+					<input
+						type="hidden"
+						name="comment_post_ID"
+						id="comment_post_ID"
+						value={ this.props.postId }
+					/>
 					<input type="hidden" name="comment_parent" id="comment_parent" defaultValue={ 0 } />
 				</div>
 			</form>
@@ -162,7 +194,7 @@ class CommentForm extends React.Component {
 
 export default connect(
 	( state, ownProps ) => ( {
-		isSubmitting: isSubmittingCommentOnPost( state, ownProps.postId )
+		isSubmitting: isSubmittingCommentOnPost( state, ownProps.postId ),
 	} ),
-	( dispatch ) => ( bindActionCreators( { submitComment }, dispatch ) )
+	dispatch => bindActionCreators( { submitComment }, dispatch )
 )( CommentForm );

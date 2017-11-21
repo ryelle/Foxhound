@@ -1,11 +1,13 @@
-// Accessibility helpers
-
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 
 // FocusHandler is a component which adds focus to a given element each time the page renders. This ensures
 // the keyboard focus is in a predictable location after page load.
 class FocusHandler extends React.Component {
-    componentDidUpdate(prevProps) {
+	componentDidUpdate( prevProps ) {
 		const { routerProps, elementId } = this.props;
 		const prevRouterProps = prevProps.routerProps;
 
@@ -17,7 +19,7 @@ class FocusHandler extends React.Component {
 		element.focus();
 	}
 
-    render() {
+	render() {
 		return this.props.children;
 	}
 }
@@ -32,10 +34,7 @@ class FocusHandler extends React.Component {
 export function keyboardFocusReset( elementId ) {
 	return {
 		renderRouterContext: ( child, props ) => (
-			<FocusHandler
-				routerProps={ props }
-				elementId={ elementId }
-			>
+			<FocusHandler routerProps={ props } elementId={ elementId }>
 				{ child }
 			</FocusHandler>
 		),
@@ -50,13 +49,13 @@ export function keyboardFocusReset( elementId ) {
 export function skipLink( clickedEl ) {
 	const attributes = clickedEl.attributes;
 	const id = attributes.getNamedItem( 'href' ).value.substring( 1 );
-	if ( ! ( /^[A-z0-9_-]+$/.test( id ) ) ) {
+	if ( ! /^[A-z0-9_-]+$/.test( id ) ) {
 		return;
 	}
 
 	const element = document.getElementById( id );
 	// Make the element focusable
-	if ( ! ( /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) ) {
+	if ( ! /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) {
 		element.tabIndex = -1;
 	}
 
@@ -69,7 +68,7 @@ export function skipLink( clickedEl ) {
  * @param  {FocusEvent}  event  The blur or focus event on each link item.
  */
 export function toggleFocus( event ) {
-	var self = event.target;
+	let self = event.target;
 
 	// Move up through the ancestors of the current link until we hit .main-navigation.
 	while ( -1 === self.className.indexOf( 'main-navigation' ) ) {

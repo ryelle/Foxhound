@@ -1,13 +1,18 @@
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { connect } from 'react-redux';
-
-// Internal dependencies
-import { getContent, getDate, getTime } from 'utils/content';
 import { getComment } from 'wordpress-query-comments/lib/selectors';
 
+/**
+ * Internal Dependencies
+ */
+import { getContent, getDate, getTime } from 'utils/content';
+
 class Comment extends React.Component {
-    render() {
+	render() {
 		const comment = this.props.comment;
 		const classes = 'comment'; // byuser comment-author-melchoyce even thread-even depth-1
 
@@ -23,31 +28,32 @@ class Comment extends React.Component {
 				<article className="comment-body">
 					<footer className="comment-meta">
 						<div className="comment-avatar vcard">
-							<img alt="" src={ comment.author_avatar_urls['96'] } />
+							<img alt="" src={ comment.author_avatar_urls[ '96' ] } />
 						</div>
 
 						<div className="comment-author">
-						{ ( '' !== comment.author_url ) ?
-							<a href={ comment.author_url } className="fn">{ comment.author_name }</a> :
-							<span className="fn">{ comment.author_name }</span>
-						}
+							{ '' !== comment.author_url ? (
+								<a href={ comment.author_url } className="fn">
+									{ comment.author_name }
+								</a>
+							) : (
+								<span className="fn">{ comment.author_name }</span>
+							) }
 						</div>
 
 						<div className="comment-metadata">
 							{ replyParentString }
-							<time dateTime={ comment.date }>{ getDate( comment ) } at { getTime( comment ) }</time>
+							<time dateTime={ comment.date }>
+								{ getDate( comment ) } at { getTime( comment ) }
+							</time>
 						</div>
 					</footer>
 
 					<div className="comment-content" dangerouslySetInnerHTML={ getContent( comment ) } />
 
-					{ ( 'hold' === comment.status ) ?
-						<div className="comment-status">
-							Your comment is pending approval
-						</div> :
-						null
-					}
-
+					{ 'hold' === comment.status ? (
+						<div className="comment-status">Your comment is pending approval</div>
+					) : null }
 				</article>
 			</li>
 		);

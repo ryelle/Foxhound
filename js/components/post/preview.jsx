@@ -1,22 +1,25 @@
-/* global FoxhoundSettings */
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 import he from 'he';
-
-// Internal dependencies
 import { getPost } from 'wordpress-query-posts/lib/selectors';
 import { getPage } from 'wordpress-query-page/lib/selectors';
-import { getTitle, getContent, getDate, getFeaturedMedia } from 'utils/content';
 
-// Components
+/**
+ * Internal Dependencies
+ */
+import { getTitle, getContent, getDate, getFeaturedMedia } from 'utils/content';
 import PostMeta from './meta';
 import Media from './image';
 
 class SinglePost extends React.Component {
-    renderArticle = () => {
+	renderArticle = () => {
 		const post = this.props.post;
 		if ( ! post ) {
 			return null;
@@ -30,7 +33,7 @@ class SinglePost extends React.Component {
 		meta.title = he.decode( meta.title );
 
 		const classes = classNames( {
-			entry: true
+			entry: true,
 		} );
 		const featuredMedia = getFeaturedMedia( post );
 
@@ -39,11 +42,8 @@ class SinglePost extends React.Component {
 				<DocumentMeta { ...meta } />
 				<BodyClass classes={ [ 'single', 'single-post' ] } />
 				<h1 className="entry-title" dangerouslySetInnerHTML={ getTitle( post ) } />
-				{ featuredMedia ?
-					<Media media={ featuredMedia } parentClass='entry-image' /> :
-					null
-				}
-				<div className="entry-meta"></div>
+				{ featuredMedia ? <Media media={ featuredMedia } parentClass="entry-image" /> : null }
+				<div className="entry-meta" />
 				<div className="entry-content" dangerouslySetInnerHTML={ getContent( post ) } />
 
 				{ 'post' === post.type && <PostMeta post={ post } humanDate={ getDate( post ) } /> }
@@ -51,12 +51,8 @@ class SinglePost extends React.Component {
 		);
 	};
 
-    render() {
-		return (
-			<div className="card">
-				{ this.renderArticle() }
-			</div>
-		);
+	render() {
+		return <div className="card">{ this.renderArticle() }</div>;
 	}
 }
 
@@ -66,6 +62,6 @@ export default connect( ( state, ownProps ) => {
 
 	return {
 		postId,
-		post
+		post,
 	};
 } )( SinglePost );
