@@ -1,14 +1,15 @@
 // External dependencies
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Internal dependencies
 import Post from './single';
 
 const PostList = React.createClass( {
 	propTypes: {
-		posts: React.PropTypes.array.isRequired,
-		shouldShowEmpty: React.PropTypes.bool,
-		error: React.PropTypes.string,
+		posts: PropTypes.array.isRequired,
+		shouldShowEmpty: PropTypes.bool,
+		error: PropTypes.string,
 	},
 
 	getDefaultProps() {

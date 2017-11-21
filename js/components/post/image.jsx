@@ -1,10 +1,11 @@
 // External dependencies
 import React from 'react';
+import PropTypes from 'prop-types';
 
 let Media = React.createClass( {
 	propTypes: {
-		media: React.PropTypes.object.isRequired,
-		parentClass: React.PropTypes.string,
+		media: PropTypes.object.isRequired,
+		parentClass: PropTypes.string,
 	},
 
 	render: function() {

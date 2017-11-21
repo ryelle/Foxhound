@@ -1,6 +1,7 @@
 // External dependencies
 import React from 'react';
-const noop = () => {};
+import PropTypes from 'prop-types';
+import { noop } from 'lodash';
 
 let Pagination = React.createClass( {
 	propTypes: {
