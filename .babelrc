@@ -1,16 +1,23 @@
 {
 	"presets": [
-		"es2015",
-		"stage-0"
+		[ "env", {
+			"targets": {
+				"browsers": [
+					"last 2 versions",
+					"Safari >= 10",
+					"iOS >= 10",
+					"not ie <= 10"
+				]
+			}
+		} ],
+		"stage-2"
 	],
 	"plugins": [
-		"transform-class-properties",
-		"transform-export-extensions",
 		"add-module-exports",
 		"syntax-jsx",
+		"transform-export-extensions",
 		"transform-react-jsx",
-		"transform-react-display-name",
-		"lodash"
+		"transform-runtime",
 	],
 	"env": {
 		"test": {

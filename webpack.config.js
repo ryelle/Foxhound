@@ -42,7 +42,7 @@ webpackConfig = {
 				enforce: 'pre',
 				loader: 'eslint-loader',
 				options: {
-					configFile: path.join( __dirname, '.eslintrc' ),
+					configFile: path.join( __dirname, '.eslintrc.js' ),
 					failOnError: true,
 					quiet: true,
 				},
