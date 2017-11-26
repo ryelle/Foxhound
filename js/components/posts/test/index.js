@@ -1,10 +1,15 @@
 /** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { Provider } from 'react-redux';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 
-// Internal
+/**
+ * Internal Dependencies
+ */
 import { mockStore } from 'test/mock-store';
 import { data } from './fixtures/store';
 import Index from '../';

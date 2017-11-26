@@ -22,32 +22,30 @@ import PostList from 'components/posts/list';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
 
-class DateArchive extends React.Component {
-	render() {
-		const { query, loading, path, page, totalPages, dateString, posts } = this.props;
-		const meta = {
-			title: dateString + ' – ' + he.decode( FoxhoundSettings.meta.title ),
-		};
+function DateArchive( props ) {
+	const { query, loading, path, page, totalPages, dateString, posts } = props;
+	const meta = {
+		title: dateString + ' – ' + he.decode( FoxhoundSettings.meta.title ),
+	};
 
-		return (
-			<div className="card">
-				<DocumentMeta { ...meta } />
-				<BodyClass classes={ [ 'archive', 'date' ] } />
-				<header className="page-header">
-					<h1 className="page-title">Archive for { dateString }</h1>
-				</header>
-				<QueryPosts query={ query } />
-				{ loading ? <Placeholder type="date" /> : <PostList posts={ posts } /> }
+	return (
+		<div className="card">
+			<DocumentMeta { ...meta } />
+			<BodyClass classes={ [ 'archive', 'date' ] } />
+			<header className="page-header">
+				<h1 className="page-title">Archive for { dateString }</h1>
+			</header>
+			<QueryPosts query={ query } />
+			{ loading ? <Placeholder type="date" /> : <PostList posts={ posts } /> }
 
-				<Pagination
-					path={ path }
-					current={ page }
-					isFirstPage={ 1 === page }
-					isLastPage={ totalPages === page }
-				/>
-			</div>
-		);
-	}
+			<Pagination
+				path={ path }
+				current={ page }
+				isFirstPage={ 1 === page }
+				isLastPage={ totalPages === page }
+			/>
+		</div>
+	);
 }
 
 export default connect( ( state, ownProps ) => {

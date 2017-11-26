@@ -1,23 +1,22 @@
 {
 	"presets": [
+		"react",
 		[ "env", {
 			"targets": {
-				"browsers": [
-					"last 2 versions",
-					"Safari >= 10",
-					"iOS >= 10",
-					"not ie <= 10"
-				]
-			}
-		} ],
-		"stage-2"
+				"browsers": ["last 2 versions", "not ie <= 10"],
+				"node": "current"
+			},
+			"useBuiltIns": true
+		} ]
 	],
 	"plugins": [
 		"add-module-exports",
 		"syntax-jsx",
-		"transform-export-extensions",
+		"transform-imports",
 		"transform-react-jsx",
 		"transform-runtime",
+		"transform-object-rest-spread",
+		"transform-class-properties"
 	],
 	"env": {
 		"test": {

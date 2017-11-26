@@ -23,35 +23,33 @@ import PostPreview from 'components/post/preview';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
 
-class Index extends React.Component {
-	render() {
-		if ( !! this.props.previewId ) {
-			return <PostPreview id={ this.props.previewId } />;
-		}
-
-		const posts = this.props.posts;
-		const meta = {
-			title: he.decode( FoxhoundSettings.meta.title ),
-			description: FoxhoundSettings.meta.description,
-			canonical: FoxhoundSettings.URL.base,
-		};
-
-		return (
-			<div className="site-content">
-				<DocumentMeta { ...meta } />
-				<BodyClass classes={ [ 'home', 'blog' ] } />
-				<StickyPostsList />
-				<QueryPosts query={ this.props.query } />
-				{ this.props.loading ? <Placeholder type="posts" /> : <PostList posts={ posts } /> }
-				<Pagination
-					path={ this.props.path }
-					current={ this.props.page }
-					isFirstPage={ 1 === this.props.page }
-					isLastPage={ this.props.totalPages === this.props.page }
-				/>
-			</div>
-		);
+function Index( props ) {
+	if ( !! props.previewId ) {
+		return <PostPreview id={ props.previewId } />;
 	}
+
+	const posts = props.posts;
+	const meta = {
+		title: he.decode( FoxhoundSettings.meta.title ),
+		description: FoxhoundSettings.meta.description,
+		canonical: FoxhoundSettings.URL.base,
+	};
+
+	return (
+		<div className="site-content">
+			<DocumentMeta { ...meta } />
+			<BodyClass classes={ [ 'home', 'blog' ] } />
+			<StickyPostsList />
+			<QueryPosts query={ props.query } />
+			{ props.loading ? <Placeholder type="posts" /> : <PostList posts={ posts } /> }
+			<Pagination
+				path={ props.path }
+				current={ props.page }
+				isFirstPage={ 1 === props.page }
+				isLastPage={ props.totalPages === props.page }
+			/>
+		</div>
+	);
 }
 
 export default connect( ( state, ownProps ) => {

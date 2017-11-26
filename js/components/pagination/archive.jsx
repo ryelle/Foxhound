@@ -5,32 +5,30 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-class Pagination extends React.Component {
-	render() {
-		if ( this.props.isFirstPage && this.props.isLastPage ) {
-			return null;
-		}
-
-		const next = parseInt( this.props.current ) + 1;
-		const prev = parseInt( this.props.current ) - 1;
-
-		return (
-			<nav className="navigation posts-navigation clear" role="navigation">
-				<div className="nav-links">
-					{ ! this.props.isFirstPage ? (
-						<div className="nav-previous">
-							<Link to={ `${ this.props.path }p/${ prev }` }>Previous Page</Link>
-						</div>
-					) : null }
-					{ ! this.props.isLastPage ? (
-						<div className="nav-next">
-							<Link to={ `${ this.props.path }p/${ next }` }>Next Page</Link>
-						</div>
-					) : null }
-				</div>
-			</nav>
-		);
+function Pagination( props ) {
+	if ( props.isFirstPage && props.isLastPage ) {
+		return null;
 	}
+
+	const next = parseInt( props.current ) + 1;
+	const prev = parseInt( props.current ) - 1;
+
+	return (
+		<nav className="navigation posts-navigation clear" role="navigation">
+			<div className="nav-links">
+				{ ! props.isFirstPage ? (
+					<div className="nav-previous">
+						<Link to={ `${ props.path }p/${ prev }` }>Previous Page</Link>
+					</div>
+				) : null }
+				{ ! props.isLastPage ? (
+					<div className="nav-next">
+						<Link to={ `${ props.path }p/${ next }` }>Next Page</Link>
+					</div>
+				) : null }
+			</div>
+		</nav>
+	);
 }
 
 export default Pagination;
