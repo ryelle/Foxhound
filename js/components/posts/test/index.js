@@ -3,9 +3,11 @@
  * External Dependencies
  */
 import React from 'react';
-import { Provider } from 'react-redux';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import sinon from 'sinon';
+import * as router from 'react-router-dom';
 
 /**
  * Internal Dependencies
@@ -16,18 +18,25 @@ import Index from '../';
 
 describe( 'Index', function() {
 	let RenderedIndex;
+	let wrapper;
 
 	beforeEach( () => {
 		const store = mockStore( data );
+		sinon.stub( router, 'Link' ).returns( <span /> );
 
 		// Pass through `params` & `location`, which would come from react-router
-		const wrapper = mount(
+		wrapper = mount(
 			<Provider store={ store }>
 				<Index params={ {} } location={ { query: {} } } />
 			</Provider>
 		);
 
 		RenderedIndex = wrapper.find( Index );
+	} );
+
+	afterEach( () => {
+		router.Link.restore();
+		wrapper.unmount();
 	} );
 
 	it( 'should load an index component', function() {

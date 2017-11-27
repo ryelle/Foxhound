@@ -10,4 +10,4 @@ export const mockStore = ( state ) => {
 			return state;
 		},
 	};
-}
+};

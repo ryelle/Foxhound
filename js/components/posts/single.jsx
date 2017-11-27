@@ -4,14 +4,14 @@
  */
 import React from 'react';
 import classNames from 'classnames';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 /**
  * Internal Dependencies
  */
 import { getTitle, getExcerpt, getDate } from 'utils/content';
 
-function Post( props ) {
+export default function Post( props ) {
 	const post = props;
 
 	if ( 'attachment' === post.type ) {
@@ -45,5 +45,3 @@ function Post( props ) {
 		</article>
 	);
 }
-
-export default Post;

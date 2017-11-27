@@ -11,7 +11,6 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { useScroll } from 'react-router-scroll';
 import { bindActionCreators } from 'redux';
 import { escapeRegExp } from 'lodash';
 
@@ -54,7 +53,7 @@ function renderApp() {
 	}
 
 	const routerMiddleware = applyRouterMiddleware(
-		useScroll( shouldUpdateScroll ),
+		// useScroll( shouldUpdateScroll ),
 		keyboardFocusReset( 'main' )
 	);
 

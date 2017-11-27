@@ -5,6 +5,8 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
+import * as router from 'react-router-dom';
 
 /**
  * Internal Dependencies
@@ -12,6 +14,14 @@ import { shallow } from 'enzyme';
 import Pagination from '../archive';
 
 describe( 'Pagination', function() {
+	beforeEach( () => {
+		sinon.stub( router, 'Link' ).returns( <span /> );
+	} );
+
+	afterEach( () => {
+		router.Link.restore();
+	} );
+
 	it( 'should load a .navigation', function() {
 		const navigation = shallow(
 			<Pagination path="/" current={ 1 } isFirstPage={ true } isLastPage={ false } />
