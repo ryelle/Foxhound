@@ -9,8 +9,9 @@ import 'whatwg-fetch';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { Route, Switch } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { escapeRegExp } from 'lodash';
 
@@ -33,39 +34,30 @@ import { setMenu } from 'wordpress-query-menu/lib/state';
 import { setPost, setPosts } from './utils/initial-actions';
 
 // Accessibility!
-import { keyboardFocusReset, skipLink, toggleFocus } from 'utils/a11y';
+import { skipLink, toggleFocus } from 'utils/a11y';
 
 // Now the work starts.
 const store = createReduxStore();
-const history = syncHistoryWithStore( browserHistory, store );
+const history = createHistory();
 const path = FoxhoundSettings.URL.path || '/';
 
 function renderApp() {
 	let blogURL, frontPageRoute;
 	if ( FoxhoundSettings.frontPage.page ) {
 		blogURL = path + 'page/' + FoxhoundSettings.frontPage.blog + '/';
-		frontPageRoute = (
-			<Route path={ path } slug={ FoxhoundSettings.frontPage.page } component={ SinglePage } />
+		const FrontPageComponent = props => (
+			<SinglePage slug={ FoxhoundSettings.frontPage.page } { ...props } />
 		);
+		frontPageRoute = <Route path={ path } component={ FrontPageComponent } />; // eslint-disable-line react/jsx-no-bind
 	} else {
 		blogURL = path;
 		frontPageRoute = null;
 	}
 
-	const routerMiddleware = applyRouterMiddleware(
-		// useScroll( shouldUpdateScroll ),
-		keyboardFocusReset( 'main' )
-	);
-
-	// Add the event Jetpack listens for to initialize various JS features on posts.
-	function emitJetpackEvent() {
-		jQuery( document.body ).trigger( 'post-load' );
-	}
-
 	// Routes
 	const routes = (
-		<Router history={ history } render={ routerMiddleware } onUpdate={ emitJetpackEvent }>
-			<Route path={ blogURL } component={ Index } />
+		<Switch>
+			<Route path={ blogURL } exact component={ Index } />
 			<Route path={ `${ blogURL }p/:paged` } component={ Index } />
 			{ frontPageRoute }
 			<Route path={ `${ path }search/:search` } component={ Search } />
@@ -85,10 +77,15 @@ function renderApp() {
 			<Route path={ `${ path }page/**` } component={ SinglePage } />
 			<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
 			<Route path="*" component={ NotFound } />
-		</Router>
+		</Switch>
 	);
 
-	render( <Provider store={ store }>{ routes }</Provider>, document.getElementById( 'main' ) );
+	render(
+		<Provider store={ store }>
+			<ConnectedRouter history={ history }>{ routes }</ConnectedRouter>
+		</Provider>,
+		document.getElementById( 'main' )
+	);
 
 	if ( FoxhoundMenu.enabled ) {
 		render(
@@ -101,14 +98,6 @@ function renderApp() {
 		// Run this to initialize the focus JS for PHP-generated menus
 		initNoApiMenuFocus();
 	}
-}
-
-// Callback for `useScroll`, which skips the auto-scrolling on skiplinks
-function shouldUpdateScroll( prevRouterProps, { location } ) {
-	if ( location.hash ) {
-		return false;
-	}
-	return true;
 }
 
 // Initialize keyboard functionality with JS for non-react-build Menus (if the API doesn't exist)

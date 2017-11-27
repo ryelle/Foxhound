@@ -42,14 +42,14 @@ const AuthorHeader = ( { userName, loading, user = {}, query = {} } ) => {
 	);
 };
 
-export default connect( ( state, ownProps ) => {
-	const userName = ownProps.params.slug;
+export default connect( ( state, { match } ) => {
+	const userName = match.params.slug;
 	const user = getUser( state, userName );
 	const userId = getUserIdFromName( state, userName );
 	const requesting = isRequestingUser( state, userName );
 
 	const query = {};
-	query.page = ownProps.params.paged || 1;
+	query.page = match.params.paged || 1;
 	if ( userId ) {
 		query.author = [ userId ];
 	}

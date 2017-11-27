@@ -3,13 +3,14 @@
  * External Dependencies
  */
 import React from 'react';
-import { connect } from 'react-redux';
-import classNames from 'classnames';
-import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
-import he from 'he';
-import QueryPage from 'wordpress-query-page';
+import classNames from 'classnames';
+import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
 import { getPageIdFromPath, isRequestingPage, getPage } from 'wordpress-query-page/lib/selectors';
+import he from 'he';
+import qs from 'qs';
+import QueryPage from 'wordpress-query-page';
 
 /**
  * Internal Dependencies
@@ -84,7 +85,7 @@ class SinglePage extends React.Component {
 }
 
 export default connect( ( state, ownProps ) => {
-	let path = ownProps.params.splat || ownProps.route.slug;
+	let path = ownProps.match.params.splat || ownProps.slug;
 	if ( '/' === path[ path.length - 1 ] ) {
 		path = path.slice( 0, -1 );
 	}
@@ -93,7 +94,8 @@ export default connect( ( state, ownProps ) => {
 	const requesting = isRequestingPage( state, path );
 	const post = getPage( state, parseInt( postId ) );
 
-	const previewId = ownProps.location.query.preview_id;
+	const query = ownProps.location.search;
+	const previewId = qs.parse( query ).preview_id || null;
 
 	return {
 		previewId,

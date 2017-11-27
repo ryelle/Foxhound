@@ -48,19 +48,19 @@ function DateArchive( props ) {
 	);
 }
 
-export default connect( ( state, ownProps ) => {
+export default connect( ( state, { match } ) => {
 	let path = FoxhoundSettings.URL.path || '/';
 	path += 'date/';
-	[ 'year', 'month', 'day' ].map( key => {
-		if ( ownProps.params.hasOwnProperty( key ) ) {
-			path += ownProps.params[ key ] + '/';
+	for ( const key in [ 'year', 'month', 'day' ] ) {
+		if ( match.params.hasOwnProperty( key ) ) {
+			path += match.params[ key ] + '/';
 		}
-	} );
+	}
 
-	const { day, month, year } = ownProps.params;
+	const { day, month, year } = match.params;
 	let date, dateString;
 	const query = {};
-	query.page = ownProps.params.paged || 1;
+	query.page = match.params.paged || 1;
 	if ( day ) {
 		date = moment( `${ year } ${ month } ${ day }`, 'YYYY MM DD' );
 		dateString = date.format( 'MMMM Do YYYY' );

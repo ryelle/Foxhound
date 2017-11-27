@@ -30,14 +30,14 @@ class Search extends React.Component {
 	search = event => {
 		event.preventDefault();
 		const url = `${ FoxhoundSettings.URL.path }search/${ this.getSearchValue() }`;
-		this.props.router.push( url );
+		this.props.history.push( url );
 	};
 
 	getSearchValue = () => {
 		if ( 'undefined' !== typeof this.searchForm ) {
 			return this.searchForm.getValue();
 		}
-		return this.props.params.search.replace( /\+/g, ' ' );
+		return this.props.match.params.search.replace( /\+/g, ' ' );
 	};
 
 	render() {
@@ -74,10 +74,10 @@ class Search extends React.Component {
 }
 
 export default withRouter(
-	connect( ( state, ownProps ) => {
+	connect( ( state, { match } ) => {
 		const query = {};
-		query.page = ownProps.params.paged || 1;
-		query.search = ownProps.params.search.replace( /\+/g, ' ' ) || '';
+		query.page = match.params.paged || 1;
+		query.search = match.params.search.replace( /\+/g, ' ' ) || '';
 		const posts = getPostsForQuery( state, query ) || [];
 		const requesting = isRequestingPostsForQuery( state, query );
 

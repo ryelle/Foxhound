@@ -43,15 +43,15 @@ const TermHeader = ( { term, taxonomy, loading, termData = {}, query = {} } ) =>
 	);
 };
 
-export default connect( ( state, ownProps ) => {
-	const term = ownProps.params.slug;
-	const taxonomy = ownProps.route.taxonomy;
+export default connect( ( state, { match } ) => {
+	const term = match.params.slug;
+	const taxonomy = match.route.taxonomy;
 	const termId = getTermIdFromSlug( state, taxonomy, term );
 	const termData = getTerm( state, termId );
 	const requesting = isRequestingTerm( state, taxonomy, term );
 
 	const query = {};
-	query.page = ownProps.params.paged || 1;
+	query.page = match.params.paged || 1;
 	if ( termId ) {
 		if ( 'category' === taxonomy ) {
 			query.categories = [ termId ];

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
 import he from 'he';
+import qs from 'qs';
 import QueryPosts from 'wordpress-query-posts';
 import {
 	isRequestingPostsForQuery,
@@ -52,10 +53,10 @@ function Index( props ) {
 	);
 }
 
-export default connect( ( state, ownProps ) => {
+export default connect( ( state, { match, location } ) => {
 	const query = {};
 	query.sticky = false;
-	query.page = ownProps.params.paged || 1;
+	query.page = match.params.paged || 1;
 
 	let path = FoxhoundSettings.URL.path || '/';
 	if ( FoxhoundSettings.frontPage.page ) {
@@ -64,7 +65,9 @@ export default connect( ( state, ownProps ) => {
 
 	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
-	const previewId = ownProps.location.query.p || ownProps.location.query.page_id;
+
+	const urlQuery = qs.parse( location.search );
+	const previewId = urlQuery.p || urlQuery.page_id || null;
 
 	return {
 		previewId,

@@ -64,8 +64,8 @@ class Attachment extends React.Component {
 	}
 }
 
-export default connect( ( state, ownProps ) => {
-	const id = parseInt( ownProps.params.id || 0 );
+export default connect( ( state, { match } ) => {
+	const id = parseInt( match.params.id || 0 );
 	const requesting = isRequestingMedia( state, id );
 	const media = getMedia( state, id );
 

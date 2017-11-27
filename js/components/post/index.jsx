@@ -3,13 +3,14 @@
  * External Dependencies
  */
 import React from 'react';
-import { connect } from 'react-redux';
-import classNames from 'classnames';
-import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
-import he from 'he';
-import QueryPosts from 'wordpress-query-posts';
+import classNames from 'classnames';
+import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
 import { getPostIdFromSlug, isRequestingPost, getPost } from 'wordpress-query-posts/lib/selectors';
+import he from 'he';
+import qs from 'qs';
+import QueryPosts from 'wordpress-query-posts';
 
 /**
  * Internal Dependencies
@@ -86,13 +87,14 @@ class SinglePost extends React.Component {
 	}
 }
 
-export default connect( ( state, ownProps ) => {
-	const slug = ownProps.params.slug || false;
+export default connect( ( state, { match, location } ) => {
+	const slug = match.params.slug || false;
 	const postId = getPostIdFromSlug( state, slug );
 	const requesting = isRequestingPost( state, slug );
 	const post = getPost( state, parseInt( postId ) );
 
-	const previewId = ownProps.location.query.preview_id;
+	const query = location.search;
+	const previewId = qs.parse( query ).preview_id || null;
 
 	return {
 		previewId,
