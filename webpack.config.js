@@ -33,12 +33,12 @@ webpackConfig = {
 		rules: [
 			{
 				test: /\.jsx?$/,
-				exclude: [ /node_modules/, /query-components/ ],
+				exclude: [ /node_modules/, /Projects/ ],
 				use: 'babel-loader'
 			},
 			{
 				test: /\.jsx?$/,
-				exclude: [ /node_modules/, /query-components/ ],
+				exclude: [ /node_modules/, /Projects/ ],
 				enforce: 'pre',
 				loader: 'eslint-loader',
 				options: {
