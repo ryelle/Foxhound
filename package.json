@@ -69,13 +69,13 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.1.0",
     "whatwg-fetch": "^2.0.1",
-    "wordpress-query-comments": "git+https://github.com/ryelle/wordpress-query-comments.git",
-    "wordpress-query-media": "git+https://github.com/ryelle/wordpress-query-media.git",
-    "wordpress-query-menu": "git+https://github.com/ryelle/wordpress-query-menu.git",
-    "wordpress-query-page": "git+https://github.com/ryelle/wordpress-query-page.git",
-    "wordpress-query-posts": "git+https://github.com/ryelle/wordpress-query-posts.git",
-    "wordpress-query-term": "git+https://github.com/ryelle/wordpress-query-term.git",
-    "wordpress-query-user": "git+https://github.com/ryelle/wordpress-query-user.git"
+    "wordpress-query-comments": "^2.0.0-beta.1",
+    "wordpress-query-media": "^2.0.0-beta.1",
+    "wordpress-query-menu": "^2.0.0-beta.1",
+    "wordpress-query-page": "^2.0.0-beta.1",
+    "wordpress-query-posts": "^2.0.0-beta.1",
+    "wordpress-query-term": "^2.0.0-beta.1",
+    "wordpress-query-user": "^2.0.0-beta.1"
   },
   "engines": {
     "node": "8.9.1",
