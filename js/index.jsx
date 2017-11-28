@@ -9,7 +9,7 @@ import 'whatwg-fetch';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
@@ -30,6 +30,7 @@ import DateArchive from 'components/date';
 import Author from 'components/author';
 import NotFound from 'components/not-found';
 import { createReduxStore } from './state';
+import ScrollToTop from './utils/scroll-to-top';
 import { setMenu } from 'wordpress-query-menu/lib/state';
 import { setPost, setPosts } from './utils/initial-actions';
 
@@ -54,20 +55,21 @@ function renderApp() {
 		frontPageRoute = null;
 	}
 
-	const getTermComponent = taxonomy => props => (
-		<Term { ...props } taxonomy={ taxonomy } />
-	);
+	const getTermComponent = taxonomy => props => <Term { ...props } taxonomy={ taxonomy } />;
 
 	// Routes
 	const routes = (
-		<Switch>
+		<ScrollToTop>
 			<Route path={ blogURL } exact component={ Index } />
 			<Route path={ `${ blogURL }p/:paged` } component={ Index } />
 			{ frontPageRoute }
 			<Route path={ `${ path }search/:search` } component={ Search } />
 			<Route path={ `${ path }attachment/:id` } component={ Attachment } />
 			<Route path={ `${ path }category/:slug` } component={ getTermComponent( 'category' ) } />
-			<Route path={ `${ path }category/:slug/p/:paged` } component={ getTermComponent( 'category' ) } />
+			<Route
+				path={ `${ path }category/:slug/p/:paged` }
+				component={ getTermComponent( 'category' ) }
+			/>
 			<Route path={ `${ path }tag/:slug` } component={ getTermComponent( 'post_tag' ) } />
 			<Route path={ `${ path }tag/:slug/p/:paged` } component={ getTermComponent( 'post_tag' ) } />
 			<Route path={ `${ path }date/:year` } component={ DateArchive } />
@@ -81,7 +83,7 @@ function renderApp() {
 			<Route path={ `${ path }page/**` } component={ SinglePage } />
 			<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
 			<Route path="*" component={ NotFound } />
-		</Switch>
+		</ScrollToTop>
 	);
 
 	render(

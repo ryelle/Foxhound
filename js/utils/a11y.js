@@ -1,47 +1,5 @@
 /** @format */
 /**
- * External Dependencies
- */
-import React from 'react';
-
-// FocusHandler is a component which adds focus to a given element each time the page renders. This ensures
-// the keyboard focus is in a predictable location after page load.
-class FocusHandler extends React.Component {
-	componentDidUpdate( prevProps ) {
-		const { routerProps, elementId } = this.props;
-		const prevRouterProps = prevProps.routerProps;
-
-		if ( routerProps.location === prevRouterProps.location ) {
-			return;
-		}
-
-		const element = document.getElementById( elementId );
-		element.focus();
-	}
-
-	render() {
-		return this.props.children;
-	}
-}
-
-/**
- * Create a router middleware, which wraps the `RouterContext` with the FocusHandler. FocusHandler in turn
- * sets focus on a specific element when a new page is rendered.
- *
- * @param  {string}  elementId  The element which should receive focus after render
- * @return {object}  An object with `renderRouterContext` defined, to be passed back to `applyRouterMiddleware`
- */
-export function keyboardFocusReset( elementId ) {
-	return {
-		renderRouterContext: ( child, props ) => (
-			<FocusHandler routerProps={ props } elementId={ elementId }>
-				{ child }
-			</FocusHandler>
-		),
-	};
-}
-
-/**
  * Set the focus to an element, based on a clicked link.
  *
  * @param  {HTMLElement}  clickedEl  The link element that was clicked, the href should be a reference to an ID on the page.
