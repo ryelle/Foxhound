@@ -84,8 +84,8 @@ class SinglePage extends React.Component {
 	}
 }
 
-export default connect( ( state, ownProps ) => {
-	let path = ownProps.match.params.splat || ownProps.slug;
+export default connect( ( state, { match, location, slug = false } ) => {
+	let path = match.params[ 0 ] || slug;
 	if ( '/' === path[ path.length - 1 ] ) {
 		path = path.slice( 0, -1 );
 	}
@@ -94,7 +94,7 @@ export default connect( ( state, ownProps ) => {
 	const requesting = isRequestingPage( state, path );
 	const post = getPage( state, parseInt( postId ) );
 
-	const query = ownProps.location.search;
+	const query = location.search;
 	const previewId = qs.parse( query ).preview_id || null;
 
 	return {
