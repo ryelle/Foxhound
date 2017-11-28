@@ -43,9 +43,8 @@ const TermHeader = ( { term, taxonomy, loading, termData = {}, query = {} } ) =>
 	);
 };
 
-export default connect( ( state, { match } ) => {
+export default connect( ( state, { match, taxonomy } ) => {
 	const term = match.params.slug;
-	const taxonomy = match.route.taxonomy;
 	const termId = getTermIdFromSlug( state, taxonomy, term );
 	const termData = getTerm( state, termId );
 	const requesting = isRequestingTerm( state, taxonomy, term );

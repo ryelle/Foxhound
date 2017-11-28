@@ -54,6 +54,10 @@ function renderApp() {
 		frontPageRoute = null;
 	}
 
+	const getTermComponent = taxonomy => props => (
+		<Term { ...props } taxonomy={ taxonomy } />
+	);
+
 	// Routes
 	const routes = (
 		<Switch>
@@ -62,10 +66,10 @@ function renderApp() {
 			{ frontPageRoute }
 			<Route path={ `${ path }search/:search` } component={ Search } />
 			<Route path={ `${ path }attachment/:id` } component={ Attachment } />
-			<Route path={ `${ path }category/:slug` } taxonomy="category" component={ Term } />
-			<Route path={ `${ path }category/:slug/p/:paged` } taxonomy="category" component={ Term } />
-			<Route path={ `${ path }tag/:slug` } taxonomy="post_tag" component={ Term } />
-			<Route path={ `${ path }tag/:slug/p/:paged` } taxonomy="post_tag" component={ Term } />
+			<Route path={ `${ path }category/:slug` } component={ getTermComponent( 'category' ) } />
+			<Route path={ `${ path }category/:slug/p/:paged` } component={ getTermComponent( 'category' ) } />
+			<Route path={ `${ path }tag/:slug` } component={ getTermComponent( 'post_tag' ) } />
+			<Route path={ `${ path }tag/:slug/p/:paged` } component={ getTermComponent( 'post_tag' ) } />
 			<Route path={ `${ path }date/:year` } component={ DateArchive } />
 			<Route path={ `${ path }date/:year/p/:paged` } component={ DateArchive } />
 			<Route path={ `${ path }date/:year/:month` } component={ DateArchive } />
