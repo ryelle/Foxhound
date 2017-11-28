@@ -9,7 +9,7 @@ import 'whatwg-fetch';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
@@ -19,20 +19,22 @@ import { escapeRegExp } from 'lodash';
 require( '../sass/style.scss' );
 
 // Internal
-import Navigation from 'components/navigation';
-import Index from 'components/posts';
-import SinglePost from 'components/post';
-import SinglePage from 'components/post/page';
-import Term from 'components/term';
-import Attachment from 'components/attachment';
-import Search from 'components/search';
-import DateArchive from 'components/date';
-import Author from 'components/author';
-import NotFound from 'components/not-found';
 import { createReduxStore } from './state';
 import ScrollToTop from './utils/scroll-to-top';
 import { setMenu } from 'wordpress-query-menu/lib/state';
 import { setPost, setPosts } from './utils/initial-actions';
+
+// Components
+import Attachment from 'components/attachment';
+import Author from 'components/author';
+import DateArchive from 'components/date';
+import Index from 'components/posts';
+import Navigation from 'components/navigation';
+import NotFound from 'components/not-found';
+import Search from 'components/search';
+import SinglePage from 'components/post/page';
+import SinglePost from 'components/post';
+import Term from 'components/term';
 
 // Accessibility!
 import { skipLink, toggleFocus } from 'utils/a11y';
@@ -60,29 +62,34 @@ function renderApp() {
 	// Routes
 	const routes = (
 		<ScrollToTop>
-			<Route path={ blogURL } exact component={ Index } />
-			<Route path={ `${ blogURL }p/:paged` } component={ Index } />
-			{ frontPageRoute }
-			<Route path={ `${ path }search/:search` } component={ Search } />
-			<Route path={ `${ path }attachment/:id` } component={ Attachment } />
-			<Route path={ `${ path }category/:slug` } component={ getTermComponent( 'category' ) } />
-			<Route
-				path={ `${ path }category/:slug/p/:paged` }
-				component={ getTermComponent( 'category' ) }
-			/>
-			<Route path={ `${ path }tag/:slug` } component={ getTermComponent( 'post_tag' ) } />
-			<Route path={ `${ path }tag/:slug/p/:paged` } component={ getTermComponent( 'post_tag' ) } />
-			<Route path={ `${ path }date/:year` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/p/:paged` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/:month` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/:month/p/:paged` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/:month/:day/p/:paged` } component={ DateArchive } />
-			<Route path={ `${ path }author/:slug` } component={ Author } />
-			<Route path={ `${ path }author/:slug/p/:paged` } component={ Author } />
-			<Route path={ `${ path }page/**` } component={ SinglePage } />
-			<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
-			<Route path="*" component={ NotFound } />
+			<Switch>
+				<Route path={ blogURL } exact component={ Index } />
+				<Route path={ `${ blogURL }p/:paged` } component={ Index } />
+				{ frontPageRoute }
+				<Route path={ `${ path }search/:search` } component={ Search } />
+				<Route path={ `${ path }attachment/:id` } component={ Attachment } />
+				<Route path={ `${ path }category/:slug` } component={ getTermComponent( 'category' ) } />
+				<Route
+					path={ `${ path }category/:slug/p/:paged` }
+					component={ getTermComponent( 'category' ) }
+				/>
+				<Route path={ `${ path }tag/:slug` } component={ getTermComponent( 'post_tag' ) } />
+				<Route
+					path={ `${ path }tag/:slug/p/:paged` }
+					component={ getTermComponent( 'post_tag' ) }
+				/>
+				<Route path={ `${ path }date/:year` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/p/:paged` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/:month` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/:month/p/:paged` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/:month/:day/p/:paged` } component={ DateArchive } />
+				<Route path={ `${ path }author/:slug` } component={ Author } />
+				<Route path={ `${ path }author/:slug/p/:paged` } component={ Author } />
+				<Route path={ `${ path }page/**` } component={ SinglePage } />
+				<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
+				<Route path="*" component={ NotFound } />
+			</Switch>
 		</ScrollToTop>
 	);
 
