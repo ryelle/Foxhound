@@ -3,25 +3,25 @@
  * External Dependencies
  */
 import React from 'react';
+import BodyClass from 'react-body-class';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import BodyClass from 'react-body-class';
+import { getTerm, getTermIdFromSlug, isRequestingTerm } from 'wordpress-query-term/lib/selectors';
 import he from 'he';
 import QueryTerm from 'wordpress-query-term';
-import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'wordpress-query-term/lib/selectors';
+import stripTags from 'striptags';
 
 /**
  * Internal Dependencies
  */
-import Placeholder from 'components/placeholder';
 import List from './list';
+import Placeholder from 'components/placeholder';
 
 const TermHeader = ( { term, taxonomy, loading, termData = {}, query = {} } ) => {
 	const meta = {
-		title: termData.name + ' – ' + FoxhoundSettings.meta.title,
-		description: termData.description,
+		title: he.decode( `${ termData.name } – ${ FoxhoundSettings.meta.title }` ),
+		description: he.decode( stripTags( termData.description ) ),
 	};
-	meta.title = he.decode( meta.title );
 
 	return (
 		<div className="card">

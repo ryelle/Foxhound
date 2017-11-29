@@ -3,26 +3,27 @@
  * External Dependencies
  */
 import React from 'react';
+import BodyClass from 'react-body-class';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import BodyClass from 'react-body-class';
+import {
+	getPostsForQuery,
+	getTotalPagesForQuery,
+	isRequestingPostsForQuery,
+} from 'wordpress-query-posts/lib/selectors';
 import he from 'he';
 import qs from 'qs';
 import QueryPosts from 'wordpress-query-posts';
-import {
-	isRequestingPostsForQuery,
-	getPostsForQuery,
-	getTotalPagesForQuery,
-} from 'wordpress-query-posts/lib/selectors';
+import stripTags from 'striptags';
 
 /**
  * Internal Dependencies
  */
-import PostList from './list';
-import StickyPostsList from './sticky';
-import PostPreview from 'components/post/preview';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
+import PostList from './list';
+import PostPreview from 'components/post/preview';
+import StickyPostsList from './sticky';
 
 function Index( props ) {
 	if ( !! props.previewId ) {
@@ -32,7 +33,7 @@ function Index( props ) {
 	const posts = props.posts;
 	const meta = {
 		title: he.decode( FoxhoundSettings.meta.title ),
-		description: FoxhoundSettings.meta.description,
+		description: he.decode( stripTags( FoxhoundSettings.meta.description ) ),
 		canonical: FoxhoundSettings.URL.base,
 	};
 

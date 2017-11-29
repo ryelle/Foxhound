@@ -4,20 +4,21 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import classNames from 'classnames';
-import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
+import classNames from 'classnames';
+import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
+import { getMedia, isRequestingMedia } from 'wordpress-query-media/lib/selectors';
 import he from 'he';
 import QueryMedia from 'wordpress-query-media';
-import { getMedia, isRequestingMedia } from 'wordpress-query-media/lib/selectors';
+import stripTags from 'striptags';
 
 /**
  * Internal Dependencies
  */
+import { getDate, getMediaContent, getTitle } from 'utils/content';
 import Placeholder from 'components/placeholder';
 import PostMeta from 'components/post/meta';
-import { getTitle, getDate, getMediaContent } from 'utils/content';
 
 class Attachment extends React.Component {
 	renderMedia = () => {
@@ -27,11 +28,10 @@ class Attachment extends React.Component {
 		}
 
 		const meta = {
-			title: media.title.rendered + ' – ' + FoxhoundSettings.meta.title,
-			description: media.caption.rendered,
+			title: he.decode( `${ media.title.rendered } – ${ FoxhoundSettings.meta.title }` ),
+			description: he.decode( stripTags( media.caption.rendered ) ),
 			canonical: media.link,
 		};
-		meta.title = he.decode( meta.title );
 
 		return (
 			<article className={ classNames( [ 'entry' ] ) }>

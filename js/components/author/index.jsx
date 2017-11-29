@@ -3,24 +3,23 @@
  * External Dependencies
  */
 import React from 'react';
+import BodyClass from 'react-body-class';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import BodyClass from 'react-body-class';
 import he from 'he';
+import { getUser, getUserIdFromName, isRequestingUser } from 'wordpress-query-user/lib/selectors';
 import QueryUser from 'wordpress-query-user';
-import { isRequestingUser, getUserIdFromName, getUser } from 'wordpress-query-user/lib/selectors';
 
 /**
  * Internal Dependencies
  */
-import Placeholder from 'components/placeholder';
 import List from './list';
+import Placeholder from 'components/placeholder';
 
 const AuthorHeader = ( { userName, loading, user = {}, query = {} } ) => {
 	const meta = {
-		title: user.name + ' – ' + FoxhoundSettings.meta.title,
+		title: he.decode( `${ user.name } – ${ FoxhoundSettings.meta.title }` ),
 	};
-	meta.title = he.decode( meta.title );
 
 	return (
 		<div className="card">

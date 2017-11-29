@@ -7,17 +7,18 @@ import BodyClass from 'react-body-class';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import { getPageIdFromPath, isRequestingPage, getPage } from 'wordpress-query-page/lib/selectors';
+import { getPage, getPageIdFromPath, isRequestingPage } from 'wordpress-query-page/lib/selectors';
 import he from 'he';
 import qs from 'qs';
 import QueryPage from 'wordpress-query-page';
+import stripTags from 'striptags';
 
 /**
  * Internal Dependencies
  */
-import { getTitle, getContent, getFeaturedMedia } from 'utils/content';
-import Media from './image';
 import Comments from 'components/comments';
+import { getContent, getFeaturedMedia, getTitle } from 'utils/content';
+import Media from './image';
 import Placeholder from 'components/placeholder';
 import PostPreview from './preview';
 
@@ -29,11 +30,10 @@ class SinglePage extends React.Component {
 		}
 
 		const meta = {
-			title: post.title.rendered + ' – ' + FoxhoundSettings.meta.title,
-			description: post.excerpt.rendered,
+			title: he.decode( `${ post.title.rendered } – ${ FoxhoundSettings.meta.title }` ),
+			description: he.decode( stripTags( post.excerpt.rendered ) ),
 			canonical: post.link,
 		};
-		meta.title = he.decode( meta.title );
 
 		const classes = classNames( {
 			entry: true,

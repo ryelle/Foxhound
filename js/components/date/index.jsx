@@ -3,29 +3,29 @@
  * External Dependencies
  */
 import React from 'react';
+import BodyClass from 'react-body-class';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import BodyClass from 'react-body-class';
-import moment from 'moment';
 import he from 'he';
-import QueryPosts from 'wordpress-query-posts';
 import {
 	isRequestingPostsForQuery,
 	getPostsForQuery,
 	getTotalPagesForQuery,
 } from 'wordpress-query-posts/lib/selectors';
+import moment from 'moment';
+import QueryPosts from 'wordpress-query-posts';
 
 /**
  * Internal Dependencies
  */
-import PostList from 'components/posts/list';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
+import PostList from 'components/posts/list';
 
 function DateArchive( props ) {
 	const { query, loading, path, page, totalPages, dateString, posts } = props;
 	const meta = {
-		title: dateString + ' – ' + he.decode( FoxhoundSettings.meta.title ),
+		title: he.decode( `${ dateString } – ${ FoxhoundSettings.meta.title }` ),
 	};
 
 	return (

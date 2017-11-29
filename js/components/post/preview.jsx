@@ -3,20 +3,21 @@
  * External Dependencies
  */
 import React from 'react';
-import { connect } from 'react-redux';
-import classNames from 'classnames';
-import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
-import he from 'he';
-import { getPost } from 'wordpress-query-posts/lib/selectors';
+import classNames from 'classnames';
+import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
 import { getPage } from 'wordpress-query-page/lib/selectors';
+import { getPost } from 'wordpress-query-posts/lib/selectors';
+import he from 'he';
+import stripTags from 'striptags';
 
 /**
  * Internal Dependencies
  */
-import { getTitle, getContent, getDate, getFeaturedMedia } from 'utils/content';
-import PostMeta from './meta';
+import { getContent, getDate, getFeaturedMedia, getTitle } from 'utils/content';
 import Media from './image';
+import PostMeta from './meta';
 
 class SinglePost extends React.Component {
 	renderArticle = () => {
@@ -26,11 +27,10 @@ class SinglePost extends React.Component {
 		}
 
 		const meta = {
-			title: post.title.rendered + ' – ' + FoxhoundSettings.meta.title,
-			description: post.excerpt.rendered,
+			title: he.decode( `${ post.title.rendered } – ${ FoxhoundSettings.meta.title }` ),
+			description: he.decode( stripTags( post.excerpt.rendered ) ),
 			canonical: post.link,
 		};
-		meta.title = he.decode( meta.title );
 
 		const classes = classNames( {
 			entry: true,

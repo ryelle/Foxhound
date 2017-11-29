@@ -3,24 +3,24 @@
  * External Dependencies
  */
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import DocumentMeta from 'react-document-meta';
 import BodyClass from 'react-body-class';
-import he from 'he';
-import QueryPosts from 'wordpress-query-posts';
+import { connect } from 'react-redux';
+import DocumentMeta from 'react-document-meta';
 import {
-	isRequestingPostsForQuery,
 	getPostsForQuery,
 	getTotalPagesForQuery,
+	isRequestingPostsForQuery,
 } from 'wordpress-query-posts/lib/selectors';
+import he from 'he';
+import QueryPosts from 'wordpress-query-posts';
+import { withRouter } from 'react-router';
 
 /**
  * Internal Dependencies
  */
+import Placeholder from 'components/placeholder';
 import PostList from 'components/posts/list';
 import SearchForm from './form';
-import Placeholder from 'components/placeholder';
 
 class Search extends React.Component {
 	setSearchForm = form => {
@@ -44,9 +44,8 @@ class Search extends React.Component {
 		const posts = this.props.posts;
 		const term = this.getSearchValue();
 		const meta = {
-			title: 'Search Results for "' + term + '" – ' + FoxhoundSettings.meta.title,
+			title: he.decode( `Search Results for "${ term }" – ${ FoxhoundSettings.meta.title }` ),
 		};
-		meta.title = he.decode( meta.title );
 
 		return (
 			<div className="site-content">

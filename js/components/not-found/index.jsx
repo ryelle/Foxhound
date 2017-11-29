@@ -3,9 +3,9 @@
  * External Dependencies
  */
 import React from 'react';
+import BodyClass from 'react-body-class';
 import classNames from 'classnames';
 import DocumentMeta from 'react-document-meta';
-import BodyClass from 'react-body-class';
 import he from 'he';
 
 function NotFound() {
@@ -25,7 +25,9 @@ function NotFound() {
 			<h2 className="entry-title">Nothing Found</h2>
 
 			<div className="entry-content">
-				<p>It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.</p>
+				<p>
+					It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.
+				</p>
 			</div>
 
 			<div className="entry-meta" />
