@@ -19,6 +19,7 @@
     "rules": {
         "camelcase": 0,
         "max-len": [ 2, { "code": 140 } ],
+        "no-console": 1,
         "react/no-danger": 0,
         "wpcalypso/import-no-redux-combine-reducers": 0,
         "wpcalypso/jsx-classname-namespace": 0,
