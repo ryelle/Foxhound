@@ -65,7 +65,7 @@ function renderApp() {
 			<Switch>
 				<Route path={ blogURL } exact component={ Index } />
 				<Route path={ `${ blogURL }p/:paged` } component={ Index } />
-				{ frontPageRoute }
+				<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
 				<Route path={ `${ path }search/:search` } component={ Search } />
 				<Route path={ `${ path }attachment/:id` } component={ Attachment } />
 				<Route path={ `${ path }category/:slug` } component={ getTermComponent( 'category' ) } />
@@ -87,7 +87,7 @@ function renderApp() {
 				<Route path={ `${ path }author/:slug` } component={ Author } />
 				<Route path={ `${ path }author/:slug/p/:paged` } component={ Author } />
 				<Route path={ `${ path }page/**` } component={ SinglePage } />
-				<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
+				{ frontPageRoute }
 				<Route path="*" component={ NotFound } />
 			</Switch>
 		</ScrollToTop>
