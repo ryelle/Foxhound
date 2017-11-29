@@ -14,6 +14,13 @@ Since this is a more "experimental" theme, you'll need to have a few things set 
 2. You'll also need this [WP-API Menus plugin](https://wordpress.org/plugins/wp-api-menus/). The REST API doesn't provide an endpoint for menus, so another plugin is necessary.
 3. Your permalinks will need to be set to `/%year%/%monthnum%/%postname%/`. Single-post/page views will not work without permalinks set. Category & tag archives bases should be set to `category` and `tag`, respectively.
 
+Technical Requirements
+----------------------
+
+1. WordPress 4.7+
+2. PHP 5.4+
+3. If building locally, Node 8.9.1 + npm 5.5.1
+
 Display & Features
 ------------------
 
