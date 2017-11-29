@@ -3,6 +3,7 @@ var webpack = require( 'webpack' );
 var NODE_ENV = process.env.NODE_ENV || 'development';
 var ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 var LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
+var UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
 var webpackConfig;
 
 // This file is written in ES5 because it is run via Node.js and is not transpiled by babel. We want to support various versions of node, so it is best to not use any ES6 features even if newer versions support ES6 features out of the box.
@@ -77,7 +78,7 @@ webpackConfig = {
 
 if ( NODE_ENV === 'production' ) {
 	// When running in production, we want to use the minified script so that the file is smaller
-	webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin() );
+	webpackConfig.plugins.push( new UglifyJsPlugin() );
 }
 
 module.exports = webpackConfig;
