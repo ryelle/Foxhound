@@ -1,15 +1,17 @@
-/*global FoxhoundSettings, FoxhoundData, FoxhoundMenu, jQuery */
+/** @format */
+/**
+ * External Dependencies
+ */
 // Load in the babel (es6) polyfill, and fetch polyfill
 import 'babel-polyfill';
 import 'whatwg-fetch';
 
-// React
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory, applyRouterMiddleware } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { useScroll } from 'react-router-scroll';
+import { Route, Switch } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { escapeRegExp } from 'lodash';
 
@@ -17,101 +19,98 @@ import { escapeRegExp } from 'lodash';
 require( '../sass/style.scss' );
 
 // Internal
-import Navigation from 'components/navigation';
-import Index from 'components/posts';
-import SinglePost from 'components/post';
-import SinglePage from 'components/post/page';
-import Term from 'components/term';
-import Attachment from 'components/attachment';
-import Search from 'components/search';
-import DateArchive from 'components/date';
-import Author from 'components/author';
-import NotFound from 'components/not-found';
 import { createReduxStore } from './state';
+import ScrollToTop from './utils/scroll-to-top';
 import { setMenu } from 'wordpress-query-menu/lib/state';
 import { setPost, setPosts } from './utils/initial-actions';
 
+// Components
+import Attachment from 'components/attachment';
+import Author from 'components/author';
+import DateArchive from 'components/date';
+import Index from 'components/posts';
+import Navigation from 'components/navigation';
+import NotFound from 'components/not-found';
+import Search from 'components/search';
+import SinglePage from 'components/post/page';
+import SinglePost from 'components/post';
+import Term from 'components/term';
+
 // Accessibility!
-import { keyboardFocusReset, skipLink, toggleFocus } from 'utils/a11y';
+import { skipLink, toggleFocus } from 'utils/a11y';
 
 // Now the work starts.
 const store = createReduxStore();
-const history = syncHistoryWithStore( browserHistory, store );
+const history = createHistory();
 const path = FoxhoundSettings.URL.path || '/';
 
 function renderApp() {
 	let blogURL, frontPageRoute;
 	if ( FoxhoundSettings.frontPage.page ) {
 		blogURL = path + 'page/' + FoxhoundSettings.frontPage.blog + '/';
-		frontPageRoute = <Route path={ path } slug={ FoxhoundSettings.frontPage.page } component={ SinglePage } />;
+		const FrontPageComponent = props => (
+			<SinglePage slug={ FoxhoundSettings.frontPage.page } { ...props } />
+		);
+		frontPageRoute = <Route path={ path } component={ FrontPageComponent } />; // eslint-disable-line react/jsx-no-bind
 	} else {
 		blogURL = path;
 		frontPageRoute = null;
 	}
 
-	const routerMiddleware = applyRouterMiddleware( useScroll( shouldUpdateScroll ), keyboardFocusReset( 'main' ) );
-
-	// Add the event Jetpack listens for to initialize various JS features on posts.
-	const emitJetpackEvent = () => {
-		jQuery( document.body ).trigger( 'post-load' );
-	}
+	const getTermComponent = taxonomy => props => <Term { ...props } taxonomy={ taxonomy } />;
 
 	// Routes
 	const routes = (
-		<Router history={ history } render={ routerMiddleware } onUpdate={ emitJetpackEvent }>
-			<Route path={ blogURL } component={ Index } />
-			<Route path={ `${ blogURL }p/:paged` } component={ Index } />
-			{ frontPageRoute }
-			<Route path={ `${ path }search/:search` } component={ Search } />
-			<Route path={ `${ path }attachment/:id` } component={ Attachment } />
-			<Route path={ `${ path }category/:slug` } taxonomy="category" component={ Term } />
-			<Route path={ `${ path }category/:slug/p/:paged` } taxonomy="category" component={ Term } />
-			<Route path={ `${ path }tag/:slug` } taxonomy="post_tag" component={ Term } />
-			<Route path={ `${ path }tag/:slug/p/:paged` } taxonomy="post_tag" component={ Term } />
-			<Route path={ `${ path }date/:year` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/p/:paged` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/:month` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/:month/p/:paged` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
-			<Route path={ `${ path }date/:year/:month/:day/p/:paged` } component={ DateArchive } />
-			<Route path={ `${ path }author/:slug` } component={ Author } />
-			<Route path={ `${ path }author/:slug/p/:paged` } component={ Author } />
-			<Route path={ `${ path }page/**` } component={ SinglePage } />
-			<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
-			<Route path="*" component={ NotFound } />
-		</Router>
+		<ScrollToTop>
+			<Switch>
+				<Route path={ blogURL } exact component={ Index } />
+				<Route path={ `${ blogURL }p/:paged` } component={ Index } />
+				<Route path={ `${ path }:year/:month/:slug` } component={ SinglePost } />
+				<Route path={ `${ path }search/:search` } component={ Search } />
+				<Route path={ `${ path }attachment/:id` } component={ Attachment } />
+				<Route path={ `${ path }category/:slug` } component={ getTermComponent( 'category' ) } />
+				<Route
+					path={ `${ path }category/:slug/p/:paged` }
+					component={ getTermComponent( 'category' ) }
+				/>
+				<Route path={ `${ path }tag/:slug` } component={ getTermComponent( 'post_tag' ) } />
+				<Route
+					path={ `${ path }tag/:slug/p/:paged` }
+					component={ getTermComponent( 'post_tag' ) }
+				/>
+				<Route path={ `${ path }date/:year` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/p/:paged` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/:month` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/:month/p/:paged` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/:month/:day` } component={ DateArchive } />
+				<Route path={ `${ path }date/:year/:month/:day/p/:paged` } component={ DateArchive } />
+				<Route path={ `${ path }author/:slug` } component={ Author } />
+				<Route path={ `${ path }author/:slug/p/:paged` } component={ Author } />
+				<Route path={ `${ path }page/**` } component={ SinglePage } />
+				{ frontPageRoute }
+				<Route path="*" component={ NotFound } />
+			</Switch>
+		</ScrollToTop>
 	);
 
 	render(
-		(
-			<Provider store={ store }>
-				{ routes }
-			</Provider>
-		),
+		<Provider store={ store }>
+			<ConnectedRouter history={ history }>{ routes }</ConnectedRouter>
+		</Provider>,
 		document.getElementById( 'main' )
 	);
 
 	if ( FoxhoundMenu.enabled ) {
 		render(
-			(
-				<Provider store={ store }>
-					<Navigation />
-				</Provider>
-			),
+			<Provider store={ store }>
+				<Navigation />
+			</Provider>,
 			document.getElementById( 'site-navigation' )
 		);
 	} else {
 		// Run this to initialize the focus JS for PHP-generated menus
 		initNoApiMenuFocus();
 	}
-}
-
-// Callback for `useScroll`, which skips the auto-scrolling on skiplinks
-function shouldUpdateScroll( prevRouterProps, { location } ) {
-	if ( location.hash ) {
-		return false;
-	}
-	return true;
 }
 
 // Initialize keyboard functionality with JS for non-react-build Menus (if the API doesn't exist)
@@ -121,7 +120,7 @@ function initNoApiMenuFocus() {
 		return;
 	}
 
-	const menu = container.getElementsByTagName( 'div' )[1];
+	const menu = container.getElementsByTagName( 'div' )[ 1 ];
 	// No menu, no need to run the rest.
 	if ( ! menu ) {
 		return;
@@ -131,11 +130,11 @@ function initNoApiMenuFocus() {
 	// Each time a menu link is focused or blurred, toggle focus.
 	let i, len;
 	for ( i = 0, len = links.length; i < len; i++ ) {
-		links[i].addEventListener( 'focus', toggleFocus, true );
-		links[i].addEventListener( 'blur', toggleFocus, true );
+		links[ i ].addEventListener( 'focus', toggleFocus, true );
+		links[ i ].addEventListener( 'blur', toggleFocus, true );
 	}
 
-	const button = container.getElementsByTagName( 'button' )[0];
+	const button = container.getElementsByTagName( 'button' )[ 0 ];
 	button.onclick = function() {
 		if ( -1 !== menu.className.indexOf( 'menu-open' ) ) {
 			menu.className = menu.className.replace( ' menu-open', '' );
@@ -156,9 +155,9 @@ function handleLinkClick() {
 	if ( '/' === regexBaseUrl[ regexBaseUrl.length - 1 ] ) {
 		regexBaseUrl = regexBaseUrl.slice( 0, regexBaseUrl.length - 1 );
 	}
-	const escapedSiteURL = new RegExp( escapeRegExp( regexBaseUrl ).replace( /\//g, '\\\/' ) );
+	const escapedSiteURL = new RegExp( escapeRegExp( regexBaseUrl ).replace( /\//g, '\\/' ) );
 
-	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', ( event ) => {
+	jQuery( '#page' ).on( 'click', 'a[rel!=external][target!=_blank]', event => {
 		// Don't capture clicks offsite
 		if ( ! escapedSiteURL.test( event.currentTarget.href ) ) {
 			return;
@@ -168,14 +167,19 @@ function handleLinkClick() {
 		const linkRel = jQuery( event.currentTarget ).attr( 'rel' );
 		if ( linkRel && linkRel.search( /attachment/ ) !== -1 ) {
 			event.preventDefault();
-			const result = jQuery( event.currentTarget ).attr( 'rel' ).match( /wp-att-(\d*)/ );
+			const result = jQuery( event.currentTarget )
+				.attr( 'rel' )
+				.match( /wp-att-(\d*)/ );
 			const attachId = result[ 1 ];
 			history.push( path + 'attachment/' + attachId );
 			return;
 		}
 
 		// Don't capture clicks to wp-admin, or the RSS feed
-		if ( /wp-(admin|login)/.test( event.currentTarget.href ) || /\/feed\/$/.test( event.currentTarget.href ) ) {
+		if (
+			/wp-(admin|login)/.test( event.currentTarget.href ) ||
+			/\/feed\/$/.test( event.currentTarget.href )
+		) {
 			return;
 		}
 		event.preventDefault();
@@ -185,7 +189,7 @@ function handleLinkClick() {
 		history.push( url );
 	} );
 
-	jQuery( '#page' ).on( 'click', 'a[href^="#"]', ( event ) => {
+	jQuery( '#page' ).on( 'click', 'a[href^="#"]', event => {
 		skipLink( event.target );
 	} );
 }

@@ -1,8 +1,14 @@
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-// Internal
+/**
+ * Internal Dependencies
+ */
 import Placeholder from '../';
 
 describe( 'Placeholder', function() {

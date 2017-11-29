@@ -1,3 +1,4 @@
+/** @format */
 export const data = {
 	posts: {
 		items: {
@@ -5,11 +6,11 @@ export const data = {
 				id: 1,
 				type: 'post',
 				title: {
-					rendered: 'WordPress Query Component Tests'
+					rendered: 'WordPress Query Component Tests',
 				},
 				excerpt: {
 					rendered: 'excerpt',
-					protected: false
+					protected: false,
 				},
 				link: 'https://wpapi.local/2016/10/wordpress-query-component-tests',
 			},
@@ -17,14 +18,14 @@ export const data = {
 				id: 2,
 				type: 'post',
 				title: {
-					rendered: 'Another Test Post'
+					rendered: 'Another Test Post',
 				},
 				excerpt: {
 					rendered: 'excerpt',
-					protected: false
+					protected: false,
 				},
 				link: 'https://wpapi.local/2016/11/another-test-post',
-			}
+			},
 		},
 		totalPages: {
 			'{"sticky":false,"page":1}': '2',
@@ -34,6 +35,6 @@ export const data = {
 		},
 		queries: {
 			'{"sticky":false,"page":1}': [ 1, 2 ],
-		}
-	}
-}
+		},
+	},
+};

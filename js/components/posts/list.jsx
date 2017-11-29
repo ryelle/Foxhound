@@ -1,30 +1,34 @@
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// Internal dependencies
+/**
+ * Internal Dependencies
+ */
 import Post from './single';
 
-const PostList = React.createClass( {
-	propTypes: {
-		posts: React.PropTypes.array.isRequired,
-		shouldShowEmpty: React.PropTypes.bool,
-		error: React.PropTypes.string,
-	},
+class PostList extends React.Component {
+	static propTypes = {
+		posts: PropTypes.array.isRequired,
+		shouldShowEmpty: PropTypes.bool,
+		error: PropTypes.string,
+	};
 
-	getDefaultProps() {
-		return {
-			shouldShowEmpty: true,
-			error: 'It seems we can’t find what you’re looking for. Perhaps searching can help.',
-		};
-	},
+	static defaultProps = {
+		shouldShowEmpty: true,
+		error: 'It seems we can’t find what you’re looking for. Perhaps searching can help.',
+	};
 
-	renderPosts() {
+	renderPosts = () => {
 		return this.props.posts.map( ( post, i ) => {
-			return <Post key={ 'post-' + i } { ...post } />
+			return <Post key={ 'post-' + i } { ...post } />;
 		} );
-	},
+	};
 
-	renderEmpty() {
+	renderEmpty = () => {
 		if ( ! this.props.shouldShowEmpty ) {
 			return null;
 		}
@@ -37,10 +41,10 @@ const PostList = React.createClass( {
 					<p>{ this.props.error }</p>
 				</div>
 
-				<div className="entry-meta"></div>
+				<div className="entry-meta" />
 			</article>
-		)
-	},
+		);
+	};
 
 	render() {
 		if ( ! this.props.posts ) {
@@ -49,13 +53,10 @@ const PostList = React.createClass( {
 
 		return (
 			<div className="site-main">
-				{ this.props.posts.length ?
-					this.renderPosts() :
-					this.renderEmpty()
-				}
+				{ this.props.posts.length ? this.renderPosts() : this.renderEmpty() }
 			</div>
 		);
 	}
-} );
+}
 
 export default PostList;

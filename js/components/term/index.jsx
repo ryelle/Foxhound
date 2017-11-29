@@ -1,30 +1,36 @@
-/*global FoxhoundSettings */
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
+import BodyClass from 'react-body-class';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import BodyClass from 'react-body-class';
+import { getTerm, getTermIdFromSlug, isRequestingTerm } from 'wordpress-query-term/lib/selectors';
 import he from 'he';
-
-// Internal dependencies
 import QueryTerm from 'wordpress-query-term';
-import { isRequestingTerm, getTermIdFromSlug, getTerm } from 'wordpress-query-term/lib/selectors';
-import Placeholder from 'components/placeholder';
+import stripTags from 'striptags';
+
+/**
+ * Internal Dependencies
+ */
 import List from './list';
+import Placeholder from 'components/placeholder';
 
 const TermHeader = ( { term, taxonomy, loading, termData = {}, query = {} } ) => {
 	const meta = {
-		title: termData.name + ' – ' + FoxhoundSettings.meta.title,
-		description: termData.description,
+		title: he.decode( `${ termData.name } – ${ FoxhoundSettings.meta.title }` ),
+		description: he.decode( stripTags( termData.description ) ),
 	};
-	meta.title = he.decode( meta.title );
 
 	return (
 		<div className="card">
 			<DocumentMeta { ...meta } />
 			<BodyClass classes={ [ 'archive', taxonomy ] } />
 			<QueryTerm taxonomy={ taxonomy } termSlug={ term } />
-			{ loading ?
-				<Placeholder type="term" /> :
+			{ loading ? (
+				<Placeholder type="term" />
+			) : (
 				<div>
 					<header className="page-header">
 						<h1 className="page-title">{ termData.name }</h1>
@@ -32,20 +38,19 @@ const TermHeader = ( { term, taxonomy, loading, termData = {}, query = {} } ) =>
 					</header>
 					<List query={ query } taxonomy={ taxonomy } term={ termData && termData.id } />
 				</div>
-			}
+			) }
 		</div>
 	);
-}
+};
 
-export default connect( ( state, ownProps ) => {
-	const term = ownProps.params.slug;
-	const taxonomy = ownProps.route.taxonomy;
+export default connect( ( state, { match, taxonomy } ) => {
+	const term = match.params.slug;
 	const termId = getTermIdFromSlug( state, taxonomy, term );
 	const termData = getTerm( state, termId );
 	const requesting = isRequestingTerm( state, taxonomy, term );
 
 	const query = {};
-	query.page = ownProps.params.paged || 1;
+	query.page = match.params.paged || 1;
 	if ( termId ) {
 		if ( 'category' === taxonomy ) {
 			query.categories = [ termId ];
@@ -60,6 +65,6 @@ export default connect( ( state, ownProps ) => {
 		termData,
 		requesting,
 		query,
-		loading: requesting && ! termData
+		loading: requesting && ! termData,
 	};
 } )( TermHeader );

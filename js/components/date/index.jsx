@@ -1,62 +1,66 @@
-/*global FoxhoundSettings */
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
+import BodyClass from 'react-body-class';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import BodyClass from 'react-body-class';
-import moment from 'moment';
 import he from 'he';
-
-// Internal dependencies
+import {
+	isRequestingPostsForQuery,
+	getPostsForQuery,
+	getTotalPagesForQuery,
+} from 'wordpress-query-posts/lib/selectors';
+import moment from 'moment';
 import QueryPosts from 'wordpress-query-posts';
-import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'wordpress-query-posts/lib/selectors';
 
-// Components
-import PostList from 'components/posts/list';
+/**
+ * Internal Dependencies
+ */
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
+import PostList from 'components/posts/list';
 
-const DateArchive = React.createClass( {
-	render() {
-		const { query, loading, path, page, totalPages, dateString, posts } = this.props;
-		const meta = {
-			title: dateString + ' – ' + he.decode( FoxhoundSettings.meta.title ),
-		};
+function DateArchive( props ) {
+	const { query, loading, path, page, totalPages, dateString, posts } = props;
+	const meta = {
+		title: he.decode( `${ dateString } – ${ FoxhoundSettings.meta.title }` ),
+	};
 
-		return (
-			<div className="card">
-				<DocumentMeta { ...meta } />
-				<BodyClass classes={ [ 'archive', 'date' ] } />
-				<header className="page-header">
-					<h1 className="page-title">Archive for { dateString }</h1>
-				</header>
-				<QueryPosts query={ query } />
-				{ loading ?
-					<Placeholder type="date" /> :
-					<PostList posts={ posts } />
-				}
+	return (
+		<div className="card">
+			<DocumentMeta { ...meta } />
+			<BodyClass classes={ [ 'archive', 'date' ] } />
+			<header className="page-header">
+				<h1 className="page-title">Archive for { dateString }</h1>
+			</header>
+			<QueryPosts query={ query } />
+			{ loading ? <Placeholder type="date" /> : <PostList posts={ posts } /> }
 
-				<Pagination
-					path={ path }
-					current={ page }
-					isFirstPage={ 1 === page }
-					isLastPage={ totalPages === page } />
-			</div>
-		);
-	}
-} );
+			<Pagination
+				path={ path }
+				current={ page }
+				isFirstPage={ 1 === page }
+				isLastPage={ totalPages === page }
+			/>
+		</div>
+	);
+}
 
-export default connect( ( state, ownProps ) => {
+export default connect( ( state, { match } ) => {
 	let path = FoxhoundSettings.URL.path || '/';
 	path += 'date/';
-	[ 'year', 'month', 'day' ].map( ( key ) => {
-		if ( ownProps.params.hasOwnProperty( key ) ) {
-			path += ownProps.params[ key ] + '/';
+	for ( const key in [ 'year', 'month', 'day' ] ) {
+		if ( match.params.hasOwnProperty( key ) ) {
+			path += match.params[ key ] + '/';
 		}
-	} );
+	}
 
-	const { day, month, year } = ownProps.params;
-	let date, dateString, query = {};
-	query.page = ownProps.params.paged || 1;
+	const { day, month, year } = match.params;
+	let date, dateString;
+	const query = {};
+	query.page = match.params.paged || 1;
 	if ( day ) {
 		date = moment( `${ year } ${ month } ${ day }`, 'YYYY MM DD' );
 		dateString = date.format( 'MMMM Do YYYY' );

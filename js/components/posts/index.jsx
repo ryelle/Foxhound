@@ -1,61 +1,63 @@
-/*global FoxhoundSettings */
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
+import BodyClass from 'react-body-class';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import BodyClass from 'react-body-class';
+import {
+	getPostsForQuery,
+	getTotalPagesForQuery,
+	isRequestingPostsForQuery,
+} from 'wordpress-query-posts/lib/selectors';
 import he from 'he';
-
-// Internal dependencies
+import qs from 'qs';
 import QueryPosts from 'wordpress-query-posts';
-import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'wordpress-query-posts/lib/selectors';
+import stripTags from 'striptags';
 
-// Components
-import PostList from './list';
-import StickyPostsList from './sticky';
-import PostPreview from 'components/post/preview';
+/**
+ * Internal Dependencies
+ */
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
+import PostList from './list';
+import PostPreview from 'components/post/preview';
+import StickyPostsList from './sticky';
 
-const Index = React.createClass( {
-	render() {
-		if ( !! this.props.previewId ) {
-			return (
-				<PostPreview id={ this.props.previewId } />
-			);
-		}
-
-		const posts = this.props.posts;
-		const meta = {
-			title: he.decode( FoxhoundSettings.meta.title ),
-			description: FoxhoundSettings.meta.description,
-			canonical: FoxhoundSettings.URL.base,
-		};
-
-		return (
-			<div className="site-content">
-				<DocumentMeta { ...meta } />
-				<BodyClass classes={ [ 'home', 'blog' ] } />
-				<StickyPostsList />
-				<QueryPosts query={ this.props.query } />
-				{ this.props.loading ?
-					<Placeholder type="posts" /> :
-					<PostList posts={ posts } />
-				}
-				<Pagination
-					path={ this.props.path }
-					current={ this.props.page }
-					isFirstPage={ 1 === this.props.page }
-					isLastPage={ this.props.totalPages === this.props.page } />
-			</div>
-		);
+function Index( props ) {
+	if ( !! props.previewId ) {
+		return <PostPreview id={ props.previewId } />;
 	}
-} );
 
-export default connect( ( state, ownProps ) => {
-	let query = {};
+	const posts = props.posts;
+	const meta = {
+		title: he.decode( FoxhoundSettings.meta.title ),
+		description: he.decode( stripTags( FoxhoundSettings.meta.description ) ),
+		canonical: FoxhoundSettings.URL.base,
+	};
+
+	return (
+		<div className="site-content">
+			<DocumentMeta { ...meta } />
+			<BodyClass classes={ [ 'home', 'blog' ] } />
+			<StickyPostsList />
+			<QueryPosts query={ props.query } />
+			{ props.loading ? <Placeholder type="posts" /> : <PostList posts={ posts } /> }
+			<Pagination
+				path={ props.path }
+				current={ props.page }
+				isFirstPage={ 1 === props.page }
+				isLastPage={ props.totalPages === props.page }
+			/>
+		</div>
+	);
+}
+
+export default connect( ( state, { match, location } ) => {
+	const query = {};
 	query.sticky = false;
-	query.page = ownProps.params.paged || 1;
+	query.page = match.params.paged || 1;
 
 	let path = FoxhoundSettings.URL.path || '/';
 	if ( FoxhoundSettings.frontPage.page ) {
@@ -64,7 +66,9 @@ export default connect( ( state, ownProps ) => {
 
 	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
-	const previewId = ownProps.location.query.p || ownProps.location.query.page_id;
+
+	const urlQuery = qs.parse( location.search.replace( '?', '' ) );
+	const previewId = urlQuery.p || urlQuery.page_id || null;
 
 	return {
 		previewId,

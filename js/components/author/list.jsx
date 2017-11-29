@@ -1,13 +1,20 @@
-/*global FoxhoundSettings */
+/** @format */
+/**
+ * External Dependencies
+ */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isEqual';
-
-// Internal dependencies
+import { isEqual } from 'lodash';
 import QueryPosts from 'wordpress-query-posts';
-import { isRequestingPostsForQuery, getPostsForQuery, getTotalPagesForQuery } from 'wordpress-query-posts/lib/selectors';
+import {
+	isRequestingPostsForQuery,
+	getPostsForQuery,
+	getTotalPagesForQuery,
+} from 'wordpress-query-posts/lib/selectors';
 
-// Components
+/**
+ * Internal Dependencies
+ */
 import PostList from 'components/posts/list';
 import Pagination from 'components/pagination/archive';
 import Placeholder from 'components/placeholder';
@@ -24,20 +31,18 @@ class AuthorArchive extends Component {
 		return (
 			<div>
 				<QueryPosts query={ query || {} } />
-				{ loading ?
-					<Placeholder type="author" /> :
-					<PostList posts={ posts } />
-				}
+				{ loading ? <Placeholder type="author" /> : <PostList posts={ posts } /> }
 
 				<Pagination
 					path={ path }
 					current={ page }
 					isFirstPage={ 1 === page }
-					isLastPage={ totalPages === page } />
+					isLastPage={ totalPages === page }
+				/>
 			</div>
 		);
 	}
-};
+}
 
 export default connect( ( state, ownProps ) => {
 	const { query, author } = ownProps;

@@ -1,13 +1,16 @@
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isEqual';
-
-// Redux dependencies
+import { isEqual } from 'lodash';
 import QueryPosts from 'wordpress-query-posts';
 import { isRequestingPostsForQuery, getPostsForQuery } from 'wordpress-query-posts/lib/selectors';
 
-// Components
+/**
+ * Internal Dependencies
+ */
 import PostList from './list';
 
 class StickyPostsList extends Component {
@@ -25,9 +28,9 @@ class StickyPostsList extends Component {
 			</div>
 		);
 	}
-};
+}
 
-export default connect( ( state ) => {
+export default connect( state => {
 	const query = {};
 	query.page = 1;
 	query.per_page = 2;

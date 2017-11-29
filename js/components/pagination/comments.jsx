@@ -1,48 +1,50 @@
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
-const noop = () => {};
+import PropTypes from 'prop-types';
+import { noop } from 'lodash';
 
-let Pagination = React.createClass( {
-	propTypes: {
-		start: React.PropTypes.number,
-		current: React.PropTypes.number,
-		end: React.PropTypes.number,
-		onNextPage: React.PropTypes.func,
-		onPreviousPage: React.PropTypes.func,
-	},
+function Pagination( props ) {
+	const next = props.current + 1;
+	const prev = props.current - 1;
 
-	getDefaultProps: function() {
-		return {
-			start: 1,
-			current: 1,
-			onNextPage: noop,
-			onPreviousPage: noop
-		};
-	},
+	return (
+		<nav className="navigation comment-navigation clear" role="navigation">
+			<div className="nav-links">
+				{ prev > 0 ? (
+					<div className="nav-previous">
+						<a href="#" onClick={ props.onPreviousPage }>
+                            Older Comments
+						</a>
+					</div>
+				) : null }
+				{ next <= props.end ? (
+					<div className="nav-next">
+						<a href="#" onClick={ props.onNextPage }>
+                            Newer Comments
+						</a>
+					</div>
+				) : null }
+			</div>
+		</nav>
+	);
+}
 
-	render: function() {
-		let next = this.props.current + 1;
-		let prev = this.props.current - 1;
+Pagination.propTypes = {
+	start: PropTypes.number,
+	current: PropTypes.number,
+	end: PropTypes.number,
+	onNextPage: PropTypes.func,
+	onPreviousPage: PropTypes.func,
+};
 
-		return (
-			<nav className="navigation comment-navigation clear" role="navigation">
-				<div className="nav-links">
-					{ ( prev > 0 ) ?
-						<div className="nav-previous">
-							<a href="#" onClick={ this.props.onPreviousPage }>Older Comments</a>
-						</div> :
-						null
-					}
-					{ ( next <= this.props.end ) ?
-						<div className="nav-next">
-							<a href="#" onClick={ this.props.onNextPage }>Newer Comments</a>
-						</div> :
-						null
-					}
-				</div>
-			</nav>
-		);
-	}
-} );
+Pagination.defaultProps = {
+	start: 1,
+	current: 1,
+	onNextPage: noop,
+	onPreviousPage: noop,
+};
 
 export default Pagination;

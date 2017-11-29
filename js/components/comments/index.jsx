@@ -1,20 +1,30 @@
-// External dependencies
+/** @format */
+/**
+ * External Dependencies
+ */
 import React from 'react';
 import { connect } from 'react-redux';
 import BodyClass from 'react-body-class';
-
-// Internal dependencies
 import QueryComments from 'wordpress-query-comments';
-import { isRequestingCommentsForPost, getCommentsForPost, getTotalCommentsForPost } from 'wordpress-query-comments/lib/selectors';
+import {
+	isRequestingCommentsForPost,
+	getCommentsForPost,
+	getTotalCommentsForPost,
+} from 'wordpress-query-comments/lib/selectors';
 
-// Components
-// import CommentPagination from '../pagination/comments';
+/**
+ * Internal Dependencies
+ */
 import Comment from './single';
 import CommentForm from './form';
 import Placeholder from 'components/placeholder';
 
-const Comments = React.createClass( {
-	renderForm() {
+class Comments extends React.Component {
+	setComments = comments => {
+		this.comments = comments;
+	};
+
+	renderForm = () => {
 		return (
 			<div className="comment-respond">
 				<h2 className="comment-reply-title">Leave a Reply</h2>
@@ -22,7 +32,7 @@ const Comments = React.createClass( {
 				<CommentForm postId={ this.props.postId } />
 			</div>
 		);
-	},
+	};
 
 	render() {
 		// If this is a protected post, we don't want to display comments.
@@ -33,14 +43,16 @@ const Comments = React.createClass( {
 		let commentsList = null;
 		if ( comments && comments.length ) {
 			commentsList = comments.map( function( item, i ) {
-				return <Comment key={ i } comment={ item } />
+				return <Comment key={ i } comment={ item } />;
 			} );
 		}
 
 		// Let screen readers know there are no comments
 		if ( ! commentsList ) {
 			commentsList = (
-				<h2 className="screen-reader-text comments-title">No comments on &ldquo;{ this.props.title }&rdquo;</h2>
+				<h2 className="screen-reader-text comments-title">
+					No comments on &ldquo;{ this.props.title }&rdquo;
+				</h2>
 			);
 		}
 
@@ -50,26 +62,24 @@ const Comments = React.createClass( {
 		}
 
 		return (
-			<div className="comments-area" ref="comments" aria-live="polite">
+			<div className="comments-area" ref={ this.setComments } aria-live="polite">
 				<QueryComments postId={ this.props.postId } />
 				<BodyClass classes={ { 'has-comments': !! this.props.total } } />
-				{ ( 0 === this.props.total ) ?
-					null :
-					<h2 className="comments-title">{ titleString }&ldquo;{ this.props.title }&rdquo;</h2>
-				}
+				{ 0 === this.props.total ? null : (
+					<h2 className="comments-title">
+						{ titleString }&ldquo;{ this.props.title }&rdquo;
+					</h2>
+				) }
 
 				<ol className="comment-list">
-					{ this.props.loading ?
-						<Placeholder type="comments" /> :
-						commentsList
-					}
+					{ this.props.loading ? <Placeholder type="comments" /> : commentsList }
 				</ol>
 
 				{ ! this.props.loading && this.props.commentsOpen && this.renderForm() }
 			</div>
 		);
 	}
-} );
+}
 
 export default connect( ( state, ownProps ) => {
 	const postId = ownProps.postId;

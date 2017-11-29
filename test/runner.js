@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 'use strict'; // eslint-disable-line strict
-var files;
-var exposedProperties = ['window', 'navigator', 'document'];
+let files;
 
 require( 'babel-register' );
 
@@ -10,11 +9,17 @@ require( 'babel-register' );
  */
 const debug = require( 'debug' )( 'test-runner' ),
 	glob = require( 'glob' ),
-	jsdom = require( 'jsdom' ).jsdom,
 	Mocha = require( 'mocha' ),
 	path = require( 'path' ),
 	program = require( 'commander' ),
 	chalk = require( 'chalk' );
+
+const { configure } = require( 'enzyme' );
+const Adapter = require( 'enzyme-adapter-react-16' );
+
+configure( { adapter: new Adapter() } );
+
+const { JSDOM } = require( 'jsdom' );
 
 program
 	.usage( '[options] [files]' )
@@ -29,7 +34,7 @@ program.parse( process.argv );
 
 const mocha = new Mocha( {
 	ui: 'bdd',
-	reporter: program.reporter
+	reporter: program.reporter,
 } );
 
 if ( program.grep ) {
@@ -82,38 +87,46 @@ files.forEach( function( file ) {
 } );
 
 // Fake web environment
-global.document = jsdom( '' );
-global.window = document.defaultView;
-Object.keys( document.defaultView ).forEach( ( property ) => {
-	if ( typeof global[ property ] === 'undefined' ) {
-		exposedProperties.push( property );
-		global[ property ] = document.defaultView[ property ];
-	}
-} );
+const jsdom = new JSDOM( '<!doctype html><html><body></body></html>' );
+const { window } = jsdom;
+
+function copyProps( src, target ) {
+	const props = Object.getOwnPropertyNames( src )
+		.filter( prop => typeof target[ prop ] === 'undefined' )
+		.reduce( ( result, prop ) => ( {
+			...result,
+			[ prop ]: Object.getOwnPropertyDescriptor( src, prop ),
+		} ), {} );
+	Object.defineProperties( target, props );
+}
+
+global.window = window;
+global.document = window.document;
 global.navigator = {
-	userAgent: 'node.js'
+	userAgent: 'node.js',
 };
+copyProps( window, global );
 
 // App globals
 global.SiteSettings = {
 	endpoint: 'http://trunk.wordpress.dev/',
-	nonce: 'nonce'
+	nonce: 'nonce',
 };
 global.FoxhoundSettings = {
 	user: 1,
 	userDisplay: 'admin',
 	frontPage: {
 		page: false,
-		blog: false
+		blog: false,
 	},
 	URL: {
 		base: 'http://trunk.wordpress.dev/',
-		path: '/'
+		path: '/',
 	},
 	meta: {
 		title: 'Foxhound',
-		description: 'Just another WordPress site'
-	}
+		description: 'Just another WordPress site',
+	},
 };
 
 mocha.run( function( failures ) {

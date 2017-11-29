@@ -16,7 +16,7 @@ if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
 }
 
 if ( ! defined( 'FOXHOUND_VERSION' ) ) {
-	define( 'FOXHOUND_VERSION', '1.0.3' );
+	define( 'FOXHOUND_VERSION', '2.0.0-alpha' );
 }
 
 if ( ! defined( 'FOXHOUND_APP' ) ) {
@@ -144,7 +144,6 @@ function foxhound_scripts() {
 	}
 
 	$user_id = get_current_user_id();
-	$user = get_userdata( $user_id );
 
 	$foxhound_settings = sprintf(
 		'var SiteSettings = %s; var FoxhoundSettings = %s;',
@@ -153,8 +152,8 @@ function foxhound_scripts() {
 			'nonce' => wp_create_nonce( 'wp_rest' ),
 		) ),
 		wp_json_encode( array(
-			'user' => get_current_user_id(),
-			'userDisplay' => $user ? $user->display_name : '',
+			'user' => $user_id,
+			'userDisplay' => $user_id ? get_the_author_meta( 'display_name', $user_id ) : '',
 			'frontPage' => array(
 				'page' => $front_page_slug,
 				'blog' => $blog_page_slug,
