@@ -56,8 +56,8 @@ class SinglePost extends React.Component {
 	}
 }
 
-export default connect( ( state, ownProps ) => {
-	const postId = parseInt( ownProps.id, 10 );
+export default connect( ( state, { id } ) => {
+	const postId = parseInt( id, 10 );
 	const post = getPost( state, postId ) || getPage( state, postId );
 
 	return {

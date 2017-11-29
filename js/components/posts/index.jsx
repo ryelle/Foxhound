@@ -67,7 +67,7 @@ export default connect( ( state, { match, location } ) => {
 	const posts = getPostsForQuery( state, query ) || [];
 	const requesting = isRequestingPostsForQuery( state, query );
 
-	const urlQuery = qs.parse( location.search );
+	const urlQuery = qs.parse( location.search.replace( '?', '' ) );
 	const previewId = urlQuery.p || urlQuery.page_id || null;
 
 	return {

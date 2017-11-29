@@ -93,7 +93,7 @@ export default connect( ( state, { match, location } ) => {
 	const requesting = isRequestingPost( state, slug );
 	const post = getPost( state, parseInt( postId ) );
 
-	const query = location.search;
+	const query = location.search.replace( '?', '' );
 	const previewId = qs.parse( query ).preview_id || null;
 
 	return {

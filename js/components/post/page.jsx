@@ -94,7 +94,7 @@ export default connect( ( state, { match, location, slug = false } ) => {
 	const requesting = isRequestingPage( state, path );
 	const post = getPage( state, parseInt( postId ) );
 
-	const query = location.search;
+	const query = location.search.replace( '?', '' );
 	const previewId = qs.parse( query ).preview_id || null;
 
 	return {
