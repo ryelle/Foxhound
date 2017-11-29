@@ -24,10 +24,10 @@ describe( 'Index', function() {
 		const store = mockStore( data );
 		sinon.stub( router, 'Link' ).returns( <span /> );
 
-		// Pass through `params` & `location`, which would come from react-router
+		// Pass through `match` & `location`, which would come from react-router
 		wrapper = mount(
 			<Provider store={ store }>
-				<Index params={ {} } location={ { query: {} } } />
+				<Index match={ { params: {} } } location={ { search: '' } } />
 			</Provider>
 		);
 
