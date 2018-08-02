@@ -26,9 +26,11 @@ function Comment( props ) {
 		<li className={ classes }>
 			<article className="comment-body">
 				<footer className="comment-meta">
-					<div className="comment-avatar vcard">
-						<img alt="" src={ comment.author_avatar_urls[ '96' ] } />
-					</div>
+					{ comment.author_avatar_urls ? (
+						<div className="comment-avatar vcard">
+							<img alt="" src={ comment.author_avatar_urls[ '96' ] } />
+						</div>
+					) : '' }
 
 					<div className="comment-author">
 						{ '' !== comment.author_url ? (
